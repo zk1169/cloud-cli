@@ -1,0 +1,6 @@
+<div layout="row" layout-align="start center" layout-wrap class="query-tag-component">
+	<span style="width:80px;">{{queryName}}:</span>
+	<span *ngFor="let item of allTags" class="tag-item mw-a-hover" [ngClass]="getItemClass(item)" (click)="itemClick(item)">
+		{{item.name}}
+	</span>
+</div>

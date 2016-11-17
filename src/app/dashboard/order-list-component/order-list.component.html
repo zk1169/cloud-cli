@@ -1,0 +1,99 @@
+<div class="order-list-component" layout="row">
+    <div flex class="order-list-content">
+        <header class="c-header" layout="row" layout-align="space-between center">
+            <span class="mw-fs-20">订单列表</span>
+            <!-- <div class="triangle-right"></div> -->
+            <button class="btn btn-primary" (click)="btnClick()">primary</button>
+        </header>
+        <div class="mw-card no-padding">
+            <div layout="row" layout-align="start center" class="mw-tab-header">
+<!--                 <div [ngSwitch]="merchantType">
+                    <div *ngSwitchCase="MerchantTypeEnum.PROFESSIONAL">
+                        <div class="link-wrap" layout="row" layout-align="start center">
+                            <a [routerLink]="['/dashboard-pro/order-list/'+OrderStatusEnum.UNPAID]" routerLinkActive="selected" class="mw-btn-hover">待付款</a>
+                            <a [routerLink]="['/dashboard-pro/order-list/'+OrderStatusEnum.PAID]" routerLinkActive="selected" class="mw-btn-hover">已付款</a>
+                            <a [routerLink]="['/dashboard-pro/order-list/'+OrderStatusEnum.PAID_LEFT]" routerLinkActive="selected" class="mw-btn-hover">尾款单</a>
+                            <a [routerLink]="['/dashboard-pro/order-list/'+OrderStatusEnum.HISTORY]" routerLinkActive="selected" class="mw-btn-hover">历史订单</a>
+                        </div>
+                    </div>
+                    <div *ngSwitchCase="MerchantTypeEnum.LITE">
+                        <div class="link-wrap" layout="row" layout-align="start center">
+                            <a [routerLink]="['/dashboard-lite/order-list/'+OrderStatusEnum.UNPAID]" routerLinkActive="selected" class="mw-btn-hover">待付款</a>
+                            <a [routerLink]="['/dashboard-lite/order-list/'+OrderStatusEnum.PAID]" routerLinkActive="selected" class="mw-btn-hover">已付款</a>
+                        </div>
+                    </div>
+                </div> -->
+                <mw-tab-header [linkList]="routerList"></mw-tab-header>
+                <div flex layout="row" layout-align="end center">
+                    <mw-search [searchText]="searchText" placeholder="会员名/手机号/员工名/工号" (doSearchEvent)="doSearch($event)"></mw-search>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <i (click)="sideBarState=='collapse'?sideBarState='show':sideBarState='collapse'" class="fa fa-bars mw-click mw-fs-18 side-bar-button"></i>
+                </div>
+            </div>
+            <div class="mw-tab-query">
+                <mw-query-tag [allTags]="storeList" [multipleSelected]="false" [selected]="queryStoreId" queryName="所属门店" (onChange)="storeChanged($event)"></mw-query-tag>
+            </div>
+        </div>
+        <div class="mw-card no-padding">
+            <ul class="mw-list">
+                <div class="mw-list-header" layout="row">
+                    <span flex="20">会员信息</span>
+                    <span flex="20">下单时间</span>
+                    <span flex="20">订单内容</span>
+                    <span flex="10">服务人员</span>
+                    <span flex="10">应收金额</span>
+                    <span flex="20">操作</span>
+                </div>
+                <li *ngFor="let order of itemList;trackBy:trackByItem;let idx=index;" class="mw-list-item">
+                    <div layout="row">
+                        <div flex="20" layout="row">
+                            <div class="avatar-circle" flex-offset="5">
+                                <mw-image [src]="order.member.avatarPath"></mw-image>
+                            </div>
+                            <div layout="column" layout-align="center start" flex-offset="5" flex>
+                                <strong class="mw-fs-14 member-name">
+                                    {{order.member.name}}&nbsp;
+                                    <span [ngSwitch]="order.member.gender">
+                                        <i *ngSwitchCase="GenderTypeEnum.FEMALE" class="fa fa-venus"></i>
+                                        <i *ngSwitchCase="GenderTypeEnum.MALE" class="fa fa-mars"></i>
+                                        <i *ngSwitchDefault class="fa fa-venus icon-female"></i>
+                                    </span>
+                                </strong>
+                                <span>{{order.member.mobile}}</span>
+                                <span *ngIf="order.member.member_no" class="text-overflow">
+                                    会员号:{{order.member.memberNo}}
+                                </span>
+                            </div>
+                        </div>
+                        <div flex="20">{{order.orderDate}}<br>{{order.orderDate | mwRelativeDate}}</div>
+                        <div flex="20" layout="column">
+                            <span *ngFor="let item of order.itemList;let itemIndex=index;">
+                                <span *ngIf="itemIndex<2">{{item?.itemModel?.name}}</span>
+                            </span>
+                            <span *ngIf="order?.itemList?.length>2">...</span>
+                        </div>
+                        <div flex="10" layout="row" layout-wrap class="text-overflow">
+                            <span *ngFor="let item of order.itemList">
+                                <span *ngFor="let emp of item.employeeList">
+                                    <span>{{emp.name}}</span>
+                                </span>
+                            </span>
+                        </div>
+                        <div flex="10" class="mw-price">{{order.receivableMoney | mwCurrency}}</div>
+                        <div flex="20">
+                            <a class="mw-a-color" [routerLink]="['/dashboard-pro/order/1/'+order.id]">收银</a>
+                        </div>
+                    </div>
+                </li>
+                <li *ngIf="!itemList || itemList.length == 0" class="list-item-empty">
+                    <img src="assets/images/empty.png"/>
+                </li>
+            </ul>
+            <mw-pagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (pageChanged)="pageChanged($event)">
+            </mw-pagination>
+        </div>
+    </div>
+    <div class="mw-card side-bar no-padding" [mwCollapse]="sideBarState=='collapse'">
+        <div class="mw-header">$ 当前营业收入</div>
+    </div>
+</div>

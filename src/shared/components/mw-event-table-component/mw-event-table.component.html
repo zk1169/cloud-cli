@@ -1,0 +1,59 @@
+<div class="mw-event-table-component">
+    <div class="col-header-wrap ">
+      <div class="mw-bg-primary" style="margin-left:70px;">
+        <span *ngFor="let col of columns; trackBy:trackByItem" class="col-header" [style.width.px]="colWidth">
+          {{col.employee.name}}({{col?.appointOrderList?.length||0}})
+        </span>
+      </div>
+    </div>
+    <div class="hour-rows" layout="row">
+        <div class="hour-col-time">
+            <div class="hour" *ngFor="let hour of hours; trackBy:trackByItem">
+                <div class="hour-segment" *ngFor="let segment of hour.segments; trackBy:trackByItem" (click)="hourSegmentClicked.emit({date: segment.date.toDate()})">
+                    <div *ngIf="segment.isStart" class="time">
+                        {{ segment.date | mwDate:'HH:mm' }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div #tableContent class="hour-col-events" layout="row" flex>
+            <div *ngFor="let col of columns;let idx=index;" (click)="eventEmptyClick()" flex="1" layout="column" class="col-wrap">
+                <div flex class="col-body">
+                    <div class="event"
+                      *ngFor="let order of col?.appointOrderList; trackBy:trackByItem"
+                      (click)="eventClick($event,order,idx)"
+                      [style.left.px]="order.left"
+                      [style.width.px]="order.width"
+                      [style.top.px]="order.getTop(dayStartHour,60,30)"
+                      [style.height.px]="order.getHeight(60)">
+                      <span>{{order.startTime | mwDate:'HH:mm' }}</span>
+                      <br>
+                      <span>{{order.member.name}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="float-wrap mw-shadow" *ngIf="showEventDetail"
+                [style.left.px]="eventDetailWrap.left"
+                [style.top.px]="eventDetailWrap.top">
+                <div class="float-content">
+                  <span>{{selectedOrder?.member?.name}}({{selectedOrder.memberCount}}人)</span><br>
+                  <span>{{selectedOrder?.member?.mobile}}</span><br>
+                  <span>{{ selectedOrder?.startTime | mwDate:'HH:mm'}}</span> - <span>{{ selectedOrder?.endTime | mwDate:'HH:mm'}}</span><br>
+                  <span *ngFor="let item of selectedOrder?.itemList;let isLast=last;">
+                    {{item.name}}<span *ngIf="!isLast">,</span>
+                  </span>
+                </div>
+                <div layout="row" layout-align="space-around center" class="btn-group-wrap">
+                  <button class="btn btn-info btn-xs">确认</button>
+                  <button class="btn btn-primary btn-xs">修改</button>
+                  <button class="btn btn-success btn-xs">开单</button>
+                  <button class="btn btn-warning btn-xs">取消</button>
+                </div>
+                <i class="fa fa-times-circle-o btn-close mw-fs-20" (click)="closeEventDetailWrap()"></i>
+            </div>
+        </div>
+    </div>
+    <div class="view-foot" layout="row" layout-align="start center">
+      <span>&emsp;共{{totalOrderCount}}预约单</span>
+    </div>
+</div>

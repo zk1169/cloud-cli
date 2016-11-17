@@ -1,0 +1,81 @@
+@import '../../../shared/styles/scss/variables.scss';
+@import '../../../shared/styles/scss/color-const.scss';
+
+.order-component {
+    padding: 10px 0;
+    margin-bottom: 50px;
+    .order-content{
+    	padding: 0 20px;
+    	.side-bar-button{
+    		margin-right:20px;
+    	}
+    }
+    
+    .side-bar{
+        width:$side-bar-width;
+        overflow-x: hidden;
+        div{
+            min-width: $side-bar-width;
+        }
+    }
+    .order-tab-content{
+        background-color: $mw-list-header-color;
+    }
+    .order-item-wrap{
+        margin-bottom:5px;
+    }
+    .add-order-item{
+        height:80px;
+        line-height:80px;
+        background-color:#fff;
+        cursor:pointer;
+    }
+    .add-order-item:hover{
+        background-color: rgba(158,158,158,0.2);
+    }
+    .order-summary{
+        background-color: $mw-list-header-color;
+        padding:10px;
+    }
+    .pay-tool-wrap{
+        position:fixed;
+        padding:5px 10px;
+        bottom:0;
+        z-index:2;
+        //background-color:$mw-primary;
+        transition:width 0.2s;
+        color:#fff;
+        .shopping{
+            position:absolute;
+            left:0px;
+            top:-40px;
+            border-radius:50%;
+            //background-color:$mw-primary;
+            height: 80px;
+            width: 80px;
+            text-align: center;
+            padding-top: 10px;
+            z-index:-1;
+            i.fa{
+                font-size:28px;
+            }
+        }
+        .btn-save{
+            padding:6px 40px;
+            height: 45px;
+        }
+        .btn-cash{
+            padding:6px 80px;
+            height: 45px;
+        }
+    }
+    .dropup-menu{
+        display: inline-block;
+    }
+    .member-detail{
+        padding:10px 0;
+        .member-detail-item + .member-detail-item{
+            border-left:solid 1px $mw-border;
+        }
+    }
+}

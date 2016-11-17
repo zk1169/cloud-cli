@@ -1,0 +1,32 @@
+<div class="booking-table-component">
+    <div layout="row">
+        <div flex class="booking-table-content" flex="100">
+            <header class="c-header" layout="row" layout-align="space-between center">
+                <span class="mw-fs-20">预约中心</span>
+                <mw-select [allowClear]="true"
+                    [options]="storeList"
+                    [selectedItem]="store"
+                    placeholder="请选择门店">
+                </mw-select>
+
+                <div layout="row" class="btn-group">
+                    <div class="btn btn-primary" (click)="decrement()">
+                        Previous
+                    </div>
+                    <mw-datetime [(ngModel)]="date" (onChange)="dateOnChange($event)" [hideIcon]="true"></mw-datetime>
+                    <div class="btn btn-primary" (click)="increment()">
+                        Next
+                    </div>
+                </div>
+                <button class="btn btn-default" (click)="btnClick()">primary</button>
+            </header>
+            <div class="booking-table">
+                <mw-event-table [date]="date" [columns]="tableEmployeeList">
+                </mw-event-table>
+            </div>
+        </div>
+<!--         <md-card class="side-bar no-padding" [mwCollapse]="sideBarCollapse">
+            <div class="mw-header">$ 当前营业收入</div>
+        </md-card>  -->
+    </div>
+</div>

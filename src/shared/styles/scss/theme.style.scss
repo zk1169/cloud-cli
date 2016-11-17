@@ -1,0 +1,68 @@
+@mixin mw-theme($mw-primary,$mw-primary-text, $mw-a-color, $mw-a-hover-color ) {
+	.mw-primary,
+    .mw-tab-grey ul.nav-tabs li a.active span,
+    { 
+        color: $mw-primary; 
+    }
+
+    .mw-bg-primary,
+    .mw-bg-primary-hover:hover,
+    .btn-primary,
+    .mw-header,
+    .mw-tab-header,
+    .mw-tab .nav.nav-tabs,
+    .mw-button-white,
+    .radio label::after,
+    .modal-header,
+    .pagination>.active>a,
+    .checkbox input[type="checkbox"]:checked + label::before,
+    .checkbox input[type="checkbox"]:indeterminate + label::before,
+    { 
+        background-color: $mw-primary; 
+    }
+
+    .mw-a-color{ color: $mw-a-color; }
+
+    .mw-a-color:hover,
+    .mw-a-hover:hover,
+    .mw-btn-hover.selected:hover,
+    .pagination>.page-item>a:hover,
+    { color: $mw-a-hover-color; }
+
+    .mw-bg-text,
+    .mw-bg-text-hover:hover,
+    .mw-header,
+    .modal-header,
+    .btn-primary,
+    .mw-tab-header,
+    .mw-tab .nav.nav-tabs,
+    .mw-button-white,
+    .pagination>.active>a:hover,
+    {
+        color: $mw-primary-text;
+    }
+    .btn-primary,
+    .mw-border-primary,
+    .mw-border-primary-hover:hover,
+    .pagination>.active>a,
+    {
+        border-color:$mw-primary!important;
+    }
+    .btn-primary:hover,
+    .mw-button-white:hover,
+    .mw-btn-hover:hover,
+    {
+        background-color:darken($mw-primary,10%);
+    }
+    .mw-border-left2-primary{
+        border-left:2px solid $mw-primary;
+    }
+    .radio label::before{
+        border: 2px solid $mw-primary;
+    }
+    .checkbox input[type="checkbox"]:checked + label::before,
+    .checkbox input[type="checkbox"]:indeterminate + label::before
+    {
+        border-color: $mw-primary;
+    }
+}

@@ -1,0 +1,38 @@
+<div [formGroup]="form" layout="row" layout-align="start center">
+    <label flex="10" [attr.for]="formItem.key">{{formItem.label}}</label>
+    <div [ngSwitch]="formItem.controlType" flex="60">
+        <div *ngSwitchCase="'textbox'" class="input-group">
+            <input [type]="formItem.type" class="form-control" [placeholder]="formItem.placeholder" [formControlName]="formItem.key" [id]="formItem.key" [(ngModel)]="formItem.defaultValue"/>
+            <span class="input-group-addon" *ngIf="formItem.addon && formItem.addon.length > 0">
+                {{formItem.addon}}
+            </span>
+        </div>
+        <div *ngSwitchCase="'textarea'" class="input-group">
+            <textarea rows="4" class="form-control" [placeholder]="formItem.placeholder" [formControlName]="formItem.key" [id]="formItem.key" [(ngModel)]="formItem.defaultValue"></textarea>
+        </div>
+        <div *ngSwitchCase="'dropdown'" class="input-group">
+        	<select [id]="formItem.key" [formControlName]="formItem.key" [(ngModel)]="formItem.defaultValue">
+        	    <option *ngFor="let opt of formItem.options" [value]="opt.value">{{opt.name}}</option>
+        	</select>
+        </div>
+        <div *ngSwitchCase="'mwselect'" class="input-group">
+            <mw-select-form [options]="formItem.options" [selectedItem]="formItem.defaultValue" [multiple]="formItem.multiple" [formName]="formItem.key" [formGroup]="form">
+            </mw-select-form>
+        </div>
+<!--         <div *ngSwitchCase="'mwselect'" class="input-group">
+            <div [formGroup]="form" class="form-hidden">
+                <mw-select [options]="formItem.options" [selectedItem]="formItem.defaultValue" [multiple]="formItem.multiple">
+                </mw-select>
+                <input type="hidden" [id]="formItem.key" [formControlName]="formItem.key" [(ngModel)]="formItem.defaultValue"/>
+            </div>
+        </div> -->
+        <div *ngSwitchCase="'radio'" class="input-group">
+            <mw-radio [dataList]="formItem.options" [(checked)]="formItem.defaultValue" [groupName]="formItem.key" [disabled]="formItem.disabled"></mw-radio>
+        </div>
+        <div *ngSwitchCase="'cardRule'" class="input-group">
+            <mw-card-rule [ruleList]="formItem.defaultValue" [formName]="formItem.key" [formGroup]="form"></mw-card-rule>
+        </div>
+    </div>
+    <div class="errorMessage" *ngIf="!isRequired">{{formItem.label}}＊必填项</div>
+    <div class="errorMessage" *ngIf="!isMinLength">{{formItem.label}}字数不少于{{formItem.minlength}}</div>
+</div>

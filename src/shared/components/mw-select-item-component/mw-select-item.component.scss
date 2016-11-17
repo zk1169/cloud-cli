@@ -1,0 +1,36 @@
+@import '../../styles/scss/color-const.scss';
+
+.select-item-wrap{
+	background-color:#fff;
+	position:absolute;
+	width:60%;
+	min-width:500px;
+	height:350px;
+	z-index:4;
+
+	.item-wrap{
+		width: 180px;
+		margin: 10px 0px 0px 10px;
+		//background-color: #eff4f7;
+		border: 1px solid $mw-border;
+		display: inline-block;
+		padding: 10px;
+		padding-bottom: 5px;
+	}
+	.item-wrap:hover{
+		//background-color: $mw-primary;
+    	box-shadow: $mw-float-shadow;
+    	//color: #fff;
+	}
+	.search-wrap{
+		position:absolute;
+		right:10px;
+		top:8px;
+	}
+	.item-name{
+		max-width:100px;
+	}
+	.item-price{
+		float:right;
+	}
+}

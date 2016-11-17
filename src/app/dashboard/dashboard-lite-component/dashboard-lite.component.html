@@ -1,0 +1,63 @@
+<div class="dashboard-lite mw-fs-13" [class.mw-small]="sideMenuState=='small'">
+    <div class="mw-sidebar" [class.mw-small]="sideMenuState=='small'">
+        <div flex layout="row" layout-align="center center" class="menu-header">
+            <i (click)="sideMenuState=='small'?sideMenuState='large':sideMenuState='small'" class="fa fa-bars mw-click mw-fs-18 mw-white"></i>
+        </div>
+        <div>
+            <a [routerLink]="['/dashboard-lite/booking-table']" class="menu-item" routerLinkActive="selected">
+                <i class="fa fa-calendar"></i>
+                <span *ngIf="sideMenuState=='large'">Booking Table</span>
+            </a>
+            <a [routerLink]="['/dashboard-lite/order']" class="menu-item" routerLinkActive="selected">
+                <i class="fa fa-file-o"></i>&nbsp;
+                <span *ngIf="sideMenuState=='large'">Order</span>
+            </a>
+            <a [routerLink]="['/dashboard-lite/order-list/'+OrderStatusEnum.UNPAID,{page:1}]" class="menu-item" routerLinkActive="selected">
+                <i class="fa fa-file-text-o"></i>&nbsp;
+                <span *ngIf="sideMenuState=='large'">Order List</span>
+            </a>
+            <a [routerLink]="['/dashboard-lite/service-item-list',{page:1}]" class="menu-item" routerLinkActive="selected">
+                <i class="fa fa-bookmark"></i>&nbsp;
+                <span *ngIf="sideMenuState=='large'">Service Item List</span>
+            </a>
+        </div>
+    </div>
+    <div class="mw-body">
+        <div class="mw-toolbar" [class.mw-small]="sideMenuState=='small'">
+            <div layout="row" layout-align="end center">
+                <span dropdown class="username-dropdown">
+                    <a href id="simple-dropdown" dropdownToggle layout="row">
+                        <div class="avatar-circle">
+                            <img [src]="empInfo?.avatarPath"/>
+                        </div>
+                        <div layout="column" layout-align="center start">
+                            <span class="mw-fs-14">{{empInfo?.name}}</span>
+                            <span class="mw-small-light-grey">
+                                <span *ngIf="!empInfo?.store">{{empInfo?.organization?.name}}</span>
+                                <span *ngIf="empInfo?.store">{{empInfo?.store?.name}}</span>
+                                <span>&nbsp;/&nbsp;{{empInfo?.merchantRole?.name}}</span>
+                            </span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" dropdownMenu aria-labelledby="simple-dropdown">
+                        <li>
+                            <a class="dropdown-item">修改密码</a>
+                            <a class="dropdown-item" (click)="loginOut()">退出</a>
+                        </li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="mw-content" layout="column">
+        <router-outlet></router-outlet>
+    </div>
+    <mw-select-item *ngIf="selectItemFloat?.show" [floatDialogModel]="selectItemFloat">
+    </mw-select-item>
+    <mw-select-payitem *ngIf="selectPayItemFloat?.show" [floatDialogModel]="selectPayItemFloat">
+    </mw-select-payitem>
+    <div bsModal #mwModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="z-index:1051;">
+        <mw-card-rule-dialog *ngIf="parentComponent?.dialogName=='card-rule-dialog'" (onHide)="hideModal($event)" [parent]="parentComponent"></mw-card-rule-dialog>
+    </div>
+</div>
+

@@ -1,0 +1,22 @@
+@import '../../../shared/styles/scss/variables.scss';
+@import '../../../shared/styles/scss/color-const.scss';
+
+.service-item-list-component {
+    padding: 10px 0;
+    .service-item-content{
+    	padding: 0 20px;
+    	.side-bar-button{
+    		margin-right:20px;
+    	}
+        .member-name{
+            color: $male;
+        }
+    }
+    .side-bar{
+        width:$side-bar-width;
+        overflow-x: hidden;
+        div{
+            min-width: $side-bar-width;
+        }
+    }
+}

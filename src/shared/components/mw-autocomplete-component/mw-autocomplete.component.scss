@@ -1,0 +1,46 @@
+@import '../../styles/scss/color-const.scss';
+:host {
+    height: 34px;
+}
+
+.mw-autocomplete-content {
+    height: 34px;
+    position: relative;
+}
+
+.mw-autocomplete-empty {
+    background-color: #fff;
+    color: #333;
+    position: absolute;
+    top: 34px;
+    left: 0px;
+    padding: 5px;
+    border: 1px solid $mw-border;
+    border-radius: 4px;
+    //box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    box-shadow: $mw-float-shadow;
+    z-index: 1;
+    width: 100%;
+}
+
+.mw-autocomplete-loading {
+    position: relative;
+    overflow: hidden;
+    height: 2px;
+    margin-top: -2px;
+}
+
+.loading-progress {
+    position: absolute;
+    background-color: firebrick;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+}
+.drop-down-icon{
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    color: #333;
+    margin-top: -2px;
+}

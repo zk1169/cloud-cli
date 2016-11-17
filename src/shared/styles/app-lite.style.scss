@@ -1,0 +1,6 @@
+@import './scss/lite-theme.scss';
+@import './scss/theme.style.scss';
+
+.dashboard-lite {
+    @include mw-theme($mw-primary,$mw-primary-text, $mw-a-color, $mw-a-hover-color);
+}

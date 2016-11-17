@@ -1,0 +1,41 @@
+<div class="modal-dialog modal-lg" [mwBusy]="loading">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" (click)="hide()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">卡规则</h4>
+        </div>
+        <div class="modal-body" layout="row">
+            <div flex="1" class="tree-wrap">
+                <input type="text" class="form-control" placeholder="筛选" [(ngModel)]="treeSearchText" style="margin-bottom:10px;"/>
+                <mw-tree [treeModel]="tree" (onNodeSelected)="onNodeSelected($event)"></mw-tree>
+            </div>
+            <div flex="1" class="tree-wrap middle">
+                <ul class="mw-list">
+                    <li *ngFor="let item of ruleList;" (click)="ruleItemClick(item)" 
+                        class="rule-item mw-click" [class.mw-bg-primary]="item.selected" [class.mw-bg-text]="item.selected">
+                        <div>{{item.name}}</div>
+                    </li>
+                </ul>
+            </div>
+            <div flex="1" class="tree-wrap">
+                <ul class="mw-list">
+                    <li *ngFor="let item of storeRuleList;" class="mw-list-item">
+                        <div layout="row" layout-align="start center">
+                            <div flex="60">{{item.storeName}}</div>
+                            <div class="input-group" flex="40">
+                                <input [(ngModel)]="item.discountValue" type="number" class="form-control" placeholder="折扣"/>
+                                <span class="input-group-addon">折</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="modal-action">
+            <button class="btn btn-primary" (click)="hide()">取消</button>
+            <button class="btn btn-primary" (click)="OKClick($event)">保存</button>
+        </div>
+    </div>
+</div>

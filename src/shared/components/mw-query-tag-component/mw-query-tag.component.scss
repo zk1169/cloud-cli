@@ -1,0 +1,9 @@
+@import '../../styles/scss/color-const.scss';
+.query-tag-component{
+	min-height:30px;
+	.tag-item{
+		padding:5px 10px;
+		margin:0px 10px;
+		cursor:pointer;
+	}
+}

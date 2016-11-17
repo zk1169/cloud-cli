@@ -1,0 +1,128 @@
+<div class="order-component" layout="row">
+    <div #content flex class="order-content">
+        <header class="c-header" layout="row" layout-align="space-between center">
+            <span class="mw-fs-20">开单收银</span>
+            <mw-select [allowClear]="true"
+                [options]="storeList"
+                [selectedItem]="order.store"
+                placeholder="请选择门店">
+            </mw-select>
+        </header>
+        <div class="mw-card no-padding">
+            <div layout="row" layout-align="start center" class="mw-tab-header">
+                <div layout="row" flex-offset="5">
+                    <mw-radio [dataList]="memberTypeList" [(checked)]="memberType" labelName="name" valueName="value" groupName="memberType" theme="radioWhite"></mw-radio>
+                </div>
+                <div flex-offset="5" flex="30">
+                    <mw-autocomplete [dataSource]="memberSource" [selectedItem]="order.member" [disabled]="memberType?.value==1" displayName="name" placeholder="请输入姓名/手机号码" (onSelected)="memberOnSelected($event)"></mw-autocomplete>
+                </div>
+                <div flex-offset="5">
+                    <i class="fa fa-user-plus mw-fs-18 mw-click" tooltip="新增会员" (click)="addMemberClick()"></i>
+                </div>
+                <mw-select flex-offset="5" [allowClear]="true"
+                    [options]="roomList"
+                    [selectedItem]="order.room"
+                    placeholder="请选择房间">
+                </mw-select>
+                <div flex layout="row" layout-align="end center">
+                    <i (click)="sideBarState=='collapse'?sideBarState='show':sideBarState='collapse'" class="fa fa-bars mw-click mw-fs-18 side-bar-button"></i>
+                </div>
+            </div>
+            <div *ngIf="order?.member?.id>0" layout="row" class="member-detail">
+                <div flex="1" class="member-detail-item" layout="row" layout-align="center center">
+                    <mw-image class="avatar-circle-small" [src]="order?.member.avatarPath"></mw-image>
+                    &nbsp;&nbsp;
+                    <div layout="column">
+                        <span>{{order?.member.name}}</span>
+                        <span>{{order?.member.mobile}}</span>
+                    </div>
+                </div>
+                <div flex="1" class="member-detail-item">
+                    <div layout="column" layout-align="center center">
+                        <span>会员号: {{order?.member.memberNo}}</span>
+                        <span>持卡: </span>
+                    </div>
+                </div>
+                <div flex="1" class="member-detail-item">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="mw-card no-padding">
+            <tabset class="mw-tab-grey">
+                <tab heading="综合消费">
+                    <div class="order-tab-content">
+                        <div class="order-item-wrap mw-border-left2-primary" *ngFor="let item of order?.itemList;trackBy:trackByItem;let idx=index;">
+                            <mw-order-item [order]="order" [orderItem]="item" [memberId]="order.member.id" (removeSelfEvent)="removeItem($event)"></mw-order-item>
+                        </div>
+                        <div class="add-order-item text-center mw-primary" (click)="showSelectItem($event)">
+                            <i class="fa fa-plus-circle mw-fs-14"></i> 再添加一项消费
+                        </div>
+                        <div class="order-summary" layout="row">
+                            <div flex="20"></div>
+                            <div flex="40">
+                                消费合计：
+                                <span>项目:{{order.serviceItemCount}}&nbsp;</span>
+                                <span>产品:{{order.productCount}}&nbsp;</span>
+                                <span>套餐:{{order.servicePackageCount}}</span>
+                            </div>
+                            <div flex="40" class="text-right">
+                                <span>原价合计:{{order.originMoney|mwCurrency}}&nbsp;&nbsp;</span>
+                                <span>折后合计:{{order.discountMoney|mwCurrency}}&nbsp;&nbsp;</span>
+                                <span>还需支付:{{order.unPayMoney|mwCurrency}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="开卡购卡">开卡购卡</tab>
+                <tab heading="卡充值">卡充值</tab>
+            </tabset>
+        </div>
+        <div class="pay-tool-wrap mw-bg-primary" [style.width.px]="content.clientWidth-40">
+            <div class="shopping mw-bg-primary">
+                <i class="fa fa-cart-plus"></i>
+            </div>
+            <div layout="row" layout-align="start center">
+                <span flex="20">还需支付：{{order.unPayMoney|mwCurrency}}</span>
+                <div flex="40" flex="row">
+                    <button class="mw-button-white" (click)="cashBtnClick()">现金支付</button>&emsp;
+                    <button class="mw-button-white">POS支付</button>&emsp;
+                    <div dropdown class="dropup-menu">
+                        <button class="mw-button-white" dropdownToggle>更多支付</button>
+                        <ul class="dropdown-menu" dropdownMenu aria-labelledby="simple-dropdown">
+                          <li>
+                            <a class="dropdown-item">微信支付</a>
+                            <a class="dropdown-item">支付宝支付</a>
+                            <a class="dropdown-item">闪惠支付</a>
+                            <a class="dropdown-item">大众点评</a>
+                            <a class="dropdown-item">记为减免</a>
+                            <a class="dropdown-item">记为欠款</a>
+                          </li>
+                        </ul>
+                    </div>
+                </div>
+                <div flex="40" layout="row" layout-align="end center">
+                    <div [mwBusy]="saveAysn" class="mw-busy-wrap">
+                        <button class="mw-button-white btn-save" (click)="saveClick()">
+                            保存
+                        </button>
+                    </div>
+                    <span>&nbsp;&nbsp;</span>
+                    <button class="btn btn-cash mw-button-blue">
+                        <i class="icon-zhifuchenggong"></i>&nbsp;&nbsp;
+                        <span>收银</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mw-card side-bar no-padding" [mwCollapse]="sideBarState=='collapse'">
+        <tabset class="mw-tab">
+            <tab heading="会员详情">会员详情</tab>
+            <tab heading="预约列表">预约列表</tab>
+        </tabset>
+    </div>
+</div>
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <mw-create-member-dialog (onHide)="hideModal($event)"></mw-create-member-dialog>
+</div>

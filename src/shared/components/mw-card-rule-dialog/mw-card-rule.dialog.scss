@@ -1,0 +1,17 @@
+@import '../../styles/scss/color-const.scss';
+
+.modal-body{
+	background-color:$body-bg;
+	padding:0px;
+}
+.tree-wrap{
+	overflow-y:auto;
+  	background-color:#fff;
+  	padding:10px;
+}
+.middle{
+	margin: 0px 10px;
+}
+.rule-item{
+	padding: 10px 15px;
+}

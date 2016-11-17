@@ -1,0 +1,42 @@
+@import '../../styles/scss/color-const.scss';
+
+.select-pay-item-wrap{
+	background-color:#fff;
+	position:absolute;
+	width:40%;
+	min-width:300px;
+	height:300px;
+	z-index:4;
+	.pay-ul{
+		padding-bottom: 30px;
+	}
+	.pay-item-wrap{
+		height:100px;
+		width:100px;
+		//line-height:100px;
+		//text-align:center;
+		border: 1px solid $mw-border;
+		display:inline-block;
+		margin-top:30px;
+		margin-left:45px;
+		padding: 0px 2px;
+		.more-info-iheight{
+			height:42px;
+		}
+	}
+	.pay-item-wrap:hover{
+		//background-color: $mw-primary;
+    	box-shadow: $mw-float-shadow;
+    	//color: #fff;
+	}
+	.pay-logo{
+		font-size:36px;
+	}
+	.pay-item-wrap.disable,.pay-item-wrap.disable:hover{
+		background-color:$body-bg;
+		color:$default-text;
+		box-shadow:none;
+		//cursor:default;
+		cursor:not-allowed;
+	}
+}

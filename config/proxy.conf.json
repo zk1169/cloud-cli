@@ -1,0 +1,7 @@
+{
+  "/api/**": {
+    "target": "http://saas.dev.mei1.info",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

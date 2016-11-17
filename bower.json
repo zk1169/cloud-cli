@@ -1,0 +1,23 @@
+{
+  "name": "cloud",
+  "description": "cloud",
+  "main": "",
+  "authors": [
+    "朱坤 <kun.zhu@mei1.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/zk1169/mwcloud2",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "^4.6.3",
+    "jquery": "^3.1.0",
+    "bootstrap": "^3.3.7"
+  }
+}

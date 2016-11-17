@@ -1,0 +1,57 @@
+<div class="service-item-list-component">
+    <div class="service-item-content">
+        <header class="c-header" layout="row" layout-align="space-between center">
+            <span class="mw-fs-20">卡列表</span>
+            <button class="btn btn-primary" (click)="addClick()">新增卡</button>
+        </header>
+        <div class="mw-card no-padding">
+            <div layout="row" layout-align="start center" class="mw-tab-header">
+                <mw-tab-header [linkList]="routerList"></mw-tab-header>
+                <div flex layout="row" layout-align="end center">
+                    <mw-search [searchText]="searchText" placeholder="卡名称" (doSearchEvent)="doSearch($event)"></mw-search>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+            <div class="mw-tab-query">
+                <mw-query-tag [allTags]="storeList" [selected]="queryStoreId" queryName="所属门店" (onChange)="storeChanged($event)"></mw-query-tag>
+                <mw-query-tag [allTags]="cardTypeList" [selected]="queryCardType" queryName="卡类别" (onChange)="cardTypeChanged($event)"></mw-query-tag>
+            </div>
+        </div>
+        <div class="mw-card no-padding">
+            <ul class="mw-list">
+                <div class="mw-list-header" layout="row">
+                    <mw-list-sort flex="35" [sortModel]="nameSortModel" (onSortChanged)="onSortChanged($event)">卡名称</mw-list-sort>
+                    <span flex="10">卡类型</span>
+                    <span flex="20">售价</span>
+                    <span flex="10">状态</span>
+                    <span flex="25">操作</span>
+                </div>
+                <li *ngFor="let item of itemList;trackBy:trackByItem;let idx=index;" class="mw-list-item" [class.listItemChanged]="item.changed">
+                    <div layout="row">
+                        <div flex="35">
+                            <strong>{{item.name}}</strong>
+                        </div>
+                        <div flex="10">
+                            <strong>{{item.type | mwCardType}}</strong>
+                        </div>
+                        <div flex="20" class="mw-price">
+                            {{item.price | mwCurrency}}
+                        </div>
+                        <div flex="10">{{item.status | mwItemStatus}}</div>
+                        <div flex="25">
+                            <a class="mw-a-color" (click)="editClick(item)">编辑</a>
+                        </div>
+                    </div>
+                </li>
+                <li *ngIf="!itemList || itemList.length == 0" class="list-item-empty">
+                    <img src="assets/images/empty.png"/>
+                </li>
+            </ul>
+            <mw-pagination class="pagination-sm" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (pageChanged)="pageChanged($event)">
+            </mw-pagination>
+        </div>
+    </div>
+</div>
+<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <mw-edit-card-dialog (onHide)="hideModal($event)" [editCardItem]="editCardItem"></mw-edit-card-dialog>
+</div>

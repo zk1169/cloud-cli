@@ -1,0 +1,63 @@
+<div class="order-item-component" layout="column">
+    <div class="form-group" layout="row">
+        <div class="input-group" flex="35">
+            <span class="input-group-addon">
+                <i class="fa fa-file"></i>
+            </span>
+            <input [(ngModel)]="orderItem.itemModel.name" type="text" class="form-control" placeholder="名称" name="itemName" disabled/>
+        </div>
+        <div class="input-group" flex="15">
+            <input [(ngModel)]="orderItem.itemModel.price" type="number" class="form-control" placeholder="单价" name="itemPrice" />
+            <span class="input-group-addon">
+                <i class="fa fa-cny"></i>
+            </span>
+        </div>
+        <div layout="row" flex="45" class="margin-left-10">
+            <div class="input-group" flex="66">
+                <input [(ngModel)]="orderItem.count" type="number" class="form-control" placeholder="数量" name="itemCount" />
+                <span class="input-group-addon">个</span>
+            </div>
+            <div class="input-group" flex="33">
+                <input [(ngModel)]="orderItem.totalMoney" type="number" class="form-control" placeholder="小计" name="itemTotalPrice" />
+                <span class="input-group-addon">
+                    <i class="fa fa-cny"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div layout="row">
+    	<span flex-offset="35" flex="15" class="margin-left-10 form-group">
+    		支付方式：
+    	</span>
+    	<div layout="column" flex="45" class="margin-left-10">
+    		<div layout="row" class="form-group" *ngFor="let item of orderItem.payList;trackBy:trackByPayItem;let idx=index;">
+    			<div class="input-group" flex="66">
+    				<span class="input-group-addon mw-click" (click)="removePayItem(idx)" tooltip="删除支付方式">
+            		    <i class="fa fa-minus-circle"></i>
+            		</span>
+        		    <input [(ngModel)]="item.name" type="text" class="form-control" placeholder="支付方式" name="itemCount" disabled />
+        		</div>
+        		<div class="input-group" flex="33">
+        		    <input [(ngModel)]="item.discountMoney" type="number" class="form-control" placeholder="支付金额" name="itemTotalPrice" />
+        		    <span *ngIf="item.moneyOrTimes=='money'" class="input-group-addon">¥</span>
+                    <span *ngIf="item.moneyOrTimes=='times'" class="input-group-addon">次</span>
+        		</div>
+    		</div>
+    		<div>
+                <span (click)="addMorePayItem($event)" class="mw-click mw-primary" tooltip="添加微信、支付宝、卡和券等更多支付方式">
+                    <i class="fa fa-plus-circle"></i>
+                    更多支付方式
+                </span>
+            </div>
+    		<div layout="row">
+    			<span flex="66" class="text-right">还需支付：</span>
+    			<span flex="33" class="margin-left-10 mw-price">{{orderItem.unPayMoney | mwCurrency}}</span>
+    		</div>
+    		<br>
+    		<div>
+    			<span>服务人员：未指定服务人员；</span>
+    		</div>
+    	</div>
+    </div>
+    <div class="item-close mw-fs-20" (click)="removeSelf()"><i class="fa fa-close"></i></div>
+</div>

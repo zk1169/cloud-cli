@@ -1,0 +1,6 @@
+@import './scss/pro-theme.scss';
+@import './scss/theme.style.scss';
+
+.dashboard-pro,.sign-component {
+    @include mw-theme($mw-primary,$mw-primary-text, $mw-a-color, $mw-a-hover-color);
+}

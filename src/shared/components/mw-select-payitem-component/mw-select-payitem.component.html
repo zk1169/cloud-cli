@@ -1,0 +1,19 @@
+<div [mwBusy]="loading" [style.left.px]="floatDialogModel.left" [style.top.px]="floatDialogModel.top" class="select-pay-item-wrap mw-shadow">
+    <tabset [vertical]="true" class="mw-tab-vertical mw-tab-grey">
+        <tab *ngFor="let item of itemList" heading="{{item.name}}">
+        	<ul class="pay-ul">
+        		<li *ngFor="let subItem of item.subItemList" class="pay-item-wrap mw-click mw-bg-primary-hover mw-bg-text-hover mw-border-primary-hover" 
+                    (click)="payItemClick(subItem)" [class.disable]="!subItem.payFlag" [tooltip]="subItem.noInfo" [tooltipEnable]="!subItem.payFlag">
+        			<div layout="column" layout-align="space-around center">
+        				<i class="pay-logo icon-xianjinzhifu" [class.more-info-iheight]="subItem.moreInfo"></i>
+        				<span class="text-overflow">{{subItem.name}}</span>
+        				<span *ngIf="subItem.balance" class="mw-price">{{subItem.balance | mwCurrency}}</span>
+                        <span *ngIf="subItem.moreInfo">
+                            {{subItem.cardModel.useRule.storeRuleList[0].discountValue|mwCardRule:subItem.cardModel.useRule.storeRuleList[0].discountType}}
+                        </span>
+        			</div>
+        		</li>
+        	</ul>
+        </tab>
+    </tabset>
+</div>

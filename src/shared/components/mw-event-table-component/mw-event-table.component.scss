@@ -1,0 +1,167 @@
+@import '../../styles/scss/color-const.scss';
+@import '../../styles/scss/mixins.scss';
+
+$default-border: 1px solid #e1e1e1;
+$hour-width:70px;
+.mw-event-table-component {
+  height:100%;
+  background-color:#fff;
+  border: $default-border;
+  //border-top: $default-border;
+
+  //overflow-y:auto;
+  .hour-rows{
+    height:calc(100% - 60px);
+    //height:100%;
+    overflow-y:auto;
+  }
+  .hour-segment {
+    height: 30px;
+  }
+  .col-wrap{
+    border-left:$default-border;
+    min-width: 80px;
+    overflow:hidden;
+  }
+  .col-header-wrap{
+    //margin-left:$hour-width;
+    //padding-right: 15px;
+    background-color:#fff;
+    border-bottom: $default-border;
+    height:30px;
+    // .total-order-count{
+    //   background-color:#fff;
+    //   width:$hour-width;
+    //   border-bottom: $default-border;
+    //   height:30px;
+    //   line-height:30px;
+    //   text-align:center;
+    //   display:inline-block;
+    // }
+  }
+  .col-header{
+    height:30px;
+    line-height:30px;
+    text-align:center;
+    color:#fff;
+    display:inline-block;
+  }
+  .col-header+.col-header{
+    border-left:$default-border;
+  }
+  .col-body{
+    position:relative;
+  }
+  .hour-event .hour:not(:last-child) .hour-segment,
+  .hour-event .hour:last-child .hour-segment:not(:last-child) {
+    border-bottom: 1px dashed #e1e1e1;
+  }
+
+  .time {
+    font-weight: bold;
+    //padding-top: 5px;
+  }
+  .hour:first-child .hour-segment .time{
+      margin-top: 0px;
+  }
+  .hour:nth-child(2) .hour-segment .time{
+      margin-top: -10px;
+  }
+
+  .event {
+    position: absolute;
+    //border: solid 1px;
+    padding: 5px;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background-color: #4A90E2;
+    color:#fff;
+    cursor: pointer;
+  }
+
+  .event.starts-within-day {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+  .event.ends-within-day {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  .hour-col-time {
+    //margin-top:15px;
+    //padding-top:15px;
+    padding-bottom:15px;
+    width: $hour-width;
+    //border-top: $default-border;
+    //border-left: $default-border;
+    //border-bottom: $default-border;
+    text-align: center;
+    background-color:#fff;
+    height:1442px;
+  }
+
+  .hour-col-events {
+    position: relative;
+    overflow-x: auto;
+    //width: calc(100% - 70px);
+    border-right: $default-border;
+    border-top: $default-border;
+    border-bottom: $default-border;
+    background: linear-gradient(to bottom, #fff 30px, #fafafa 30px) 0 0/auto 60px;
+    height:1442px;
+    .float-wrap{
+      position:absolute;
+      //height:300px;
+      min-width:150px;
+      max-width:300px;
+      background-color:#fff;
+      font-size:12px;
+      min-height:50px;
+      .float-content{
+        padding:5px;
+      }
+      .btn-close{
+        position:absolute;
+        right:-10px;
+        top:-8px;
+        cursor: pointer;
+      }
+      .btn-group-wrap{
+        border-top:$default-border;
+        padding: 8px 5px;
+        background-color:$body-bg;
+        // .btn{
+        //   font-size:12px;
+        //   padding:3px 6px;
+        // }
+        .btn + .btn{
+          margin-left:10px;
+        }
+      }
+    }
+    .float-wrap:before{
+      @include triangle(left, 7px, $mw-border);
+      position: absolute;
+      left:-7px;
+      top:6px;
+    }
+    .float-wrap:after{
+      @include triangle(left, 6px, #fff);
+      position: absolute;
+      left:-6px;
+      top:7px;
+    }
+  }
+  .view-foot {
+      background-color: #fff;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 30px;
+      border-top: $default-border;
+  }
+}

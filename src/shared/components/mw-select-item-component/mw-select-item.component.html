@@ -1,0 +1,22 @@
+<div [mwBusy]="loading" [style.left.px]="floatDialogModel.left" [style.top.px]="floatDialogModel.top" class="select-item-wrap mw-shadow">
+    <tabset class="mw-tab-grey">
+        <tab heading="项目">
+            <div>
+                <ul>
+                    <li *ngFor="let item of (itemList|mwListPipe:searchText);trackBy:trackByItem;" class="item-wrap mw-bg-primary-hover mw-bg-text-hover mw-border-primary-hover text-overflow" (click)="selectItem(item)">
+                        <span class="text-overflow item-name" [tooltip]="item?.itemModel?.name" [tooltipEnable]="item?.itemModel?.name.length>8">
+                            {{item?.itemModel?.name | mwTextFormat}}
+                        </span>&nbsp;&nbsp;
+                        <span class="mw-price item-price">{{item?.itemModel?.price | mwCurrency}}</span>
+                    </li>
+                </ul>
+            </div>
+        </tab>
+        <tab heading="产品">产品</tab>
+        <tab heading="套餐">套餐</tab>
+        <tab heading="我的">我的</tab>
+    </tabset>
+    <div class="search-wrap" layout="row">
+    	<mw-search [searchText]="searchText" placeholder="套餐/项目/产品" (doSearchEvent)="doSearch($event)"></mw-search>
+    </div>
+</div>

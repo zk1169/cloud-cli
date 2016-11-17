@@ -1,0 +1,16 @@
+@import '../../styles/scss/color-const.scss';
+
+.order-item-component{
+	background-color:#fff;
+	position:relative;
+	padding:15px;
+	.input-group +.input-group,.margin-left-10{
+		padding-left:10px;
+	}
+	.item-close{
+		position:absolute;
+		top:0px;
+		right:10px;
+		cursor: pointer;
+	}
+}

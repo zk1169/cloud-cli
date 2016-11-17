@@ -1,0 +1,18 @@
+
+.booking-table-component {
+    md-card {
+        margin-bottom: 10px;
+    }
+    padding: 10px 0;
+    .booking-table-content {
+        padding: 0 20px;
+        .booking-table {
+            height:calc(100vh - 130px);
+            overflow:hidden;
+            position:relative;
+        }
+        .side-bar-button {
+            margin-right: 20px;
+        }
+    }
+}
