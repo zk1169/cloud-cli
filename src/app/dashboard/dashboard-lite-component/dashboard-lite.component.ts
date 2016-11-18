@@ -14,8 +14,6 @@ import {
   } from '../../../shared/index';
   import { ModalDirective } from 'ng2-bootstrap/components/modal/modal.component';
 
-import '../../../shared/styles/app-lite.style.scss';
-
 @Component({
     selector: 'mw-dashboard-lite',
     templateUrl: './dashboard-lite.component.html',

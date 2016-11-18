@@ -14,8 +14,6 @@ import {
   } from '../../../shared/index';
   import { ModalDirective } from 'ng2-bootstrap/components/modal/modal.component';
 
-import '../../../shared/styles/app-pro.style.scss';
-
 @Component({
     selector: 'mw-dashboard-pro',
     templateUrl: './dashboard-pro.component.html',

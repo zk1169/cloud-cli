@@ -7,7 +7,7 @@ export const environment = {
   production: false,
   name: "dev",
   version:"2.0.0",
-  serverFilePath:"http://saas.mei1.com/api/file/",
+  serverFilePath:"http://saas.dev.mei1.info/api/file/",
   localImageDefault:"assets/images/default_image.jpg",
   localAvatarDefault:"assets/images/avatar06.png"
 };

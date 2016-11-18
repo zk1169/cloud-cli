@@ -2,6 +2,7 @@ import { Component,ViewContainerRef } from '@angular/core';
 import { Router, Event, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
 
 import { ToasterService, ToasterConfig } from 'angular2-toaster/angular2-toaster';
+import { ComponentsHelper } from 'ng2-bootstrap/ng2-bootstrap';
 import { 
     HttpService,
     UserService,
@@ -29,7 +30,7 @@ export class AppComponent {
             tapToDismiss: true,
             timeout: 3000
         });
-    private viewContainerRef: ViewContainerRef;
+    //viewContainerRef: ViewContainerRef;
 
     constructor(
         private toasterService: ToasterService,
@@ -38,10 +39,12 @@ export class AppComponent {
         private authService: AuthService,
         private userService: UserService,
         private router: Router,
+        componentsHelper:ComponentsHelper,
         viewContainerRef:ViewContainerRef
     ) {
         // You need this small hack in order to catch application root view container ref
-        this.viewContainerRef = viewContainerRef;
+        //this.viewContainerRef = viewContainerRef;
+        componentsHelper.setRootViewContainerRef(viewContainerRef)
         
         //debugger;
         //this.handleRouteChanged();
