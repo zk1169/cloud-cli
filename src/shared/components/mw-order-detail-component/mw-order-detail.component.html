@@ -1,0 +1,44 @@
+<div class="mw-order-detail-component">
+	<div class="order-detail-wrap" layout="row" layout-align="start center">
+		<div flex="25" layout="row" layout-align="start center">
+			<mw-image class="avatar-circle-small" [src]="order?.member.avatarPath"></mw-image>
+			&nbsp;&nbsp;
+			<span *ngIf="order?.member?.id">{{order?.member.name}}</span>
+			<span *ngIf="order?.member?.id">-{{order?.member.memberNo}}</span>
+			<span *ngIf="!order?.member?.id">散客</span>
+		</div>
+		<span flex="25">{{order?.store?.name || order?.store?.text}}</span>
+        <span>{{order?.member?.mobile}}</span>
+	</div>
+	<div class="order-detail-wrap" layout="row" layout-wrap>
+		<div flex="50">
+			<label>流水单号：</label>
+            <span>{{order?.orderNo}}</span>
+		</div>
+		<div flex="50">
+			<label>收银人员：</label>
+            <span>{{order?.orderNo}}</span>
+		</div>
+		<div flex="50">
+			<label>订单备注：</label>
+            <span>{{order?.remark}}</span>
+		</div>
+	</div>
+	<div class="order-detail-wrap" layout="row" layout-wrap style="padding:0px;">
+		<ul flex class="mw-list">
+			<div class="mw-list-header" layout="row">
+                <span flex="25">消费内容</span>
+                <span flex="25">服务技师</span>
+                <span flex="50">实收金额</span>
+            </div>
+			<li *ngFor="let item of order?.itemList" class="mw-list-item">
+				<div>
+					{{item.itemModel?.name}} x {{item.count}}
+				</div>
+			</li>
+			<div class="text-right border-top-default total-money">
+				合计:&nbsp;<span class="mw-price">{{order.unPayMoney|mwCurrency}}</span>
+			</div>
+		</ul>
+	</div>
+</div>

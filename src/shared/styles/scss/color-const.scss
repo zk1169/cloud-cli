@@ -62,15 +62,13 @@ $activelink: #285eb8;
 $hoverlink: darken($activelink, 20%);
 
 //mw colors
+$mw-border-darken:#ccc;
 $mw-color-light-grey: rgba(0, 0, 0, 0.54);
-//$mw-primary: #B54DCE;
 $mw-border: rgba(0, 0, 0, 0.2); // border color
 $female:#F37298;
 $male:#4A90E2;
 $mw-list-header-color:#f8f8f8;
 $mw-price:#F40;
-//$mw-a-color:#005aa0;
-//$mw-a-hover-color:$mw-primary;
 $mw-float-shadow:0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
 $mw-card-shadow:0px 1px 1px -1px rgba(0, 0, 0, 0.1), 0px 1px 1px 0px rgba(0, 0, 0, 0.1), 0px 1px 1px 0px rgba(0, 0, 0, 0.1);
 $mw-toolbar-shadow:0 0 1px 1px rgba(0, 0, 0, .14), 0 0 2px 2px rgba(0, 0, 0, .098), 0 0 5px 1px rgba(0, 0, 0, .084);

@@ -1,0 +1,24 @@
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" (click)="hide()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">确认收银</h4>
+        </div>
+        <div class="modal-body">
+            <div>
+                <mw-order-detail [order]="order"></mw-order-detail>
+            </div>
+        </div>
+        <div class="modal-action" layout="row">
+            <div class="checkbox checkbox-primary text-left" flex>
+                <input type="checkbox" [(ngModel)]="isPrint" id="isPrint" name="isPrint">
+                <label for="isPrint">收银后打印小票</label>
+            </div>
+            <button class="btn btn-primary" (click)="hide()">取消</button>
+            &nbsp;&nbsp;
+            <button class="btn btn-primary" (click)="OKClick($event)">保存</button>
+        </div>
+    </div>
+</div>

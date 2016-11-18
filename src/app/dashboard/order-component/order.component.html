@@ -78,6 +78,21 @@
                 <tab heading="卡充值">卡充值</tab>
             </tabset>
         </div>
+        <div class="mw-card">
+            <label>订单其它信息:</label><br><br>
+            <div layout="row" class="form-group">
+                <label flex="10">流水单号</label>
+                <div flex="50">
+                    <input type="number" class="form-control" placeholder="流水单号" [(ngModel)]="order.orderNo"/>
+                </div>
+            </div>
+            <div layout="row" class="form-group">
+                <label flex="10">订单备注</label>
+                <div flex="50">
+                    <textarea rows="4" type="text" class="form-control" placeholder="订单备注" [(ngModel)]="order.remark"></textarea>
+                </div>
+            </div>
+        </div>
         <div class="pay-tool-wrap mw-bg-primary" [style.width.px]="content.clientWidth-40">
             <div class="shopping mw-bg-primary">
                 <i class="fa fa-cart-plus"></i>
@@ -108,7 +123,7 @@
                         </button>
                     </div>
                     <span>&nbsp;&nbsp;</span>
-                    <button class="btn btn-cash mw-button-blue">
+                    <button class="btn btn-cash mw-button-blue" (click)="payClick()">
                         <i class="icon-zhifuchenggong"></i>&nbsp;&nbsp;
                         <span>收银</span>
                     </button>
@@ -124,5 +139,6 @@
     </div>
 </div>
 <div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <mw-create-member-dialog (onHide)="hideModal($event)"></mw-create-member-dialog>
+    <mw-create-member-dialog *ngIf="dialogName == 'create-member'" (onHide)="hideModal($event)"></mw-create-member-dialog>
+    <mw-order-confirm-dialog *ngIf="dialogName == 'order-confirm'" [order]='order' (onHide)="hideModal($event)"></mw-order-confirm-dialog>
 </div>

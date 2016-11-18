@@ -24,6 +24,7 @@ export enum PayType{
 	ACTIVITY = 50,//活动
 	FREE = 60,//赠品
 	DEBT = 71,//欠款
+    QRCODE = 72,//扫码支付
 	REDUCE = 70//减免
 	//100 以上为自定义支付方式
 }

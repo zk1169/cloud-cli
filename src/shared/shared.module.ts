@@ -30,12 +30,13 @@ import { MwTreeComponent } from './components/mw-tree-component/mw-tree.componen
 import { MwCardRuleComponent } from './components/mw-card-rule-component/mw-card-rule.component';
 import { MwImageComponent } from './components/mw-image-component/mw-image.component';
 import { MwListSortComponent } from './components/mw-list-sort-component/mw-list-sort.component';
-//import { MwLoadingBarComponent } from './components/mw-loading-bar-component/mw-loading-bar.component';
+import { MwOrderDetailComponent } from './components/mw-order-detail-component/mw-order-detail.component';
 
 import { MwCreateMemberDialog } from './components/mw-create-member-dialog/mw-create-member.dialog';
 import { MwEditServiceItemDialog } from './components/mw-edit-service-item-dialog/mw-edit-service-item.dialog';
 import { MwEditCardDialog } from './components/mw-edit-card-dialog/mw-edit-card.dialog';
 import { MwCardRuleDialog } from './components/mw-card-rule-dialog/mw-card-rule.dialog';
+import { MwOrderConfirmDialog } from './components/mw-order-confirm-dialog/mw-order-confirm.dialog';
 
 import { MwCurrencyPipe } from './pipes/mw-currency.pipe';
 import { MwDatePipe,MwRelativeDatePipe } from './pipes/mw-date.pipe';
@@ -48,7 +49,6 @@ import { MwCardRulePipe } from './pipes/mw-card-rule.pipe';
 import { MwBusyDirective } from './directives/mw-busy.directive';
 import { MwCollapseDirective } from './directives/mw-collapse.directive';
 import { MwFocusDirective } from './directives/mw-focus.directive';
-//import { MwImage404Directive } from './directives/mw-image-404.directive';
 
 @NgModule({
     imports: [
@@ -81,11 +81,12 @@ import { MwFocusDirective } from './directives/mw-focus.directive';
         MwCardRuleComponent,
         MwImageComponent,
         MwListSortComponent,
-        //MwLoadingBarComponent,
+        MwOrderDetailComponent,
         MwCreateMemberDialog,
         MwEditServiceItemDialog,
         MwEditCardDialog,
         MwCardRuleDialog,
+        MwOrderConfirmDialog,
         MwCurrencyPipe,
         MwDatePipe,
         MwRelativeDatePipe,
@@ -96,8 +97,7 @@ import { MwFocusDirective } from './directives/mw-focus.directive';
         MwCardRulePipe,
         MwBusyDirective,
         MwCollapseDirective,
-        MwFocusDirective,
-        //MwImage404Directive
+        MwFocusDirective
     ],
     exports: [
         CommonModule,
@@ -123,11 +123,12 @@ import { MwFocusDirective } from './directives/mw-focus.directive';
         MwCardRuleComponent,
         MwImageComponent,
         MwListSortComponent,
-        //MwLoadingBarComponent,
+        MwOrderDetailComponent,
         MwCreateMemberDialog,
         MwEditServiceItemDialog,
         MwEditCardDialog,
         MwCardRuleDialog,
+        MwOrderConfirmDialog,
         DatePipe,
         MwCurrencyPipe,
         MwDatePipe,
@@ -139,8 +140,7 @@ import { MwFocusDirective } from './directives/mw-focus.directive';
         MwCardRulePipe,
         MwBusyDirective,
         MwCollapseDirective,
-        MwFocusDirective,
-        //MwImage404Directive
+        MwFocusDirective
     ]
 })
 export class SharedModule {

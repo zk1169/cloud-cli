@@ -44,18 +44,22 @@ export class MwListSortComponent implements OnChanges{
 
   get sortClassName(){
     if(!this.sortModel){
-      return 'fa fa-unsorted';
+      //return 'fa fa-unsorted';
+      return 'icon-paixu3';
     }
     let className:string;
     switch(this.sortModel.sortType){
       case "":
-        className = 'fa fa-unsorted';
+        //className = 'fa fa-unsorted';
+        className = 'icon-paixu3';
         break;
       case "asc":
-        className = 'fa fa-sort-asc';
+        //className = 'fa fa-sort-asc';
+        className = 'icon-paixu1';
         break;
       case "desc":
-        className = 'fa fa-sort-desc';
+        //className = 'fa fa-sort-desc';
+        className = 'icon-paixu2';
         break;
     }
     return className;

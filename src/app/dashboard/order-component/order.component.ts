@@ -29,8 +29,8 @@ import {
 })
 export class OrderComponent extends DialogBaseComponent implements OnInit,OnDestroy,IFloat {
 
-    @ViewChild(MwAutocompleteComponent)
-    private autocompleteComponent: MwAutocompleteComponent;
+    @ViewChild(MwAutocompleteComponent) autocompleteComponent: MwAutocompleteComponent;
+    @ViewChild('modal') modal:ModalDirective;
 
     private sub: any;
     private order:OrderModel;//订单Model
@@ -46,7 +46,8 @@ export class OrderComponent extends DialogBaseComponent implements OnInit,OnDest
     ];
     private storeList: StoreModel[];
     private roomList: any[];
-    @ViewChild('modal') modal:ModalDirective;
+    private dialogName:string;
+    
     
     constructor(
         private route: ActivatedRoute,
@@ -111,7 +112,7 @@ export class OrderComponent extends DialogBaseComponent implements OnInit,OnDest
     }
     addMemberClick(){
         //this.showDialog("show.modal",this,"create-member-dialog");
-        debugger
+        this.dialogName = 'create-member';
         this.modal.show();
     }
 
@@ -121,6 +122,7 @@ export class OrderComponent extends DialogBaseComponent implements OnInit,OnDest
     }
 
     hideModal(answer?:any){
+        this.dialogName = null;
         this.modal.hide();
     }
 
@@ -145,6 +147,11 @@ export class OrderComponent extends DialogBaseComponent implements OnInit,OnDest
                 this.completeSlimLoader();
                 return Observable.throw(error);
             });
+    }
+
+    payClick(){
+        this.dialogName = 'order-confirm';
+        this.modal.show();
     }
 
     //删除一个消费项目

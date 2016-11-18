@@ -1,4 +1,4 @@
-@for $zValue from 12 through 24 {
+@for $zValue from 12 through 36 {
   .mw-fs-#{$zValue} {
     font-size: $zValue+px;
   }

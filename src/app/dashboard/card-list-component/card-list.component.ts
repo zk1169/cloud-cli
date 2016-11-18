@@ -110,7 +110,7 @@ export class CardListComponent extends ItemBaseComponent implements OnInit, OnDe
     //private getList(options:{page: number, searchText: string,storeId:number,cardType:CardType,sortList:SortModel[]}) {  
         let options:any = {
             page:page,
-            searchText:searchText,
+            keyword:searchText,
             storeId:storeId,
             cardType:cardType,
             sortList:sortList,

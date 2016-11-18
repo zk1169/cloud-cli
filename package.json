@@ -4,7 +4,9 @@
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
-    "start": "ng serve --aot --proxy-config ./config/proxy.conf.json",
+    "start": "ng serve --proxy-config ./config/proxy.conf.json",
+    "build":" ng build --prod --aot",
+    "update":"npm update && bower update",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
     "pree2e": "webdriver-manager update",

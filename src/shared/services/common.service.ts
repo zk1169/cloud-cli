@@ -131,7 +131,7 @@ export class CommonService {
                                         result.push(BasePayModel.serializer(sub_item));
                                     }
                                 });
-                            }else if([10,20,31,40,41,42,50].indexOf(item.code)>-1 || item.code >= 100){
+                            }else if([10,20,31,40,41,42,70,71,72].indexOf(item.code)>-1 || item.code >= 100){
                                 item.parentCode = item.code;
                                 result.push(BasePayModel.serializer(item));
                             }

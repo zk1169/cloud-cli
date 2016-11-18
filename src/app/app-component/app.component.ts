@@ -103,7 +103,8 @@ export class AppComponent {
                         toasterBody = message.statusText;
                     } else {
                         toasterType = "error";
-                        toasterBody = "未知错误";
+                        //toasterBody = "未知错误";
+                        toasterBody = '抱歉！系统繁忙，暂时无法处理您的请求……';
                     }
                     if (message.stack) {
                         console.error(message.stack);

@@ -49,24 +49,7 @@ export class MwBusyDirective implements OnChanges{
         this.divElement.style.backgroundColor = "rgba(0,0,0,.6)";
         this.divElement.style.color = "#fff";
         //this.divElement.innerText = "loading...";
-        this.divElement.innerHTML = '<div class="icon-rotate"><i class="fa fa-spinner mw-fs-20"></i></div>';
+        //this.divElement.innerHTML = '<div class="icon-rotate"><i class="fa fa-spinner mw-fs-20"></i></div>';
+        this.divElement.innerHTML = '<i class="icon-dengdai mw-fs-30 mw-rotate"></i>';
     }
-
-    // ngOnChanges(changes: {[propName: string]: SimpleChange}) {
-    //     if (changes.hasOwnProperty('collapse')) {
-    //         if(changes['collapse'].currentValue){
-    //             if(this._property == "horizontal"){
-    //                 this.el.style.width = "0px";
-    //             }else{
-    //                 this.el.style.height = "0px";
-    //             }
-    //         }else{
-    //             if(this._property == "horizontal"){
-    //                 this.el.style.width = "210px";
-    //             }else{
-    //                 this.el.style.height = this.height;
-    //             }
-    //         }
-    //     }
-    // }
 }
