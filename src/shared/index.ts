@@ -19,6 +19,7 @@ export { MwTool } from './models/mw-tool.model';
 export { IDialog,IFloat,FloatDialogModel } from './models/float-dialog.model';
 export { TreeModel } from './models/tree.model';
 export { CashPayModel } from './models/pay.interface';
+export { PosPayModel } from './models/pay.interface';
 export { QueryTagModel } from './models/query-tag.model';
 export { CardBaseModel } from './models/card.model';
 export { SortModel } from './models/sort.model';

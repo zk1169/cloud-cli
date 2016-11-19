@@ -22,7 +22,7 @@ export class CardBaseModel extends ItemBaseModel{
 		//let payFlag:boolean = false;
 		let result:any = {payFlag:false};
 		if(this.payRules){
-			this.payRules.forEach((item:any)=>{
+			this.payRules.forEach((item:PayRule)=>{
 				if(item){
 					result.payFlag = item.checkPay(option);
 					if(result.payFlag){
@@ -38,6 +38,18 @@ export class CardBaseModel extends ItemBaseModel{
 			result.noInfo = '不能支付这个项目';
 		}
 		return result;
+	}
+
+	getDiscountMoney(unpay:number,itemId:number,storeId:number):number{
+		let dMoney = unpay;
+		if(this.useRule){
+			dMoney = this.useRule.getDiscountMoney(unpay,storeId);
+		}
+		return dMoney;
+	}
+
+	getCardMoney(unpay:number){
+		return 0;
 	}
 
 	get moneyOrTimes(){
@@ -148,6 +160,18 @@ export class CardCashModel extends CardBaseModel{
 	deposit:number;
 	constructor(id?:number){
 		super(CardType.CASH,id);
+	}
+
+	getCardMoney(unpay:number){
+		if(this.balance){
+			if(this.balance > unpay){
+				return unpay;
+			}else{
+				return this.balance;
+			}
+		}else{
+			return 0;
+		}
 	}
 
 	serializer(model:any,userService?:UserService){

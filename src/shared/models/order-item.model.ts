@@ -4,6 +4,7 @@ import { ItemBaseModel } from './item-base.model';
 import { ServiceItemModel } from './service-item.model';
 import { EmployeeModel } from './employee.model'; 
 import { IPay,CashPayModel,BasePayModel } from './pay.interface';
+import { MoneyTool } from './money-tool.model';
 
 export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
 	itemType:OrderItemType;
@@ -24,13 +25,14 @@ export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
 		if(this.payList && this.payList.length > 0){
 			this.payList.forEach((item:IPay,index:number)=>{
 				if(item.code){
-					_unPayMoney -= item.getPayMoney();
+					_unPayMoney -= item.totalPayMoney;
 				}
 			});
 		}
 		return _unPayMoney;
 	}
 
+	//折后金额
 	get discountMoney():number{
 		let _discountMoney = 0;
 		if(this.payList && this.payList.length > 0){
@@ -40,7 +42,7 @@ export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
 				}
 			});
 		}
-		return _discountMoney;
+		return MoneyTool.sub(this.totalMoney , _discountMoney);
 	}
 
 	get totalMoney():number{

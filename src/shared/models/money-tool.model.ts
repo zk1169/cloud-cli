@@ -13,18 +13,18 @@ export class MoneyTool {
         return +(value * 100).toFixed();
     }
 
-    public static add(arg1: number, arg2: number) {
+    public static add(arg1: number, arg2: number):number {
         var r1: number, r2: number, m: number;
         try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
         try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
         m = Math.pow(10, Math.max(r1, r2))
         return (arg1 * m + arg2 * m) / m;
     }
-    public static sub(arg1: number, arg2: number) {
+    public static sub(arg1: number, arg2: number):number {
         return this.add(arg1, -arg2);
     }
 
-    public static mul(arg1: number, arg2: number) {
+    public static mul(arg1: number, arg2: number):number {
         var m: number = 0,
             s1: string = arg1.toString(),
             s2: string = arg2.toString();
@@ -33,7 +33,7 @@ export class MoneyTool {
         return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
     }
 
-    public static div(arg1: number, arg2: number) {
+    public static div(arg1: number, arg2: number):number {
         var t1: number = 0,
             t2: number = 0,
             r1: number, r2: number;

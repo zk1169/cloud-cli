@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { ModalDirective } from 'ng2-bootstrap/components/modal/modal.component';
 import { 
-    DialogBaseComponent,
+    BaseComponent,
     EventBus,
     UserService,
     AuthService,
@@ -16,6 +16,7 @@ import {
     IFloat,
     FloatDialogModel,
     CashPayModel,
+    PosPayModel,
     OrderType,
     MwTool,
     StoreModel,
@@ -27,7 +28,7 @@ import {
     templateUrl: './order.component.html',
     styleUrls: ['./order.component.scss']
 })
-export class OrderComponent extends DialogBaseComponent implements OnInit,OnDestroy,IFloat {
+export class OrderComponent extends BaseComponent implements OnInit,OnDestroy,IFloat {
 
     @ViewChild(MwAutocompleteComponent) autocompleteComponent: MwAutocompleteComponent;
     @ViewChild('modal') modal:ModalDirective;
@@ -119,6 +120,10 @@ export class OrderComponent extends DialogBaseComponent implements OnInit,OnDest
     cashBtnClick(){
         let cashPay = new CashPayModel();
         this.order.addPayItem(cashPay);
+    }
+    posBtnClick(){
+        let posPay = new PosPayModel();
+        this.order.addPayItem(posPay);
     }
 
     hideModal(answer?:any){

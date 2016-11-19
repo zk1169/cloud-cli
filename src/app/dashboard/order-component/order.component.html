@@ -5,7 +5,8 @@
             <mw-select [allowClear]="true"
                 [options]="storeList"
                 [selectedItem]="order.store"
-                placeholder="请选择门店">
+                placeholder="请选择门店"
+                style="z-index:4;">
             </mw-select>
         </header>
         <div class="mw-card no-padding">
@@ -83,7 +84,7 @@
             <div layout="row" class="form-group">
                 <label flex="10">流水单号</label>
                 <div flex="50">
-                    <input type="number" class="form-control" placeholder="流水单号" [(ngModel)]="order.orderNo"/>
+                    <input type="number" class="form-control" placeholder="流水单号" [(ngModel)]="order.serialNo"/>
                 </div>
             </div>
             <div layout="row" class="form-group">
@@ -101,7 +102,7 @@
                 <span flex="20">还需支付：{{order.unPayMoney|mwCurrency}}</span>
                 <div flex="40" flex="row">
                     <button class="mw-button-white" (click)="cashBtnClick()">现金支付</button>&emsp;
-                    <button class="mw-button-white">POS支付</button>&emsp;
+                    <button class="mw-button-white" (click)="posBtnClick()">POS支付</button>&emsp;
                     <div dropdown class="dropup-menu">
                         <button class="mw-button-white" dropdownToggle>更多支付</button>
                         <ul class="dropdown-menu" dropdownMenu aria-labelledby="simple-dropdown">

@@ -12,32 +12,56 @@
 	</div>
 	<div class="order-detail-wrap" layout="row" layout-wrap>
 		<div flex="50">
-			<label>流水单号：</label>
+			<label>订单编号:</label>
             <span>{{order?.orderNo}}</span>
 		</div>
 		<div flex="50">
-			<label>收银人员：</label>
-            <span>{{order?.orderNo}}</span>
+			<label>流水单号:</label>
+            <span>{{order?.serialNo}}</span>
 		</div>
 		<div flex="50">
-			<label>订单备注：</label>
+			<label>收银人员:</label>
+            <span>{{empName}}</span>
+		</div>
+		<div flex="50">
+			<label>订单备注:</label>
             <span>{{order?.remark}}</span>
 		</div>
 	</div>
 	<div class="order-detail-wrap" layout="row" layout-wrap style="padding:0px;">
 		<ul flex class="mw-list">
 			<div class="mw-list-header" layout="row">
-                <span flex="25">消费内容</span>
-                <span flex="25">服务技师</span>
-                <span flex="50">实收金额</span>
+                <span flex="25">订单内容</span>
+                <span flex="10">单价</span>
+                <span flex="15">数量</span>
+                <span flex="25" layout="row">
+                	<span flex-offset="60">&nbsp;支付</span>
+                </span>
+                <span flex="15">服务人员</span>
+                <span flex="10">业绩/卡耗/提成</span>
             </div>
 			<li *ngFor="let item of order?.itemList" class="mw-list-item">
-				<div>
-					{{item.itemModel?.name}} x {{item.count}}
+				<div layout="row"> 
+					<span flex="25">{{item.itemModel?.name}}</span>
+					<span flex="10" class="mw-price">{{item.itemModel.price|mwCurrency}}</span>
+					<span flex="15">{{item.count}}</span>
+					<span flex="25" layout="column">
+						<span *ngFor="let payItem of item.payList" layout="row">
+							<span flex="60" class="text-right">{{payItem.name}}:&nbsp;</span>
+							<span class="mw-price">{{payItem.totalPayMoney | mwCurrency}}</span>
+						</span>
+					</span>
+					<span flex="15"></span>
+					<span flex="10"></span>
 				</div>
 			</li>
-			<div class="text-right border-top-default total-money">
-				合计:&nbsp;<span class="mw-price">{{order.unPayMoney|mwCurrency}}</span>
+			<div class="border-top-default total-money" layout="row">
+				<span flex="25" class="text-right">合计应收:&nbsp;</span>
+				<span flex="25" class="mw-price">{{order.originMoney|mwCurrency}}</span>
+				<span flex="25" class="text-right" layout="row">
+					<span flex="60">共计:&nbsp;</span>
+					<span class="mw-price">{{order.originMoney|mwCurrency}}</span>
+				</span>
 			</div>
 		</ul>
 	</div>

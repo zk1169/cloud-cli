@@ -21,7 +21,8 @@ $border-radius-base:2px;
 
 .checkbox {
     label {
-        padding-left: 6px;
+        position:relative;
+        //padding-left: 6px;
         &::before {
             width: 18px;
             height: 18px;
@@ -90,7 +91,6 @@ input[type="radio"] {
     display: none;
 }
 
-.checkbox label,
 .radio label {
     margin-left: 20px;
 }
@@ -115,8 +115,8 @@ input[type="radio"] {
     position: absolute;
     width: 16px;
     height: 16px;
-    left: 0;
-    top: 0;
+    left: 0px;
+    top: 0px;
     //margin-left: -20px;
     padding-left: 3px;
     //padding-top: 1px;

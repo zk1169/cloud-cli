@@ -46,6 +46,22 @@ export class StoreRule{
 		this.discountType = DiscountType.DISCOUNT;
 		this.discountValue = 100;
 	}
+
+	getDiscountMoney(unpay:number):number{
+		let dMoney:number;
+		switch(this.discountType){
+			case DiscountType.DISCOUNT:
+				dMoney = MoneyTool.sub(unpay,unpay * this.discountValue/100);
+				break;
+			case DiscountType.REDUCE:
+				dMoney = this.discountValue;
+			case DiscountType.NEW_PRICE:
+				dMoney = MoneyTool.sub(unpay,this.discountValue);
+				break;
+		}
+		return dMoney;
+	}
+
 	serializer(model:any,userService?:UserService){
 		this.storeId = +model.storeIds;
 		this.storeName = model.storeName;
@@ -111,6 +127,26 @@ export class PayRule{
 				break;
 		}
 		return payFlag;
+	}
+
+	getDiscountMoney(unpay:number,storeId:number):number{
+		let dMoney:number;
+		if(this.storeRuleList && this.storeRuleList.length > 0){
+			if(this.type == PayRuleType.ALL){
+				//全店通用
+				dMoney = this.storeRuleList[0].getDiscountMoney(unpay);
+			}else{
+				this.storeRuleList.forEach((item:StoreRule)=>{
+					if(item && item.storeId == storeId){
+						dMoney = item.getDiscountMoney(unpay);
+						//return;
+					}
+				});
+			}
+		}else{
+			dMoney = unpay;
+		}
+		return dMoney;
 	}
 
 	get id(){

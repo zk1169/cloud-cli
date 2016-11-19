@@ -10,6 +10,7 @@ import { IPay } from './pay.interface';
 
 export class OrderModel extends BaseModel implements ISerializer {
     orderNo: string;
+    serialNo:number;
     originalMoney:number;
     receivableMoney:number;
     realReceivableMoney:number;
@@ -159,6 +160,7 @@ export class OrderModel extends BaseModel implements ISerializer {
         this.receivableMoney = MoneyTool.point2yuan(model.receivableMoney);
         this.realReceivableMoney = MoneyTool.point2yuan(model.realReceivableMoney);
         this.orderNo = model.orderNo;
+        this.serialNo = model.serialNo;
         this.payDate = model.payDate;
         this.orderDate = model.orderDate;
         this.source = +model.source;
@@ -198,7 +200,8 @@ export class OrderModel extends BaseModel implements ISerializer {
                 memberType:MemberType.IDLE_MEMBER
             };
         }
-        
+
+        model.serialNo = this.serialNo;
         model.originalMoney = MoneyTool.yuan2point(this.originMoney);
         model.realReceivableMoney = model.originalMoney;
         model.receivableMoney = 0;

@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { OrderModel } from '../../models/order.model';
 import { OrderItemModel } from '../../models/order-item.model';
+import { UserService } from '../../services/user.service';
 
 @Component({
     selector: 'mw-order-detail',
@@ -16,8 +17,9 @@ import { OrderItemModel } from '../../models/order-item.model';
 })
 export class MwOrderDetailComponent {
     @Input() order:OrderModel;
+    private empName:string;
 
-    constructor() {
-        
+    constructor(userService:UserService) {
+        this.empName = userService.empInfo.name;
     }
 }

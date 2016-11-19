@@ -37,8 +37,12 @@
             		</span>
         		    <input [(ngModel)]="item.name" type="text" class="form-control" placeholder="支付方式" name="itemCount" disabled />
         		</div>
-        		<div class="input-group" flex="33">
-        		    <input [(ngModel)]="item.discountMoney" type="number" class="form-control" placeholder="支付金额" name="itemTotalPrice" />
+                <template #toolTipTemplate let-model="model">
+                    <div>折扣优惠:{{model.discountMoney}}</div>
+                    <div>卡扣:{{model.cardMoney}}</div>
+                </template>
+        		<div class="input-group" flex="33" [tooltipHtml]="toolTipTemplate" [tooltipContext]="item" [tooltipEnable]="item.hasTip" tooltipClass="mw-tooltip">
+        		    <input [(ngModel)]="item.payMoney" type="number" class="form-control" placeholder="支付金额" />
         		    <span *ngIf="item.moneyOrTimes=='money'" class="input-group-addon">¥</span>
                     <span *ngIf="item.moneyOrTimes=='times'" class="input-group-addon">次</span>
         		</div>

@@ -1,6 +1,7 @@
  import { BaseModel } from './base.model';
  import { PayType } from './mw.enum';
  import { MoneyTool } from './money-tool.model'; 
+ import { MwTool } from './mw-tool.model';
  import { CardBaseModel } from './card.model';
  import { MemberModel } from './member.model';
 
@@ -15,11 +16,20 @@ export interface IPay{
 	//支付方式名称
 	name:string;
 
-	//实付款
+	//是否有支付详情说明
+	hasTip:string;
+
+	//折扣金额
 	discountMoney:number;
 
+	//支付金额
+	payMoney:number;
+
+	//抵消总价
+	totalPayMoney:number;
+
 	//支付次数
-	//payTimes:number;
+	payTimes:number;
 
 	//能否支付
 	payFlag:boolean;
@@ -39,16 +49,11 @@ export interface IPay{
 	//更新余额
 	updateBalance(payMoney:number):void;
 
-	//设置折后金额
-	setDiscountMoney(unpay:number,itemId:number):void;
+	//设置折扣金额
+	setDiscountMoney(unpay:number,itemId:number,storeId:number,usePayRule?:boolean):void;
 
 	//检查能否支付
 	checkPay(option:{itemId:number,itemCategory:string,storeId:number}):void;
-
-	//抵消总价
-	getPayMoney():number;
-
-	
 }
 
 export class BasePayModel extends BaseModel{
@@ -67,25 +72,39 @@ export class BasePayModel extends BaseModel{
 		super(id);
 	}
 
-	checkPay(option:{itemId:number,itemCategory:string,storeId:number}){
-		this.payFlag = true;
+	get hasTip():string{
+		return false;
 	}
-
-	updateBalance(payMoney:number){
-
-	}
-	setDiscountMoney(unpay:number,itemId:number){
-		this.discountMoney = unpay||0;
-	}
-	getPayModelId(){
-		return 0;
-	}
-	get moneyOrTimes(){
+	get moneyOrTimes():string{
 		return "money";
 	}
 
-	get payAmount(){
-		return this.discountMoney;
+	get payAmount():number{
+		return this.payMoney;
+	}
+
+	get payMoney():number{
+		return this.discountMoney || 0;
+	}
+	set payMoney(value:number){
+		this.discountMoney = value;
+	}
+	get totalPayMoney():number{
+		return this.payMoney;
+	}
+
+	checkPay(option:{itemId:number,itemCategory:string,storeId:number}):void{
+		this.payFlag = true;
+	}
+
+	updateBalance(payMoney:number):void{
+
+	}
+	setDiscountMoney(unpay:number,itemId:number,storeId:number,usePayRule?:boolean):void{
+		this.discountMoney = unpay||0;
+	}
+	getPayModelId():number{
+		return 0;
 	}
 
 	static serializer(model:any){
@@ -147,14 +166,11 @@ export class BasePayModel extends BaseModel{
 export class CashPayModel extends BasePayModel implements IPay {
 	constructor(id?:number){
 		super(id);
-		this.code = 10;
+		this.code = PayType.CASH;
 		this.name = "现金";
 		this.payLevel = 70;
 	}
 	
-	getPayMoney(){
-		return this.discountMoney || 0;
-	}
 	serializer(model:any){
 		super.serializer(model);
 		return this;
@@ -162,8 +178,17 @@ export class CashPayModel extends BasePayModel implements IPay {
 
 	unserializer(){
 		let model = super.unserializer();
-		model.payMoney = MoneyTool.yuan2point(this.getPayMoney());
+		model.payMoney = MoneyTool.yuan2point(this.totalPayMoney);
 		return model;
+	}
+}
+
+export class PosPayModel extends CashPayModel implements IPay{
+	constructor(id?:number){
+		super(id);
+		this.code = PayType.POS;
+		this.name = "POS";
+		this.payLevel = 70;
 	}
 }
 
@@ -171,11 +196,21 @@ export class CardPayModel extends BasePayModel implements IPay {
 	balance:number;
 	//type:number;
 	kind:number;
+	cardMoney:number;
 	cardModel:CardBaseModel;
 
 	constructor(id?:number){
 		super(id);
-		this.code = 30;
+		this.code = PayType.CARD;
+	}
+	get hasTip():string{
+		return true;
+	}
+	get payMoney(){
+		return this.cardMoney;
+	}
+	set payMoney(value:number){
+		this.cardMoney = value;
 	}
 	get moneyOrTimes(){
 		if(this.cardModel){
@@ -208,6 +243,9 @@ export class CardPayModel extends BasePayModel implements IPay {
 		}
 	}
 
+	get totalPayMoney():number{
+		return this.discountMoney + this.cardMoney;
+	}
 	getPayModelId(){
 		if(this.cardModel){
 			return this.cardModel.id;
@@ -218,8 +256,17 @@ export class CardPayModel extends BasePayModel implements IPay {
 	updateBalance(payMoney:number){
 		this.balance -= payMoney||0;
 	}
-	setDiscountMoney(unpay:number,itemId:number){
-		this.discountMoney = unpay||0;
+	setDiscountMoney(unpay:number,itemId:number,storeId:number,usePayRule?:boolean){
+		if(!this.cardModel){
+			return 0;
+		}
+		if(usePayRule){
+			this.discountMoney = this.cardModel.getDiscountMoney(unpay,itemId,storeId);
+		}else{
+			this.discountMoney = unpay;
+		}
+		unpay = MoneyTool.sub(unpay,this.discountMoney);
+		this.cardMoney = this.cardModel.getCardMoney(unpay);
 	}
 	checkPay(option:{itemId:number,itemCategory:string,storeId:number}){
 		if(this.cardModel){
@@ -233,9 +280,7 @@ export class CardPayModel extends BasePayModel implements IPay {
 			this.noInfo = '不能支付';
 		}
 	}
-	getPayMoney(){
-		return this.discountMoney || 0;
-	}
+
 	serializer(model:any){
 		super.serializer(model);
 		this.balance = MoneyTool.point2yuan(model.balance);
@@ -252,7 +297,8 @@ export class WalletPayModel extends BasePayModel implements IPay{
 	memberModel:MemberModel;
 	constructor(id?:number){
 		super(id);
-		this.code = 31;
+		this.code = PayType.WALLET;
+		this.name = "钱包";
 	}
 	getPayModelId(){
 		if(this.memberModel){
@@ -264,9 +310,7 @@ export class WalletPayModel extends BasePayModel implements IPay{
 	updateBalance(payMoney:number){
 		this.balance -= payMoney||0;
 	}
-	getPayMoney(){
-		return this.discountMoney || 0;
-	}
+
 	serializer(model:any){
 		super.serializer(model);
 		this.memberModel = new MemberModel(model.memberId,MoneyTool.point2yuan(model.balance));
