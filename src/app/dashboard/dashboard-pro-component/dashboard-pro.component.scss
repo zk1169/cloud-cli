@@ -9,7 +9,6 @@ $side-menu-width-small: 60px;
 
 .dashboard-pro,
 .mw-sidebar,
-md-toolbar,
 .mw-toolbar,
 .menu-header {
     transition: all 0.2s;
@@ -19,12 +18,6 @@ md-toolbar,
     padding-top: $toolbar-height;
     padding-left: $side-menu-width;
     background: #EAEBEC;
-    md-toolbar {
-        padding: 0;
-        md-toolbar-row {
-            height: $toolbar-height;
-        }
-    }
     .mw-sidebar {
         width: $side-menu-width;
         position: fixed;
@@ -32,15 +25,6 @@ md-toolbar,
         top: 0;
         height: 100vh;
         background: #2b333d;
-        // md-toolbar {
-        //     md-toolbar-row {
-        //         text-align: center;
-        //         i {
-        //             color: #fff;
-        //         }
-        //     }
-        //     background: #2b333d;
-        // }
         .menu-header {
             height: 50px;
             text-align: center;
@@ -74,7 +58,7 @@ md-toolbar,
         //min-height: 100vh;
         width: 100%;
         .mw-toolbar {
-            z-index: 4;
+            z-index: 5;
             background: white;
             height: $toolbar-height;
             min-height: $toolbar-height;
