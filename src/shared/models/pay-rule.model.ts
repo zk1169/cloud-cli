@@ -62,6 +62,21 @@ export class StoreRule{
 		return dMoney;
 	}
 
+	getPayInfo():string{
+		let pInfo:string;
+		switch(this.discountType){
+			case DiscountType.DISCOUNT:
+				pInfo = this.discountValue/10 + '折';
+				break;
+			case DiscountType.REDUCE:
+				pInfo = '减免' + this.discountValue;
+			case DiscountType.NEW_PRICE:
+				pInfo = '会员价' + this.discountValue;
+				break;
+		}
+		return pInfo;
+	}
+
 	serializer(model:any,userService?:UserService){
 		this.storeId = +model.storeIds;
 		this.storeName = model.storeName;
@@ -127,6 +142,26 @@ export class PayRule{
 				break;
 		}
 		return payFlag;
+	}
+
+	getPayInfo(storeId:number):string{
+		let pInfo:string;
+		if(this.storeRuleList && this.storeRuleList.length > 0){
+			if(this.type == PayRuleType.ALL){
+				//全店通用
+				pInfo = this.storeRuleList[0].getPayInfo();
+			}else{
+				this.storeRuleList.forEach((item:StoreRule)=>{
+					if(item && item.storeId == storeId){
+						pInfo = item.getPayInfo();
+						//return;
+					}
+				});
+			}
+		}else{
+			pInfo = '';
+		}
+		return pInfo;
 	}
 
 	getDiscountMoney(unpay:number,storeId:number):number{

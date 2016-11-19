@@ -48,7 +48,7 @@
 					<span flex="25" layout="column">
 						<span *ngFor="let payItem of item.payList" layout="row">
 							<span flex="60" class="text-right">{{payItem.name}}:&nbsp;</span>
-							<span class="mw-price">{{payItem.totalPayMoney | mwCurrency}}</span>
+							<span class="mw-price">{{payItem.payMoney | mwCurrency}}</span>
 						</span>
 					</span>
 					<span flex="15"></span>
@@ -59,8 +59,8 @@
 				<span flex="25" class="text-right">合计应收:&nbsp;</span>
 				<span flex="25" class="mw-price">{{order.originMoney|mwCurrency}}</span>
 				<span flex="25" class="text-right" layout="row">
-					<span flex="60">共计:&nbsp;</span>
-					<span class="mw-price">{{order.originMoney|mwCurrency}}</span>
+					<span flex="60">实收共计:&nbsp;</span>
+					<span class="mw-price">{{order.discountMoney|mwCurrency}}</span>
 				</span>
 			</div>
 		</ul>

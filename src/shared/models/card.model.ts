@@ -40,6 +40,14 @@ export class CardBaseModel extends ItemBaseModel{
 		return result;
 	}
 
+	getPayInfo(storeId:number):string{
+		if(this.useRule){
+			return this.useRule.getPayInfo(storeId);
+		}else{
+			return '';
+		}
+	}
+
 	getDiscountMoney(unpay:number,itemId:number,storeId:number):number{
 		let dMoney = unpay;
 		if(this.useRule){

@@ -64,7 +64,7 @@ export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
 	addPayItem(payItem:IPay){
 		if(this.unPayMoney > 0){
             //let cashPay = new CashPayModel();
-            payItem.discountMoney = this.unPayMoney;
+            payItem.payMoney = this.unPayMoney;
             this.payList.push(payItem);
         }
 	}

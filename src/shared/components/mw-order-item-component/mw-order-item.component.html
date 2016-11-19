@@ -4,7 +4,8 @@
             <span class="input-group-addon">
                 <i class="fa fa-file"></i>
             </span>
-            <input [(ngModel)]="orderItem.itemModel.name" type="text" class="form-control" placeholder="名称" name="itemName" disabled/>
+            <!-- <input [(ngModel)]="orderItem.itemModel.name" type="text" class="form-control" placeholder="名称" name="itemName" disabled/> -->
+            <span class="form-control">{{orderItem.itemModel.name}}</span>
         </div>
         <div class="input-group" flex="15">
             <input [(ngModel)]="orderItem.itemModel.price" type="number" class="form-control" placeholder="单价" name="itemPrice" />
@@ -35,12 +36,15 @@
     				<span class="input-group-addon mw-click" (click)="removePayItem(idx)" tooltip="删除支付方式">
             		    <i class="fa fa-minus-circle"></i>
             		</span>
-        		    <input [(ngModel)]="item.name" type="text" class="form-control" placeholder="支付方式" name="itemCount" disabled />
+                    <template #toolTipTemplate let-model="model">
+                        <div>折扣优惠:{{model.discountMoney|mwCurrency}}</div>
+                        <div>卡扣:{{model.cardMoney|mwCurrency}}</div>
+                    </template>
+        		    <!-- <input [ngModel]="item.getPayInfo(order.store.id)" type="text" class="form-control" placeholder="支付方式" name="itemCount" disabled /> -->
+                    <span class="form-control" [tooltipHtml]="toolTipTemplate" [tooltipContext]="item" [tooltipEnable]="item.hasTip" tooltipClass="mw-tooltip">
+                        {{item.getPayInfo(order.store.id)}}
+                    </span>
         		</div>
-                <template #toolTipTemplate let-model="model">
-                    <div>折扣优惠:{{model.discountMoney}}</div>
-                    <div>卡扣:{{model.cardMoney}}</div>
-                </template>
         		<div class="input-group" flex="33" [tooltipHtml]="toolTipTemplate" [tooltipContext]="item" [tooltipEnable]="item.hasTip" tooltipClass="mw-tooltip">
         		    <input [(ngModel)]="item.payMoney" type="number" class="form-control" placeholder="支付金额" />
         		    <span *ngIf="item.moneyOrTimes=='money'" class="input-group-addon">¥</span>

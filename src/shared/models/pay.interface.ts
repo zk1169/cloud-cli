@@ -17,7 +17,7 @@ export interface IPay{
 	name:string;
 
 	//是否有支付详情说明
-	hasTip:string;
+	hasTip:boolean;
 
 	//折扣金额
 	discountMoney:number;
@@ -43,6 +43,9 @@ export interface IPay{
 	//支付的金额或次数
 	payAmount:number;
 
+	//支付方式信息
+	getPayInfo(storeId:number):string;
+
 	//获取支付方式的id
 	getPayModelId():number;
 
@@ -63,6 +66,7 @@ export class BasePayModel extends BaseModel{
 	payLevel:number;
 	present:boolean;
 
+	payMoney:number;
 	discountMoney:number;
 	payTimes:number;
 	payFlag:boolean;
@@ -70,9 +74,10 @@ export class BasePayModel extends BaseModel{
 
 	constructor(id?:number){
 		super(id);
+		this.discountMoney = 0;
 	}
-
-	get hasTip():string{
+	
+	get hasTip():boolean{
 		return false;
 	}
 	get moneyOrTimes():string{
@@ -83,16 +88,19 @@ export class BasePayModel extends BaseModel{
 		return this.payMoney;
 	}
 
-	get payMoney():number{
-		return this.discountMoney || 0;
-	}
-	set payMoney(value:number){
-		this.discountMoney = value;
-	}
+	// get payMoney():number{
+	// 	return this.discountMoney || 0;
+	// }
+	// set payMoney(value:number){
+	// 	this.discountMoney = value;
+	// }
 	get totalPayMoney():number{
 		return this.payMoney;
 	}
 
+	getPayInfo(storeId:number):string{
+		return this.name;
+	}
 	checkPay(option:{itemId:number,itemCategory:string,storeId:number}):void{
 		this.payFlag = true;
 	}
@@ -101,7 +109,7 @@ export class BasePayModel extends BaseModel{
 
 	}
 	setDiscountMoney(unpay:number,itemId:number,storeId:number,usePayRule?:boolean):void{
-		this.discountMoney = unpay||0;
+		this.payMoney = unpay||0;
 	}
 	getPayModelId():number{
 		return 0;
@@ -203,7 +211,8 @@ export class CardPayModel extends BasePayModel implements IPay {
 		super(id);
 		this.code = PayType.CARD;
 	}
-	get hasTip():string{
+
+	get hasTip():boolean{
 		return true;
 	}
 	get payMoney(){
@@ -245,6 +254,18 @@ export class CardPayModel extends BasePayModel implements IPay {
 
 	get totalPayMoney():number{
 		return this.discountMoney + this.cardMoney;
+	}
+	getPayInfo(storeId:number):string{
+		if(this.cardModel){
+			let pInfo:string = this.cardModel.getPayInfo(storeId);
+			if(pInfo){
+				return this.name + '('+pInfo+')';
+			}else{
+				return this.name;
+			}
+		}else{
+			return this.name;
+		}
 	}
 	getPayModelId(){
 		if(this.cardModel){

@@ -84,8 +84,8 @@ export class OrderModel extends BaseModel implements ISerializer {
         let discount = 0;
         if(this.itemList){
             this.itemList.forEach((item:OrderItemModel,index:number)=>{
-                discount += item.totalMoney;
-            })
+                discount += item.discountMoney;
+            });
         }
         return discount;
     }

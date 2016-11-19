@@ -169,6 +169,9 @@ ul {
         //     color:$mw-a-hover-color;
         // }
     }
+    .mw-list-item + .mw-list-item{
+        border-top: 1px solid $mw-border-light;
+    }
     .list-item-empty{
         text-align: center;
         margin: 50px 0px;
@@ -397,12 +400,13 @@ ul li {
 }
 
 /* Specify styling for tooltip contents */
+.tooltip .tooltip-inner,
 .tooltip.mw-tooltip .tooltip-inner {
   color: #880000;
   background-color: #ffff66;
   box-shadow: 0 6px 12px rgba(0,0,0,.175);
 }
-/* Hide arrow */
+.tooltip.top .tooltip-arrow,
 .tooltip.mw-tooltip.top .tooltip-arrow {
   //display: none;
   border-top-color:#ffff66;
