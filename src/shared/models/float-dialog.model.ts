@@ -1,5 +1,5 @@
 export interface IFloat{
-	floatOKClick(item:any):any;
+	floatOKClick(answer:any,floatName?:string):any;
 }
 
 export interface IDialog{

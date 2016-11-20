@@ -16,7 +16,7 @@ import { EventBus } from '../../services/eventbus.service';
 import { UserService } from '../../services/user.service';
 import { EmployeeService } from '../../services/employee.service';
 import { MwLoadingBarService } from '../../services/mw-loading-bar.service';
-import { EmployeeModel,EmployeeSearchModel } from '../../models/employee.model';
+import { EmployeeModel,EmployeePerformanceModel } from '../../models/employee.model';
 
 let selecteEmployeeComponent :MwSelectEmployeeComponent;
 
@@ -27,10 +27,8 @@ let selecteEmployeeComponent :MwSelectEmployeeComponent;
 })
 export class MwSelectEmployeeComponent extends BaseComponent implements OnDestroy {
     @Input() floatDialogModel:FloatDialogModel;
-    //@Output() itemSelectedEvent:EventEmitter<Object> = new EventEmitter();
 
     private el: HTMLElement;
-    //private employeeList:EmployeeSearchModel[];
     private employeeList:EmployeeModel[];
     private employeeSource:EmployeeModel[];
     private loading:Observable<Object>;
@@ -49,16 +47,6 @@ export class MwSelectEmployeeComponent extends BaseComponent implements OnDestro
     }
 
     ngOnInit(){
-        // this.employeeList = [];
-        // if(this.floatDialogModel.args.employeeList && this.floatDialogModel.args.employeeList.length>0){
-        //     this.floatDialogModel.args.employeeList.forEach((item:EmployeeModel)=>{
-        //         let employeeSearch = new EmployeeSearchModel(item,this.employeeService,this.floatDialogModel.args.storeId);
-        //         this.employeeList.push(employeeSearch);
-        //     });
-        // }else{
-        //     this.employeeList.push(new EmployeeSearchModel(null,this.employeeService,this.floatDialogModel.args.storeId));
-        // }
-
         this.employeeList = this.floatDialogModel.args.employeeList;
         if(!this.employeeList){
             this.employeeList = [];
@@ -86,12 +74,11 @@ export class MwSelectEmployeeComponent extends BaseComponent implements OnDestro
         if(!this.employeeList){
             this.employeeList = [];
         }
-        //this.employeeList.push(new EmployeeSearchModel(null,this.employeeService,this.floatDialogModel.args.storeId));
         this.employeeList.push(new EmployeeModel());
     }
 
     okClick(){
-        this.floatDialogModel.parent.floatOKClick(null);
+        this.floatDialogModel.parent.floatOKClick(this.employeeList,'selectEmployee');
         this.floatDialogModel.show = false;
     }
     cancelClick(){

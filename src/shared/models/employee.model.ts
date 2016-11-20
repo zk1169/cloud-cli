@@ -2,7 +2,7 @@ import { ISerializer } from './base.model';
 import { PersonModel } from './person.model';
 import { StoreModel } from './store.model';
 import { MerchantModel,MerchantRoleModel,OrganizationModel } from './merchant.model';
-import { GenderType,MerchantType } from './mw.enum';
+import { GenderType,MerchantType,AppointType } from './mw.enum';
 import { EmployeeService } from '../services/employee.service';
 import { Observable } from 'rxjs/Observable';
 
@@ -62,35 +62,11 @@ export class EmployeeModel extends PersonModel implements ISerializer{
 	}
 }
 
-export class EmployeeSearchModel{
-	searchText:string;
-	employeeSource:any[];
-	employeeModel:EmployeeModel;
-	storeId:number;
+export class EmployeePerformanceModel extends EmployeeModel{
+	appoint:AppointType;
 
-	constructor(employeeModel:EmployeeModel,employeeService:EmployeeService,storeId:number){
-		if(employeeModel){
-			this.employeeModel = employeeModel;
-		}else{
-			this.employeeModel = new EmployeeModel();
-		}
-		// this.storeId = storeId;
-		// this.employeeSource = Observable.create((observer: any) => {
-  //           employeeService.searchList(this.searchText, 1, 7,this.storeId)
-  //               .subscribe((result: any) => {
-  //                   observer.next(result.rows);
-  //               });
-  //       });
+	constructor(){
+		super();
 	}
 
-	get name(){
-		if(this.employeeModel){
-			return this.employeeModel.name;
-		}else{
-			return '';
-		}
-	}
-	set name(value){
-		this.searchText = value;
-	}
 }

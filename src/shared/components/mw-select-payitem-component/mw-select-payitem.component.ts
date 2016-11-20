@@ -73,7 +73,7 @@ export class MwSelectPayItemComponent extends BaseComponent implements OnDestroy
         }
         if(this.floatDialogModel){
             //let cloneItem = MwTool.cloneDeep(item);
-            this.floatDialogModel.parent.floatOKClick(item);
+            this.floatDialogModel.parent.floatOKClick(item,'selectPayItem');
             this.floatDialogModel.show = false;
         }
     }

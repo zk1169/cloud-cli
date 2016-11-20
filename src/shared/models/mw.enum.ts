@@ -108,3 +108,10 @@ export enum DiscountType{
     REDUCE = 2,//减免
     NEW_PRICE = 3//活动价或会员价
 }
+
+export enum AppointType{
+    TIME=1,//点钟
+    TRUN=2//轮牌
+}
+
+
