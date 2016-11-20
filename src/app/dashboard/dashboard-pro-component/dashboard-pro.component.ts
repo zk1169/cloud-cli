@@ -26,6 +26,7 @@ export class DashboardProComponent {
     private empInfo:EmployeeModel;
     private selectItemFloat: FloatDialogModel;
     private selectPayItemFloat: FloatDialogModel;
+    private selectEmployeeFloat: FloatDialogModel;
     private parentComponent:IDialog;//弹出窗口父组件
 
     @ViewChild('mwModal') mwModal:ModalDirective;
@@ -81,6 +82,10 @@ export class DashboardProComponent {
         this.eventBus.subscribe('show.selectPayItem', (message: FloatDialogModel) => {
             this.selectPayItemFloat = message;
         });
+        this.eventBus.subscribe('show.selectEmployee', (message: FloatDialogModel) => {
+            this.selectEmployeeFloat = message;
+        });
+        
         this.eventBus.subscribe('show.modal', (message: IDialog) => {
             this.parentComponent = message;
             this.mwModal.show();

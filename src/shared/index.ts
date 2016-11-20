@@ -38,6 +38,7 @@ export { MwLoaderService } from './services/mw-loader.service';
 export { CommonService } from './services/common.service';
 export { OrderService } from './services/order.service';
 export { MemberService } from './services/member.service';
+export { EmployeeService } from './services/employee.service';
 export { DialogService } from './services/dialog.service';
 export { AppointOrderService } from './services/appoint-order.service';
 export { ServiceItemService } from './services/service-item.service';

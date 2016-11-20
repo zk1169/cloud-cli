@@ -63,7 +63,13 @@
     		</div>
     		<br>
     		<div>
-    			<span>服务人员：未指定服务人员；</span>
+    			<span (click)="addEmployeeClick($event)" class="mw-click">
+                    <span>服务人员：</span>
+                    <span *ngIf="!orderItem.employeeList || orderItem.employeeList.length==0">未指定服务人员；</span>
+                    <span *ngFor="let empItem of orderItem.employeeList">
+                        <span>{{empItem.name}}</span>
+                    </span>
+                </span>
     		</div>
     	</div>
     </div>

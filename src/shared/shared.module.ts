@@ -18,6 +18,7 @@ import { MwRadioComponent } from './components/mw-radio-component/mw-radio.compo
 import { MwOrderItemComponent } from './components/mw-order-item-component/mw-order-item.component';
 import { MwSelectItemComponent } from './components/mw-select-item-component/mw-select-item.component';
 import { MwSelectPayItemComponent } from './components/mw-select-payitem-component/mw-select-payitem.component';
+import { MwSelectEmployeeComponent } from './components/mw-select-employee-component/mw-select-employee.component';
 import { MwFormComponent } from './components/mw-form-component/mw-form.component';
 import { MwSelectComponent } from './components/mw-select-component/mw-select.component';
 import { MwSelectFormComponent } from './components/mw-select-component/mw-select.component';
@@ -70,6 +71,7 @@ import { MwFocusDirective } from './directives/mw-focus.directive';
         MwOrderItemComponent,
         MwSelectItemComponent,
         MwSelectPayItemComponent,
+        MwSelectEmployeeComponent,
         MwFormComponent,
         MwSelectComponent,
         MwSelectFormComponent,
@@ -113,6 +115,7 @@ import { MwFocusDirective } from './directives/mw-focus.directive';
         MwOrderItemComponent,
         MwSelectItemComponent,
         MwSelectPayItemComponent,
+        MwSelectEmployeeComponent,
         MwFormComponent,
         MwSelectComponent,
         MwSelectFormComponent,

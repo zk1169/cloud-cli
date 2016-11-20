@@ -1,0 +1,19 @@
+@import '../../styles/scss/color-const.scss';
+
+.select-employee-wrap{
+	background-color:#fff;
+	position:absolute;
+	width:350px;
+	z-index:4;
+	.select-employee-header{
+		background-color:$body-bg;
+	}
+	.select-employee-header,
+	.select-employee-body,
+	.float-action{
+		padding:10px 20px;
+	}
+	.float-action{
+		text-align:right;
+	}
+}

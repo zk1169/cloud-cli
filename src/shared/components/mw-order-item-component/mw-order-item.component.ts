@@ -30,6 +30,9 @@ export class MwOrderItemComponent extends BaseComponent implements IFloat {
     addMorePayItem(ev:any){
         this.eventNotice("show.selectPayItem",new FloatDialogModel(this,ev.target,{order:this.order,orderItem:this.orderItem,memberId:this.memberId}));
     }
+    addEmployeeClick(ev:any){
+        this.eventNotice("show.selectEmployee",new FloatDialogModel(this,ev.target,{storeId:this.order.store.id,employeeList:this.orderItem.employeeList}));
+    }
     //选中一个支付方式
     floatOKClick(item:IPay){
         let canUseDiscountRule:boolean = this.orderItem.canUseDiscountRule(item);

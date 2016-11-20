@@ -1,0 +1,24 @@
+<div [mwBusy]="loading" [style.left.px]="floatDialogModel.left" [style.top.px]="floatDialogModel.top" class="select-employee-wrap mw-shadow">
+    <div class="select-employee-header">请选择服务人员</div>
+    <div class="select-employee-body">
+        <div *ngFor="let item of employeeList" layout="row">
+            <!-- <mw-autocomplete flex="60" [dataSource]="item.employeeSource" [selectedItem]="item.employeeModel" [searchText]="item.searchText" 
+                displayName="name" placeholder="技师名称/工号"></mw-autocomplete> -->
+            <mw-select flex="60"
+                [allowClear]="true"
+                [options]="employeeSource"
+                [selectedItem]="item"
+                placeholder="技师名称/工号">
+            </mw-select>
+            <select flex-offset="5" flex="35" [(ngModel)]="item.appoint">
+                <option [value]="1">点钟</option>
+                <option [value]="2">轮牌</option>
+            </select>
+        </div>
+    </div>
+    <div class="float-action">
+        <button class="btn" (click)="addEmployeeClick()">添加服务人员</button>
+        <button class="btn" (click)="cancelClick()">取消</button>
+        <button class="btn btn-primary" (click)="okClick()">确定</button>
+    </div>
+</div>

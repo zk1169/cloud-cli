@@ -37,7 +37,7 @@ import { Observable } from 'rxjs/Observable';
     styleUrls: ['./mw-autocomplete.component.scss']
 })
 export class MwAutocompleteComponent implements OnChanges{
-    private searchText: string = '';
+    @Input() searchText: string = '';
     private typeaheadLoading: boolean = false;
     private typeaheadNoResults: boolean = false;
     @Input() dataSource: Observable < any > ;
@@ -53,7 +53,7 @@ export class MwAutocompleteComponent implements OnChanges{
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes) {
-            if (changes['selectedItem']) {
+            if (changes['selectedItem'] && changes['selectedItem'].currentValue) {
                 this.searchText = changes['selectedItem'].currentValue.name;
             }
         }

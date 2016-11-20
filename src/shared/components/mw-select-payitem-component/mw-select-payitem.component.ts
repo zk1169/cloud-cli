@@ -32,7 +32,7 @@ let selectePayItemComponent :MwSelectPayItemComponent;
 })
 export class MwSelectPayItemComponent extends BaseComponent implements OnDestroy {
     @Input() floatDialogModel:FloatDialogModel;
-    @Output() itemSelectedEvent:EventEmitter<Object> = new EventEmitter();
+    //@Output() itemSelectedEvent:EventEmitter<Object> = new EventEmitter();
 
     private el: HTMLElement;
     private loading:Observable<Object>;

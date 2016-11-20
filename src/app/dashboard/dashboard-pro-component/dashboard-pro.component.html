@@ -60,6 +60,8 @@
     </mw-select-item>
     <mw-select-payitem *ngIf="selectPayItemFloat?.show" [floatDialogModel]="selectPayItemFloat">
     </mw-select-payitem>
+    <mw-select-employee *ngIf="selectEmployeeFloat?.show" [floatDialogModel]="selectEmployeeFloat">
+    </mw-select-employee>
     <div bsModal #mwModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="z-index:1051;">
         <mw-card-rule-dialog *ngIf="parentComponent?.dialogName=='card-rule-dialog'" (onHide)="hideModal($event)" [parent]="parentComponent"></mw-card-rule-dialog>
     </div>

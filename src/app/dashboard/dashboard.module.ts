@@ -8,7 +8,8 @@ import {
   OrderService,
   ServiceItemService,
   CardService,
-  MemberService
+  MemberService,
+  EmployeeService
 }       from '../../shared/index';
 import { OrderResolve } from './order-component/order-resolve.service';
 import { DashboardProResolve } from './dashboard-pro-component/dashboard-pro-resolve.service';
@@ -42,7 +43,8 @@ import { DashboardRoutes }            from './dashboard.routes';
     OrderService,
     ServiceItemService,
     CardService,
-    MemberService
+    MemberService,
+    EmployeeService
   ]
 })
 export class DashboardModule { }
