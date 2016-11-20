@@ -3,7 +3,7 @@
         <tab *ngFor="let item of itemList" heading="{{item.name}}">
         	<ul class="pay-ul">
         		<li *ngFor="let subItem of item.subItemList" class="pay-item-wrap mw-click mw-bg-primary-hover mw-bg-text-hover mw-border-primary-hover" 
-                    (click)="payItemClick(subItem)" [class.disable]="!subItem.payFlag" [tooltip]="subItem.noInfo" [tooltipEnable]="!subItem.payFlag">
+                    (click)="payItemClick(subItem)" [class.disable]="!subItem.payFlag" [tooltip]="subItem.noInfo" [tooltipEnable]="subItem.noInfo?.length>0">
         			<div layout="column" layout-align="space-around center">
         				<i class="pay-logo icon-xianjinzhifu" [class.more-info-iheight]="subItem.moreInfo"></i>
         				<span class="text-overflow">{{subItem.name}}</span>

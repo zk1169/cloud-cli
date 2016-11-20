@@ -4,6 +4,7 @@
  import { MwTool } from './mw-tool.model';
  import { CardBaseModel } from './card.model';
  import { MemberModel } from './member.model';
+ import { DiscountType } from './mw.enum';
 
 export interface IPay{
 	id:number;
@@ -18,6 +19,9 @@ export interface IPay{
 
 	//是否有支付详情说明
 	hasTip:boolean;
+
+	//优惠类型
+	discountType:DiscountType;
 
 	//折扣金额
 	discountMoney:number;
@@ -56,7 +60,7 @@ export interface IPay{
 	setDiscountMoney(unpay:number,itemId:number,storeId:number,usePayRule?:boolean):void;
 
 	//检查能否支付
-	checkPay(option:{itemId:number,itemCategory:string,storeId:number}):void;
+	checkPay(option:{itemId:number,itemCategory:string,storeId:number,canUseDiscountRule?:boolean}):void;
 }
 
 export class BasePayModel extends BaseModel{
@@ -80,6 +84,9 @@ export class BasePayModel extends BaseModel{
 	get hasTip():boolean{
 		return false;
 	}
+	get discountType():DiscountType{
+		return DiscountType.NONE; 
+	}
 	get moneyOrTimes():string{
 		return "money";
 	}
@@ -101,7 +108,7 @@ export class BasePayModel extends BaseModel{
 	getPayInfo(storeId:number):string{
 		return this.name;
 	}
-	checkPay(option:{itemId:number,itemCategory:string,storeId:number}):void{
+	checkPay(option:{itemId:number,itemCategory:string,storeId:number,canUseDiscountRule:boolean}):void{
 		this.payFlag = true;
 	}
 
@@ -212,6 +219,13 @@ export class CardPayModel extends BasePayModel implements IPay {
 		this.code = PayType.CARD;
 	}
 
+	get discountType():DiscountType{
+		if(this.cardModel){
+			return this.cardModel.discountType;
+		}else{
+			return DiscountType.NONE; 
+		}
+	}
 	get hasTip():boolean{
 		return true;
 	}
@@ -284,12 +298,12 @@ export class CardPayModel extends BasePayModel implements IPay {
 		if(usePayRule){
 			this.discountMoney = this.cardModel.getDiscountMoney(unpay,itemId,storeId);
 		}else{
-			this.discountMoney = unpay;
+			this.discountMoney = 0;
 		}
 		unpay = MoneyTool.sub(unpay,this.discountMoney);
 		this.cardMoney = this.cardModel.getCardMoney(unpay);
 	}
-	checkPay(option:{itemId:number,itemCategory:string,storeId:number}){
+	checkPay(option:{itemId:number,itemCategory:string,storeId:number,canUseDiscountRule?:boolean}){
 		if(this.cardModel){
 			let checkResult = this.cardModel.checkPay(option);
 			if(checkResult){
@@ -299,6 +313,9 @@ export class CardPayModel extends BasePayModel implements IPay {
 		}else{
 			this.payFlag = false;
 			this.noInfo = '不能支付';
+		}
+		if(this.payFlag && option.canUseDiscountRule == false){
+			this.noInfo = '不能同时享有两个折扣优惠哦!';
 		}
 	}
 

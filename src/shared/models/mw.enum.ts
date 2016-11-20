@@ -103,6 +103,7 @@ export enum OrderStatus{
 }
 
 export enum DiscountType{
+    NONE = 0,//没有优惠
     DISCOUNT = 1,//折扣
     REDUCE = 2,//减免
     NEW_PRICE = 3//活动价或会员价

@@ -1,5 +1,5 @@
 import { BaseModel,ISerializer,IFilter } from './base.model';
-import { OrderItemType } from './mw.enum';
+import { OrderItemType,DiscountType } from './mw.enum';
 import { ItemBaseModel } from './item-base.model';
 import { ServiceItemModel } from './service-item.model';
 import { EmployeeModel } from './employee.model'; 
@@ -59,6 +59,19 @@ export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
 
 	set totalMoney(value :number){
 		this._totalMoney = value;
+	}
+
+	//能否能再次使用折扣优惠
+	canUseDiscountRule(payItem:IPay){
+		let useRule:boolean = true;
+		if(this.payList){
+			this.payList.forEach((item:IPay)=>{
+				if(item.discountType == DiscountType.DISCOUNT){
+					useRule = false;
+				}
+			});
+		}
+		return useRule;
 	}
 
 	addPayItem(payItem:IPay){

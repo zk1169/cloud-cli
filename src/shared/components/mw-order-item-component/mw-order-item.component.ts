@@ -32,8 +32,9 @@ export class MwOrderItemComponent extends BaseComponent implements IFloat {
     }
     //选中一个支付方式
     floatOKClick(item:IPay){
-        //item.discountMoney = this.orderItem.unPayMoney;
-        item.setDiscountMoney(this.orderItem.unPayMoney,this.orderItem.itemModel.id,this.order.store.id,true);
+        let canUseDiscountRule:boolean = this.orderItem.canUseDiscountRule(item);
+
+        item.setDiscountMoney(this.orderItem.unPayMoney,this.orderItem.itemModel.id,this.order.store.id,canUseDiscountRule);
         this.orderItem.payList.push(item);
     }
     removePayItem(index:number){

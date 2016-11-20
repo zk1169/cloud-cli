@@ -144,12 +144,18 @@ export class MwSelectPayItemComponent extends BaseComponent implements OnDestroy
                         subItem.updateBalance(payAmount);
                     }
                     
+                    //能否使用折扣优惠
+                    let canUseDiscountRule:boolean
+                    if(subItem.code == PayType.CARD || subItem.code == PayType.ACTIVITY || subItem.code == PayType.FREE){
+                        canUseDiscountRule = this.floatDialogModel.args.orderItem.canUseDiscountRule(subItem);
+                    }
                     //检查能否支付
                     subItem.checkPay(
                         {
                             itemId:this.floatDialogModel.args.orderItem.itemModel.id,
                             itemCategory:this.floatDialogModel.args.orderItem.itemModel.categoryLevel,
-                            storeId:this.floatDialogModel.args.storeId
+                            storeId:this.floatDialogModel.args.storeId,
+                            canUseDiscountRule:canUseDiscountRule
                         }
                     );
                 })

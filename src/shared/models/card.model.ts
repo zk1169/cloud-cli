@@ -1,6 +1,5 @@
 import { ItemBaseModel } from './item-base.model';
-import { CardType } from './mw.enum';
-import { OrderItemType } from './mw.enum';
+import { CardType,OrderItemType,DiscountType } from './mw.enum';
 import { PayRule } from './pay-rule.model';
 import { UserService } from '../services/user.service';
 
@@ -16,6 +15,28 @@ export class CardBaseModel extends ItemBaseModel{
 		super(id);
 		this.type = OrderItemType.CARD;
 		this.cardType = type;
+	}
+
+	get discountType():DiscountType{
+		if(this.useRule){
+			return this.useRule.discountType;
+		}else{
+			return DiscountType.NONE; 
+		}
+	}
+
+	get moneyOrTimes(){
+		let flag:string;
+		switch(this.cardType){
+			default:
+				flag = "money";
+				break;
+			case CardType.TIMES_TOTAL:
+			case CardType.TIMES:
+				flag = "times";
+				break;
+		}
+		return flag;
 	}
 
 	checkPay(option:{itemId:number,itemCategory:string,storeId:number}){
@@ -58,20 +79,6 @@ export class CardBaseModel extends ItemBaseModel{
 
 	getCardMoney(unpay:number){
 		return 0;
-	}
-
-	get moneyOrTimes(){
-		let flag:string;
-		switch(this.cardType){
-			default:
-				flag = "money";
-				break;
-			case CardType.TIMES_TOTAL:
-			case CardType.TIMES:
-				flag = "times";
-				break;
-		}
-		return flag;
 	}
 
 	static serializer(model:any,userService?:UserService){

@@ -1,6 +1,7 @@
 import { PayRuleType,PresentType,DiscountType } from './mw.enum';
 import { UserService } from '../services/user.service';
 import { MoneyTool } from './money-tool.model';
+import { MwCardRulePipe } from '../pipes/mw-card-rule.pipe';
 
 export class CardPresentRule{
 	name:string;
@@ -48,7 +49,7 @@ export class StoreRule{
 	}
 
 	getDiscountMoney(unpay:number):number{
-		let dMoney:number;
+		let dMoney:number = unpay;
 		switch(this.discountType){
 			case DiscountType.DISCOUNT:
 				dMoney = MoneyTool.sub(unpay,unpay * this.discountValue/100);
@@ -63,18 +64,19 @@ export class StoreRule{
 	}
 
 	getPayInfo():string{
-		let pInfo:string;
-		switch(this.discountType){
-			case DiscountType.DISCOUNT:
-				pInfo = this.discountValue/10 + '折';
-				break;
-			case DiscountType.REDUCE:
-				pInfo = '减免' + this.discountValue;
-			case DiscountType.NEW_PRICE:
-				pInfo = '会员价' + this.discountValue;
-				break;
-		}
-		return pInfo;
+		// let pInfo:string;
+		// switch(this.discountType){
+		// 	case DiscountType.DISCOUNT:
+		// 		pInfo = this.discountValue/10 + '折';
+		// 		break;
+		// 	case DiscountType.REDUCE:
+		// 		pInfo = '减免' + this.discountValue;
+		// 	case DiscountType.NEW_PRICE:
+		// 		pInfo = '会员价' + this.discountValue;
+		// 		break;
+		// }
+		// return pInfo;
+		return new MwCardRulePipe().transform(this.discountValue,this.discountType);
 	}
 
 	serializer(model:any,userService?:UserService){
@@ -110,8 +112,21 @@ export class PayRule{
 	storeIds:string;
 	storeRuleList:StoreRule[];
 	selected:boolean;
+	useStoreRule:StoreRule;
 	
 	constructor(){}
+
+	get discountType():DiscountType{
+		if(this.useStoreRule){
+			return this.useStoreRule.discountType;
+		}else{
+			return DiscountType.NONE; 
+		}
+	}
+
+	get id(){
+		return this.type + '_' + this.typeId;
+	}
 
 	checkPay(option:{itemId:number,itemCategory:string,storeId:number}){
 		let payFlag:boolean = false;
@@ -141,51 +156,82 @@ export class PayRule{
 			case PayRuleType.ALL_CATEGORY:
 				break;
 		}
+		this.setUseStoreRule(option.storeId);
 		return payFlag;
 	}
 
+	//获取支付的详细信息
 	getPayInfo(storeId:number):string{
-		let pInfo:string;
-		if(this.storeRuleList && this.storeRuleList.length > 0){
-			if(this.type == PayRuleType.ALL){
-				//全店通用
-				pInfo = this.storeRuleList[0].getPayInfo();
-			}else{
-				this.storeRuleList.forEach((item:StoreRule)=>{
-					if(item && item.storeId == storeId){
-						pInfo = item.getPayInfo();
-						//return;
-					}
-				});
-			}
-		}else{
-			pInfo = '';
+		// let pInfo:string;
+		// if(this.storeRuleList && this.storeRuleList.length > 0){
+		// 	if(this.type == PayRuleType.ALL){
+		// 		//全店通用
+		// 		pInfo = this.storeRuleList[0].getPayInfo();
+		// 	}else{
+		// 		this.storeRuleList.forEach((item:StoreRule)=>{
+		// 			if(item && item.storeId == storeId){
+		// 				pInfo = item.getPayInfo();
+		// 				//return;
+		// 			}
+		// 		});
+		// 	}
+		// }else{
+		// 	pInfo = '';
+		// }
+		// return pInfo;
+
+		if(!this.useStoreRule){
+			this.setUseStoreRule(storeId);
 		}
-		return pInfo;
+		return this.useStoreRule.getPayInfo();
 	}
 
+	//获取折扣优惠金额
 	getDiscountMoney(unpay:number,storeId:number):number{
-		let dMoney:number;
+		// let dMoney:number;
+		// if(this.storeRuleList && this.storeRuleList.length > 0){
+		// 	if(this.type == PayRuleType.ALL){
+		// 		//全店通用
+		// 		dMoney = this.storeRuleList[0].getDiscountMoney(unpay);
+		// 	}else{
+		// 		this.storeRuleList.forEach((item:StoreRule)=>{
+		// 			if(item && item.storeId == storeId){
+		// 				dMoney = item.getDiscountMoney(unpay);
+		// 				//return;
+		// 			}
+		// 		});
+		// 	}
+		// }else{
+		// 	dMoney = unpay;
+		// }
+		// return dMoney;
+
+		if(!this.useStoreRule){
+			this.setUseStoreRule(storeId);
+		}
+		return this.useStoreRule.getDiscountMoney(unpay);
+	}
+
+	//设置使用的门店折扣
+	private setUseStoreRule(storeId:number){
+		let findRule:boolean = false;
 		if(this.storeRuleList && this.storeRuleList.length > 0){
 			if(this.type == PayRuleType.ALL){
 				//全店通用
-				dMoney = this.storeRuleList[0].getDiscountMoney(unpay);
+				this.useStoreRule = this.storeRuleList[0];
+				findRule = true;
 			}else{
 				this.storeRuleList.forEach((item:StoreRule)=>{
 					if(item && item.storeId == storeId){
-						dMoney = item.getDiscountMoney(unpay);
-						//return;
+						this.useStoreRule = item;
+						findRule = true;
 					}
 				});
 			}
-		}else{
-			dMoney = unpay;
 		}
-		return dMoney;
-	}
-
-	get id(){
-		return this.type + '_' + this.typeId;
+		if(!findRule){
+			this.useStoreRule = null;
+		}
 	}
 
 	static createAllStoreRule(){
