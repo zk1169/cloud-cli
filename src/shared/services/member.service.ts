@@ -25,11 +25,14 @@ export class MemberService {
         // if(storeId){
         //     data.query.push({ field: "storeId", value: storeId+"" });
         // }
+        let cacheKey:string;
         if(keyword){
             data.query.push({ field: "keyword", value: keyword,operation: "like" });
+        }else{
+            cacheKey = this.userService.HTTP_CACHE_SEARCH_MEMBER_FIRST;
         }
 
-        return this.httpService.request('/api/member/bill/list/search', 'post', data)
+        return this.httpService.requestCache('/api/member/bill/list/search', 'post', data,cacheKey)
             .map((res) => {
                 let result: any = {};
                 result.rows = [];

@@ -134,17 +134,52 @@ export class UserService {
     HTTP_CACHE_GET_ALL_ITEM:string = 'HTTP_CACHE_GET_ALL_ITEM_{0}';
     HTTP_CACHE_GET_ALL_ITEM_TYPE:string = 'HTTP_CACHE_GET_ALL_ITEM_TYPE';
     HTTP_CACHE_GET_ALL_TREE_MODEL_ITEM:string = 'HTTP_CACHE_GET_ALL_TREE_MODEL_ITEM_{0}';
+    HTTP_CACHE_SEARCH_MEMBER_FIRST:string = 'HTTP_CACHE_SEARCH_MEMBER_FIRST';
 
     getCache(key:string){
-        return this.cache[key];
+        if(key && this.cache[key]){
+            return this.cache[key].cacheValue;
+        }else{
+            return null;
+        }
     }
     setCache(key:string,value:any){
-        this.cache[key] = value;
+        if(key){
+            //this.cache[key] = value;
+            this.cache[key] = new MwCache(key,value);
+        }
     }
     clearAllCache(){
         this.cache = {};
     }
     clearCacheByKey(key:string){
         delete this.cache[key];
+    }
+
+}
+
+class MwCache{
+    //设置缓存的时间
+    private timespan:number;
+    
+    private value:any;
+    private key:string;
+
+    //缓存失效时间
+    static timeout:number = 1000*60*10;
+
+    constructor(key:string,value:any){
+        this.timespan = new Date().getTime();
+        this.key = key;
+        this.value = value;
+    }
+    get cacheValue(){
+        let currentTimespan = new Date().getTime();
+        console.log(this.key + ' from cache time :'+(currentTimespan - this.timespan)/1000+'s');
+        if(currentTimespan - this.timespan < MwCache.timeout){
+            return this.value;
+        }else{
+            return null;
+        }
     }
 }

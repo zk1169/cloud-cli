@@ -35,8 +35,9 @@ export class HttpService {
 
     //先检查缓存，如果缓存有，从缓存读取数据，否则请求api
     requestCache(url: string, method: string, data: any,cacheKey:string){
-        if(this.userService.getCache(cacheKey)){
-            return Observable.of(this.userService.getCache(cacheKey));
+        let cacheValue = this.userService.getCache(cacheKey);
+        if(cacheValue){
+            return Observable.of(cacheValue);
         }else{
             return this.request(url,method,data)
                 .map((res) => {
