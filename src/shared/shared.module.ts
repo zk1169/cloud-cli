@@ -37,6 +37,7 @@ import { MwEditServiceItemDialog } from './components/mw-edit-service-item-dialo
 import { MwEditCardDialog } from './components/mw-edit-card-dialog/mw-edit-card.dialog';
 import { MwCardRuleDialog } from './components/mw-card-rule-dialog/mw-card-rule.dialog';
 import { MwOrderConfirmDialog } from './components/mw-order-confirm-dialog/mw-order-confirm.dialog';
+import { MwOrderDetailDialog } from './components/mw-order-detail-dialog/mw-order-detail.dialog';
 
 import { MwCurrencyPipe } from './pipes/mw-currency.pipe';
 import { MwDatePipe,MwRelativeDatePipe } from './pipes/mw-date.pipe';
@@ -87,6 +88,7 @@ import { MwFocusDirective } from './directives/mw-focus.directive';
         MwEditCardDialog,
         MwCardRuleDialog,
         MwOrderConfirmDialog,
+        MwOrderDetailDialog,
         MwCurrencyPipe,
         MwDatePipe,
         MwRelativeDatePipe,
@@ -129,6 +131,7 @@ import { MwFocusDirective } from './directives/mw-focus.directive';
         MwEditCardDialog,
         MwCardRuleDialog,
         MwOrderConfirmDialog,
+        MwOrderDetailDialog,
         DatePipe,
         MwCurrencyPipe,
         MwDatePipe,

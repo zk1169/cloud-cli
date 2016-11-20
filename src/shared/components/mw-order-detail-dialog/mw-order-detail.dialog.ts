@@ -12,11 +12,11 @@ import { EventBus } from '../../services/eventbus.service';
 import { MwLoadingBarService } from '../../services/mw-loading-bar.service';
 
 @Component({
-    selector: 'mw-order-confirm-dialog',
-    templateUrl: './mw-order-confirm.dialog.html',
-    styleUrls: ['./mw-order-confirm.dialog.scss']
+    selector: 'mw-order-detail-dialog',
+    templateUrl: './mw-order-detail.dialog.html',
+    styleUrls: ['./mw-order-detail.dialog.scss']
 })
-export class MwOrderConfirmDialog extends BaseComponent {
+export class MwOrderDetailDialog extends BaseComponent {
     @Input() order:OrderModel;
     @Output('onHide') hideEvent:EventEmitter<Object> = new EventEmitter();
 

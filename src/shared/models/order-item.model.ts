@@ -45,6 +45,18 @@ export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
 		return MoneyTool.sub(this.totalMoney , _discountMoney);
 	}
 
+	get payMoney():number{
+		let _payMoney = 0;
+		if(this.payList && this.payList.length > 0){
+			this.payList.forEach((item:IPay,index:number)=>{
+				if(item.code){
+					_payMoney += item.payMoney;
+				}
+			});
+		}
+		return _payMoney;
+	}
+
 	get totalMoney():number{
 		if(this._totalMoney && this._totalMoney>0){
 			return this._totalMoney;

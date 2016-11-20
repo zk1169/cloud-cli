@@ -2,6 +2,7 @@ import { Component, OnInit ,OnDestroy, trigger, state, style, transition, animat
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
+import { ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
 import { 
     PaginationBaseComponent,
     OrderService,
@@ -49,6 +50,9 @@ export class OrderListComponent extends PaginationBaseComponent implements OnIni
     private MerchantTypeEnum = MerchantType;
     private storeList:QueryTagModel[];
     private routerList:{routerLink:string,routerName:string}[];
+    private dialogName:string;
+    private selectedOrder:OrderModel;
+    @ViewChild('modal') modal:ModalDirective;
 
     constructor(
         private orderService: OrderService,
@@ -106,6 +110,16 @@ export class OrderListComponent extends PaginationBaseComponent implements OnIni
     storeChanged(event:any){
         console.log("storeChanged,length="+event.length);
         this.navigate(1,this.searchText,event.value);
+    }
+    orderDetailClick(order:OrderModel){
+        this.dialogName = 'order-detail';
+        this.selectedOrder = order;
+        this.modal.show();
+    }
+    hideModal(answer?:any){
+        this.dialogName = null;
+        this.selectedOrder = null;
+        this.modal.hide();
     }
 
     private navigate(page:number,searchText ? : string,storeId?:number){

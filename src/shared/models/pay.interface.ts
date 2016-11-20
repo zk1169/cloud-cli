@@ -247,7 +247,7 @@ export class CardPayModel extends BasePayModel implements IPay {
 			let amount:number = 0;
 			switch(this.moneyOrTimes){
 				case "money":
-					amount = this.discountMoney;
+					amount = this.payMoney;
 					break;
 				case "times":
 					amount = this.payTimes;
