@@ -47,6 +47,7 @@ import { MwTextFormatPipe } from './pipes/mw-text-format.pipe';
 import { MwItemStatusPipe } from './pipes/mw-item-status.pipe';
 import { MwCardTypePipe } from './pipes/mw-card-type.pipe';
 import { MwCardRulePipe } from './pipes/mw-card-rule.pipe';
+import { MwAppointTypePipe } from './pipes/mw-appoint-type.pipe';
 
 import { MwBusyDirective } from './directives/mw-busy.directive';
 import { MwCollapseDirective } from './directives/mw-collapse.directive';
@@ -99,6 +100,7 @@ import { MwFocusDirective } from './directives/mw-focus.directive';
         MwItemStatusPipe,
         MwCardTypePipe,
         MwCardRulePipe,
+        MwAppointTypePipe,
         MwBusyDirective,
         MwCollapseDirective,
         MwFocusDirective
@@ -144,6 +146,7 @@ import { MwFocusDirective } from './directives/mw-focus.directive';
         MwItemStatusPipe,
         MwCardTypePipe,
         MwCardRulePipe,
+        MwAppointTypePipe,
         MwBusyDirective,
         MwCollapseDirective,
         MwFocusDirective

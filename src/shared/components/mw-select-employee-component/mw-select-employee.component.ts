@@ -17,6 +17,7 @@ import { UserService } from '../../services/user.service';
 import { EmployeeService } from '../../services/employee.service';
 import { MwLoadingBarService } from '../../services/mw-loading-bar.service';
 import { EmployeeModel,EmployeePerformanceModel } from '../../models/employee.model';
+import { AppointType } from '../../models/mw.enum';
 
 let selecteEmployeeComponent :MwSelectEmployeeComponent;
 
@@ -29,9 +30,10 @@ export class MwSelectEmployeeComponent extends BaseComponent implements OnDestro
     @Input() floatDialogModel:FloatDialogModel;
 
     private el: HTMLElement;
-    private employeeList:EmployeeModel[];
+    private employeeList:EmployeePerformanceModel[];
     private employeeSource:EmployeeModel[];
     private loading:Observable<Object>;
+    private AppointTypeEnum:any = AppointType;
 
     constructor(
         el: ElementRef, 
@@ -52,7 +54,7 @@ export class MwSelectEmployeeComponent extends BaseComponent implements OnDestro
             this.employeeList = [];
         }
         if(this.employeeList.length==0){
-            this.employeeList.push(new EmployeeModel());
+            this.employeeList.push(new EmployeePerformanceModel());
         }
         this.loading = this.employeeService.searchList(null,1,200,this.floatDialogModel.args.storeId)
             .map(
@@ -74,7 +76,7 @@ export class MwSelectEmployeeComponent extends BaseComponent implements OnDestro
         if(!this.employeeList){
             this.employeeList = [];
         }
-        this.employeeList.push(new EmployeeModel());
+        this.employeeList.push(new EmployeePerformanceModel());
     }
 
     okClick(){

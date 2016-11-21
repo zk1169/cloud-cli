@@ -117,6 +117,7 @@ export class BasePayModel extends BaseModel{
 	}
 	setDiscountMoney(unpay:number,itemId:number,storeId:number,usePayRule?:boolean):void{
 		this.payMoney = unpay||0;
+		this.discountMoney = 0;
 	}
 	getPayModelId():number{
 		return 0;

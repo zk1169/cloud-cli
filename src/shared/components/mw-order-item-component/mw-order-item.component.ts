@@ -37,6 +37,7 @@ export class MwOrderItemComponent extends BaseComponent implements IFloat {
     floatOKClick(answer:any,floatName:string){
         switch(floatName){
             case 'selectEmployee':
+                debugger
                 this.orderItem.employeeList = answer;
                 break;
             case 'selectPayItem':

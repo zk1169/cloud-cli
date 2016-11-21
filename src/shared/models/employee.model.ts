@@ -63,10 +63,23 @@ export class EmployeeModel extends PersonModel implements ISerializer{
 }
 
 export class EmployeePerformanceModel extends EmployeeModel{
-	appoint:AppointType;
+	private _appoint:AppointType;
+	performance:number;//业绩
+	buckle:number;//卡扣
+	commission:number;//提成
 
 	constructor(){
 		super();
+		this.appoint = AppointType.TIME;
 	}
-
+	get appoint(){
+		return this._appoint;
+	}
+	set appoint(value:any){
+		this._appoint = <AppointType>(+value);
+	}
+	serializer(model:any){
+		super.serializer(model);
+		return this;
+	}
 }

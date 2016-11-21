@@ -53,7 +53,8 @@
             <tabset class="mw-tab-grey">
                 <tab heading="综合消费">
                     <div class="order-tab-content">
-                        <div class="order-item-wrap mw-border-left2-primary" *ngFor="let item of order?.itemList;trackBy:trackByItem;let idx=index;">
+                        <div *ngFor="let item of order?.itemList;trackBy:trackByItem;let idx=index;let even=even;let odd=odd;"
+                            class="order-item-wrap" [class.mw-border-left2-primary]="even" [class.mw-border-left2-primary-2]="odd">
                             <mw-order-item [order]="order" [orderItem]="item" [memberId]="order.member.id" (removeSelfEvent)="removeItem($event)"></mw-order-item>
                         </div>
                         <div class="add-order-item text-center mw-primary" (click)="showSelectItem($event)">

@@ -5,7 +5,7 @@
                 <i class="fa fa-file"></i>
             </span>
             <!-- <input [(ngModel)]="orderItem.itemModel.name" type="text" class="form-control" placeholder="名称" name="itemName" disabled/> -->
-            <span class="form-control">{{orderItem.itemModel.name}}</span>
+            <span class="form-control cursor-disabled">{{orderItem.itemModel.name}}</span>
         </div>
         <div class="input-group" flex="15">
             <input [(ngModel)]="orderItem.itemModel.price" type="number" class="form-control" placeholder="单价" name="itemPrice" />
@@ -41,7 +41,7 @@
                         <div>卡扣:{{model.cardMoney|mwCurrency}}</div>
                     </template>
         		    <!-- <input [ngModel]="item.getPayInfo(order.store.id)" type="text" class="form-control" placeholder="支付方式" name="itemCount" disabled /> -->
-                    <span class="form-control" [tooltipHtml]="toolTipTemplate" [tooltipContext]="item" [tooltipEnable]="item.hasTip" tooltipClass="mw-tooltip">
+                    <span class="form-control cursor-disabled" [tooltipHtml]="toolTipTemplate" [tooltipContext]="item" [tooltipEnable]="item.hasTip" tooltipClass="mw-tooltip">
                         {{item.getPayInfo(order.store.id)}}
                     </span>
         		</div>
@@ -66,8 +66,9 @@
     			<span (click)="addEmployeeClick($event)" class="mw-click">
                     <span>服务人员：</span>
                     <span *ngIf="!orderItem.employeeList || orderItem.employeeList.length==0">未指定服务人员；</span>
-                    <span *ngFor="let empItem of orderItem.employeeList">
-                        <span>{{empItem.name}}</span>
+                    <span *ngFor="let empItem of orderItem.employeeList;let isLast=last;">
+                        <span>{{empItem.name}}({{empItem.appoint|mwAppointType}})</span>
+                        <span *ngIf="!isLast">;</span>
                     </span>
                 </span>
     		</div>

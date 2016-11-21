@@ -2,13 +2,13 @@ import { BaseModel,ISerializer,IFilter } from './base.model';
 import { OrderItemType,DiscountType } from './mw.enum';
 import { ItemBaseModel } from './item-base.model';
 import { ServiceItemModel } from './service-item.model';
-import { EmployeeModel } from './employee.model'; 
+import { EmployeePerformanceModel } from './employee.model'; 
 import { IPay,CashPayModel,BasePayModel } from './pay.interface';
 import { MoneyTool } from './money-tool.model';
 
 export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
 	itemType:OrderItemType;
-	employeeList:EmployeeModel[];
+	employeeList:EmployeePerformanceModel[];
 	payList:IPay[];
 	count:number;
 	itemModel:ItemBaseModel;
@@ -126,7 +126,7 @@ export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
 			// }
 			model.orderEmployees.forEach((item:any,index:number)=>{
 				if(item){
-					this.employeeList.push(new EmployeeModel().serializer(item));
+					this.employeeList.push(new EmployeePerformanceModel().serializer(item));
 				}
 			});
 		}

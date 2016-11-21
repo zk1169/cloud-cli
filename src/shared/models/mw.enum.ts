@@ -111,7 +111,7 @@ export enum DiscountType{
 
 export enum AppointType{
     TIME=1,//点钟
-    TRUN=2//轮牌
+    TURN=2//轮牌
 }
 
 

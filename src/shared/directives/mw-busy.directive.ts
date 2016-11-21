@@ -38,7 +38,7 @@ export class MwBusyDirective implements OnChanges{
     private createDivElement(){
         this.divElement = document.createElement("div");
         this.divElement.style.position = "absolute";
-        this.divElement.style.zIndex = "2";
+        this.divElement.style.zIndex = "100";
         this.divElement.style.left = "0px";
         this.divElement.style.top = "0px";
         this.divElement.style.width = "100%";
