@@ -141,6 +141,17 @@ export class OrderModel extends BaseModel implements ISerializer {
         }
         return count;
     }
+    get hasEmployee(){
+        let hasFlag:boolean = false;
+        if(this.itemList){
+            this.itemList.forEach((item:OrderItemModel)=>{
+                if(item.hasEmployee){
+                    hasFlag = true;
+                }
+            });
+        }
+        return hasFlag;
+    }
 
     //获取一个支付方式已经支付的金额或次数
     getPayById(payId:number):number{

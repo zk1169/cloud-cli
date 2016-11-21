@@ -82,6 +82,13 @@ export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
 	get cardMoney(){
 		return 888;
 	}
+	get hasEmployee(){
+        let hasFlag:boolean = false;
+        if(this.employeeList && this.employeeList.length > 0){
+            hasFlag = true;
+        }
+        return hasFlag;
+    }
 
 	//能否能再次使用折扣优惠
 	canUseDiscountRule(payItem:IPay){

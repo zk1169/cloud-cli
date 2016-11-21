@@ -78,6 +78,7 @@
                                     <span>{{emp.name}}</span>
                                 </span>
                             </span>
+                            <span *ngIf="!order.hasEmployee">未指定服务人员</span>
                         </div>
                         <div flex="10" class="mw-price">{{order.receivableMoney | mwCurrency}}</div>
                         <div flex="20">

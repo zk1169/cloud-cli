@@ -43,7 +43,7 @@
 			<li *ngFor="let item of order?.itemList" class="mw-list-item">
 				<div layout="row"> 
 					<span flex="25">{{item.itemModel?.name}}</span>
-					<span flex="10" class="mw-price">{{item.itemModel.price|mwCurrency}}</span>
+					<span flex="10" class="mw-price">{{item.itemModel?.price|mwCurrency}}</span>
 					<span flex="5">{{item.count}}</span>
 					<span flex="20" layout="column">
 						<span *ngFor="let payItem of item.payList" layout="row">
@@ -55,9 +55,9 @@
 						<div *ngFor="let empItem of item.employeeList" layout="row">
 							<span flex="50">{{empItem.name}}({{empItem.appoint|mwAppointType}})</span>
 							<span flex="50">
-								{{empItem.performance|mwCurrency}}/
-								{{empItem.cardMoney|mwCurrency}}/
-								{{empItem.commission|mwCurrency}}
+								{{empItem.performance||0 |mwCurrency}}/
+								{{empItem.cardMoney||0 |mwCurrency}}/
+								{{empItem.commission||0 |mwCurrency}}
 							</span>
 						</div>
 					</span>
@@ -65,8 +65,8 @@
 			</li>
 			<div class="border-top-default total-money" layout="row">
 				<span flex="25" class="text-right">合计应收:&nbsp;</span>
-				<span flex="25" class="mw-price">{{order.originMoney|mwCurrency}}</span>
-				<span flex="25" class="text-right" layout="row">
+				<span flex="15" class="mw-price">{{order.originMoney|mwCurrency}}</span>
+				<span flex="20" class="text-right" layout="row">
 					<span flex="60">实收共计:&nbsp;</span>
 					<span class="mw-price">{{order.payMoney|mwCurrency}}</span>
 				</span>
