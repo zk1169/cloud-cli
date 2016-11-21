@@ -2,8 +2,6 @@
     <div class="select-employee-header">请选择服务人员</div>
     <div class="select-employee-body">
         <div *ngFor="let item of employeeList;let idx=index;" layout="row" class="select-employee-item">
-            <!-- <mw-autocomplete flex="60" [dataSource]="item.employeeSource" [selectedItem]="item.employeeModel" [searchText]="item.searchText" 
-                displayName="name" placeholder="技师名称/工号"></mw-autocomplete> -->
             <mw-select flex="60"
                 [allowClear]="true"
                 [options]="employeeSource"

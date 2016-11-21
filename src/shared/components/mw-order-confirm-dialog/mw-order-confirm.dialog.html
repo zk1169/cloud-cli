@@ -7,18 +7,28 @@
             <h4 class="modal-title">确认收银</h4>
         </div>
         <div class="modal-body">
-            <div>
-                <mw-order-detail [order]="order"></mw-order-detail>
+            <div [ngSwitch]="step">
+                <mw-order-employee-performance *ngSwitchCase="1" [order]="order"></mw-order-employee-performance>
+                <mw-order-detail *ngSwitchCase="2" [order]="order"></mw-order-detail>
             </div>
         </div>
-        <div class="modal-action" layout="row">
-            <div class="checkbox checkbox-primary" flex layout="row" layout-align="start center">
-                <input type="checkbox" [(ngModel)]="isPrint" id="isPrint" name="isPrint">
-                <label for="isPrint">收银后打印小票</label>
+        <div [ngSwitch]="step">
+            <div *ngSwitchCase="1" class="modal-action text-right">
+                <button class="btn btn-primary" (click)="hide()">取消</button>
+                &nbsp;&nbsp;
+                <button class="btn btn-primary" (click)="nextClick()">下一步</button>
             </div>
-            <button class="btn btn-primary" (click)="hide()">取消</button>
-            &nbsp;&nbsp;
-            <button class="btn btn-primary" (click)="OKClick($event)">保存</button>
+            <div *ngSwitchCase="2" class="modal-action" layout="row">
+                <div class="checkbox checkbox-primary" flex layout="row" layout-align="start center">
+                    <input type="checkbox" [(ngModel)]="isPrint" id="isPrint" name="isPrint">
+                    <label for="isPrint">收银后打印小票</label>
+                </div>
+                <button class="btn btn-primary" (click)="previewClick()">上一步</button>
+                &nbsp;&nbsp;
+                <button class="btn btn-primary" (click)="hide()">取消</button>
+                &nbsp;&nbsp;
+                <button class="btn btn-primary" (click)="OKClick($event)">保存</button>
+            </div>
         </div>
     </div>
 </div>

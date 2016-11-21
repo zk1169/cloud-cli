@@ -20,7 +20,10 @@ import {
     OrderType,
     MwTool,
     StoreModel,
-    MwLoadingBarService
+    MwLoadingBarService,
+    SweetAlertService,
+    MwCurrencyPipe,
+    PayType
 } from '../../../shared/index';
 
 @Component({
@@ -55,6 +58,7 @@ export class OrderComponent extends BaseComponent implements OnInit,OnDestroy,IF
         private memberService: MemberService,
         private orderService: OrderService,
         private userService: UserService,
+        private sweetAlert: SweetAlertService,
         el: ElementRef,
         eventBus: EventBus,
         slimLoader: MwLoadingBarService
@@ -118,12 +122,12 @@ export class OrderComponent extends BaseComponent implements OnInit,OnDestroy,IF
     }
 
     cashBtnClick(){
-        let cashPay = new CashPayModel();
-        this.order.addPayItem(cashPay);
+        //let cashPay = new CashPayModel();
+        this.order.addPayItem(PayType.CASH);
     }
     posBtnClick(){
-        let posPay = new PosPayModel();
-        this.order.addPayItem(posPay);
+        //let posPay = new PosPayModel();
+        this.order.addPayItem(PayType.POS);
     }
 
     hideModal(answer?:any){
@@ -155,8 +159,31 @@ export class OrderComponent extends BaseComponent implements OnInit,OnDestroy,IF
     }
 
     payClick(){
-        this.dialogName = 'order-confirm';
-        this.modal.show();
+        if(this.order.unPayMoney>0){
+            let currencyPipe = new MwCurrencyPipe();
+            var self = this;
+            this.sweetAlert.confirm(
+                {
+                    text:"亲~您还有 "+currencyPipe.transform(this.order.unPayMoney)+" 元没有结算",
+                    confirmButtonText:'直接减免',
+                    cancelButtonText:'返回收银'
+                }
+            ).then(
+                function(answer){
+                    if(answer){
+                        self.cashBtnClick();
+                        self.dialogName = 'order-confirm';
+                        self.modal.show();
+                    }else{
+
+                    }
+                }
+            );
+            return;
+        }else{
+            this.dialogName = 'order-confirm';
+            this.modal.show();
+        }
     }
 
     //删除一个消费项目

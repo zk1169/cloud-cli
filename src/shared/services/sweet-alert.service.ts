@@ -7,6 +7,7 @@ let assign = require("lodash.assign");
 
 @Injectable()
 export class SweetAlertService {
+  private confirmButtonColor:string = '#B54DCE';
   constructor() {}
 
   // swal() {
@@ -25,7 +26,9 @@ export class SweetAlertService {
   confirm(options:any) {
     const baseOptions:any = {
       showCancelButton: true,
-      confirmButtonText: 'Confirm',
+      confirmButtonColor:this.confirmButtonColor,
+      confirmButtonText: '<i class="fa fa-thumbs-up"></i>&nbsp;确定',
+      cancelButtonText:'<i class="fa fa-thumbs-down"></i>&nbsp;取消',
       type: 'warning'
     };
     return window['swal'](assign(baseOptions, options));

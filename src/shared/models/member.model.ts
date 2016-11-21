@@ -1,8 +1,6 @@
 import { ISerializer } from './base.model';
 import { PersonModel } from './person.model';
-import { GenderType } from '../models/mw.enum';
-import { MemberType } from '../models/member.enum';
-//import { environment } from '../index';
+import { GenderType,MemberType } from '../models/mw.enum';
 
 export class MemberModel extends PersonModel implements ISerializer {
     memberNo: string;

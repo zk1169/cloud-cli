@@ -123,6 +123,25 @@ export class BasePayModel extends BaseModel{
 		return 0;
 	}
 
+	static getModelByType(type:PayType){
+		let payModel:IPay;
+		switch(type){
+			case PayType.DEBT:
+				break;
+			case PayType.REDUCE:
+				break;
+			case PayType.CASH:
+			case PayType.POS:
+			case PayType.WECHAT:
+			case PayType.GROUP:
+			case PayType.ALIPAY:
+			default:
+				payModel = new CashPayModel();
+				break;
+		}
+		return payModel;
+	}
+
 	static serializer(model:any){
 		model.code = model.code || model.payCode || model.payType;
 		model.name = model.name || model.payMethodName || model.paymentName;

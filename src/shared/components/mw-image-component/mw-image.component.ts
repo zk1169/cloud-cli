@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
       <div class="mw-image-wrap">
         <img #image [src]="src"/>
         <div *ngIf="loading" class="loading" layout="row" layout-align="center center">
-          <i class="icon-dengdai mw-fs-20 mw-rotate"></i>
+          <i class="icon-dengdai mw-fs-30 mw-rotate"></i>
         </div>
       </div>
       `,
@@ -24,10 +24,6 @@ import { environment } from '../../../environments/environment';
         height:100%;
         width:100%;
         top:0px;
-      }
-      .mw-rotate{
-        height:20px;
-        width:20px;
       }
     `]
 })

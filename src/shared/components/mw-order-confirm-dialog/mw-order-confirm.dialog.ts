@@ -19,15 +19,22 @@ import { MwLoadingBarService } from '../../services/mw-loading-bar.service';
 export class MwOrderConfirmDialog extends BaseComponent {
     @Input() order:OrderModel;
     @Output('onHide') hideEvent:EventEmitter<Object> = new EventEmitter();
+    private step:number;
 
     constructor(slimLoader:MwLoadingBarService,eventBus: EventBus) {
         super(slimLoader,eventBus);
+        this.step = 1;
     }
 
     ngOnInit(){
         
     }
-
+    previewClick(){
+        this.step--;
+    }
+    nextClick(){
+        this.step++;
+    }
     hide(){
         this.hideEvent.emit();
     }

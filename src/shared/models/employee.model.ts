@@ -65,7 +65,7 @@ export class EmployeeModel extends PersonModel implements ISerializer{
 export class EmployeePerformanceModel extends EmployeeModel{
 	private _appoint:AppointType;
 	performance:number;//业绩
-	buckle:number;//卡扣
+	cardMoney:number;//卡扣
 	commission:number;//提成
 
 	constructor(){

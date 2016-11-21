@@ -4,8 +4,7 @@ import { OrderType,OrderSource,OrderStatus } from '../models/mw.enum';
 import { OrderItemModel } from './order-item.model';
 import { MoneyTool } from './money-tool.model';
 import { StoreModel } from './store.model';
-import { MemberType } from './member.enum';
-import { OrderItemType } from './mw.enum';
+import { OrderItemType,MemberType,PayType } from './mw.enum';
 import { IPay } from './pay.interface';
 
 export class OrderModel extends BaseModel implements ISerializer {
@@ -63,10 +62,10 @@ export class OrderModel extends BaseModel implements ISerializer {
         this.itemList.splice(index,1);
     }
 
-    addPayItem(payItem:IPay){
+    addPayItem(payType:PayType){
         if(this.itemList){
             this.itemList.forEach((item:OrderItemModel,index:number)=>{
-                item.addPayItem(payItem);
+                item.addPayItem(payType);
             })
         }
     }

@@ -1,5 +1,5 @@
 import { BaseModel,ISerializer,IFilter } from './base.model';
-import { OrderItemType,DiscountType } from './mw.enum';
+import { OrderItemType,DiscountType,PayType } from './mw.enum';
 import { ItemBaseModel } from './item-base.model';
 import { ServiceItemModel } from './service-item.model';
 import { EmployeePerformanceModel } from './employee.model'; 
@@ -12,12 +12,15 @@ export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
 	payList:IPay[];
 	count:number;
 	itemModel:ItemBaseModel;
+	overtime:boolean;//加钟
+	overtimeId:string;
 
 	private _totalMoney: number;
 
 	constructor(id?:number){
 		super(id);
 		this.payList = [];
+		this.overtimeId = new Date().getTime()+'_'+id;
 	}
 
 	get unPayMoney():number{
@@ -86,11 +89,11 @@ export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
 		return useRule;
 	}
 
-	addPayItem(payItem:IPay){
+	addPayItem(payType:PayType){
 		if(this.unPayMoney > 0){
-            //let cashPay = new CashPayModel();
-            payItem.payMoney = this.unPayMoney;
-            this.payList.push(payItem);
+            let payModel = BasePayModel.getModelByType(payType);
+            payModel.payMoney = this.unPayMoney;
+            this.payList.push(payModel);
         }
 	}
 

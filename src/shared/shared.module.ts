@@ -32,6 +32,7 @@ import { MwCardRuleComponent } from './components/mw-card-rule-component/mw-card
 import { MwImageComponent } from './components/mw-image-component/mw-image.component';
 import { MwListSortComponent } from './components/mw-list-sort-component/mw-list-sort.component';
 import { MwOrderDetailComponent } from './components/mw-order-detail-component/mw-order-detail.component';
+import { MwOrderEmployeePerformanceComponent } from './components/mw-order-employee-performance-component/mw-order-employee-performance.component';
 
 import { MwCreateMemberDialog } from './components/mw-create-member-dialog/mw-create-member.dialog';
 import { MwEditServiceItemDialog } from './components/mw-edit-service-item-dialog/mw-edit-service-item.dialog';
@@ -86,6 +87,7 @@ import { MwFocusDirective } from './directives/mw-focus.directive';
         MwImageComponent,
         MwListSortComponent,
         MwOrderDetailComponent,
+        MwOrderEmployeePerformanceComponent,
         MwCreateMemberDialog,
         MwEditServiceItemDialog,
         MwEditCardDialog,
@@ -131,6 +133,7 @@ import { MwFocusDirective } from './directives/mw-focus.directive';
         MwImageComponent,
         MwListSortComponent,
         MwOrderDetailComponent,
+        MwOrderEmployeePerformanceComponent,
         MwCreateMemberDialog,
         MwEditServiceItemDialog,
         MwEditCardDialog,

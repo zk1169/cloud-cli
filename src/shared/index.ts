@@ -51,9 +51,11 @@ export { MwLoadingBarService } from './services/mw-loading-bar.service';
 //export { MwBusyDirective } from './directives/mw-busy.directive';
 
 //enum
-export { GenderType,MerchantType,MwStatus,PayType,CardType,OrderType,OrderItemType,PresentType,OrderSource,OrderStatus } from './models/mw.enum';
-export { MemberType } from './models/member.enum';
+export { GenderType,MerchantType,MwStatus,PayType,CardType,OrderType,OrderItemType,PresentType,OrderSource,OrderStatus,MemberType } from './models/mw.enum';
 
 //component
 export { MwAutocompleteComponent } from './components/mw-autocomplete-component/mw-autocomplete.component';
 export { MwLoadingBarComponent } from './components/mw-loading-bar-component/mw-loading-bar.component';
+
+//pipes
+export { MwCurrencyPipe } from './pipes/mw-currency.pipe';
