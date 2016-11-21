@@ -4,6 +4,7 @@ import { StoreModel } from './store.model';
 import { MerchantModel,MerchantRoleModel,OrganizationModel } from './merchant.model';
 import { GenderType,MerchantType,AppointType } from './mw.enum';
 import { EmployeeService } from '../services/employee.service';
+import { MoneyTool } from './money-tool.model';
 import { Observable } from 'rxjs/Observable';
 
 export class EmployeeModel extends PersonModel implements ISerializer{
@@ -60,6 +61,12 @@ export class EmployeeModel extends PersonModel implements ISerializer{
 		}
 		return this;
 	}
+	unserializer(){
+		let model = super.unserializer();
+		model.employeeId = this.id;
+		model.employeeName = this.name;
+		return model;
+	}
 }
 
 export class EmployeePerformanceModel extends EmployeeModel{
@@ -80,6 +87,25 @@ export class EmployeePerformanceModel extends EmployeeModel{
 	}
 	serializer(model:any){
 		super.serializer(model);
+		this.appoint = model.isAppoint;
+		if(model.orderEmployeePerformances && model.orderEmployeePerformances.length>0){
+			this.appoint = model.orderEmployeePerformances[0].isAppoint;
+			this.cardMoney = MoneyTool.point2yuan(model.orderEmployeePerformances[0].cardConsumeTotalAmount);
+			this.commission = MoneyTool.point2yuan(model.orderEmployeePerformances[0].commissionAmount);
+			this.performance = MoneyTool.point2yuan(model.orderEmployeePerformances[0].achievementTotalAmount);
+		}
 		return this;
+	}
+	unserializer(){
+		let model = super.unserializer();
+		model.orderEmployeePerformances = [{
+			employeeId:this.id,
+			employeeName:this.name,
+			isAppoint:this.appoint,
+			cardConsumeTotalAmount:MoneyTool.yuan2point(this.cardMoney),
+			achievementTotalAmount:MoneyTool.yuan2point(this.performance),
+			commissionAmount:MoneyTool.yuan2point(this.commission)
+		}];
+		return model;
 	}
 }

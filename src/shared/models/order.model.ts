@@ -175,7 +175,7 @@ export class OrderModel extends BaseModel implements ISerializer {
     }
 
     serializer(model:any){
-        super.serializer(model.id);
+        super.serializer(model.id||model.orderId);
         this.originalMoney = MoneyTool.point2yuan(model.originalMoney);
         this.receivableMoney = MoneyTool.point2yuan(model.receivableMoney);
         this.realReceivableMoney = MoneyTool.point2yuan(model.realReceivableMoney);
@@ -207,6 +207,7 @@ export class OrderModel extends BaseModel implements ISerializer {
 
     unserializer(){
         let model = super.unserializer();
+        model.orderId=this.id;
         model.source = this.source || "14";
         if(this.store){
             model.storeId = this.store.id;

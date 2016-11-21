@@ -143,6 +143,8 @@ export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
 			// }
 			model.orderEmployees.forEach((item:any,index:number)=>{
 				if(item){
+					item.id = item.employeeId;
+					item.name = item.employeeName;
 					this.employeeList.push(new EmployeePerformanceModel().serializer(item));
 				}
 			});
@@ -161,12 +163,27 @@ export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
 	unserializer(){
         let model = super.unserializer();
         //delete model.id;
+        if(this.itemModel){
+        	model.itemId = this.itemModel.id;
+        	model.itemType = this.itemModel.itemType;
+        	model.itemName = this.itemModel.name;
+        	model.price = model.actualPerPrice = model.originalPerPrice = MoneyTool.yuan2point(this.itemModel.price);
+        	model.serviceDuration = this.itemModel.serviceDuration;
+        }
         model.amount = this.count;
         if(this.payList && this.payList.length > 0){
         	model.orderItemPays = [];
         	this.payList.forEach((item:any,index:number)=>{
         		if(item && item.code){
         			model.orderItemPays.push(item.unserializer());
+        		}
+        	})
+        }
+        if(this.employeeList && this.employeeList.length > 0){
+        	model.orderEmployees = [];
+        	this.employeeList.forEach((item:any,index:number)=>{
+        		if(item && item.id){
+        			model.orderEmployees.push(item.unserializer());
         		}
         	})
         }

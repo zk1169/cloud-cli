@@ -2,6 +2,7 @@ import { ItemBaseModel } from './item-base.model';
 import { CardType,OrderItemType,DiscountType } from './mw.enum';
 import { PayRule } from './pay-rule.model';
 import { UserService } from '../services/user.service';
+import { MoneyTool } from './money-tool.model';
 
 export class CardBaseModel extends ItemBaseModel{
 	type:OrderItemType;
@@ -77,7 +78,7 @@ export class CardBaseModel extends ItemBaseModel{
 		return dMoney;
 	}
 
-	getCardMoney(unpay:number){
+	getCardMoney(unpay:number,balance:number){
 		return 0;
 	}
 
@@ -177,7 +178,7 @@ export class CardCashModel extends CardBaseModel{
 		super(CardType.CASH,id);
 	}
 
-	getCardMoney(unpay:number){
+	getCardMoney(unpay:number,balance:number){
 		if(this.balance){
 			if(this.balance > unpay){
 				return unpay;
@@ -191,8 +192,8 @@ export class CardCashModel extends CardBaseModel{
 
 	serializer(model:any,userService?:UserService){
 		super.serializer(model,userService);
-		this.balance = model.balance;
-		this.deposit = model.deposit;
+		this.balance = MoneyTool.point2yuan(model.balance);
+		this.deposit = MoneyTool.point2yuan(model.deposit);
 		return this;
 	}
 }

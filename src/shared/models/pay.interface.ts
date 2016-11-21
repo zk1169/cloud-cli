@@ -146,7 +146,7 @@ export class BasePayModel extends BaseModel{
 		model.code = model.code || model.payCode || model.payType;
 		model.name = model.name || model.payMethodName || model.paymentName;
 		let payModel:IPay;
-		let payType:PayType = <PayType>model.code;
+		let payType:PayType = <PayType>+model.code;
 		// let parentPayType:PayType = <PayType>model.parentCode;
 		// switch(parentPayType){
 			
@@ -321,7 +321,7 @@ export class CardPayModel extends BasePayModel implements IPay {
 			this.discountMoney = 0;
 		}
 		unpay = MoneyTool.sub(unpay,this.discountMoney);
-		this.cardMoney = this.cardModel.getCardMoney(unpay);
+		this.cardMoney = this.cardModel.getCardMoney(unpay,this.balance);
 	}
 	checkPay(option:{itemId:number,itemCategory:string,storeId:number,canUseDiscountRule?:boolean}){
 		if(this.cardModel){
@@ -344,9 +344,21 @@ export class CardPayModel extends BasePayModel implements IPay {
 		this.balance = MoneyTool.point2yuan(model.balance);
 		//this.type = model.type;
 		this.kind = model.kind;
-		model.id = model.payMethodId;
+		this.id = model.payMethodId || model.paymentId;
+		if(model.cardMoney){
+			this.cardMoney = MoneyTool.point2yuan(model.cardMoney);
+			this.discountMoney = MoneyTool.point2yuan(MoneyTool.sub(model.payMoney , model.cardMoney));
+		}
 		this.cardModel = CardBaseModel.serializer(model);
 		return this;
+	}
+	unserializer(){
+		let model = super.unserializer();
+		model.paymentId = this.id;
+		model.cardMoney = MoneyTool.yuan2point(this.cardMoney);
+		model.payMoney = MoneyTool.yuan2point(this.totalPayMoney);
+		model.kind = this.kind;
+		return model;
 	}
 }
 

@@ -45,6 +45,24 @@ export class ItemBaseModel extends BaseModel implements ISerializer{
 	set acceptBooking(value:MwStatus){
 		this._acceptBooking = value;
 	}
+	get itemType(){
+		let _itemType:string;
+		switch(this.type){
+			case OrderItemType.PRODUCT:
+				_itemType = 'PRODUCT';
+				break;
+			case OrderItemType.SERVICE_ITEM:
+				_itemType = 'SERVICE_ITEM';
+				break;
+			case OrderItemType.SERVICE_PACKAGE:
+				_itemType = 'SERVICE_PACKAGE';
+				break;
+			case OrderItemType.CARD:
+				_itemType = 'CARD';
+				break;
+		}
+		return _itemType;
+	}
 
 	// get storeId(){
 	// 	if(this.store){
