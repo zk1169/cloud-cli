@@ -76,6 +76,13 @@ export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
 		this._totalMoney = value;
 	}
 
+	get performance(){
+		return 500;
+	}
+	get cardMoney(){
+		return 888;
+	}
+
 	//能否能再次使用折扣优惠
 	canUseDiscountRule(payItem:IPay){
 		let useRule:boolean = true;

@@ -1,42 +1,40 @@
 <div [mwBusy]="loading" class="mw-order-employee-performance-component">
-	<div class="order-detail-wrap" >
-		<ul flex class="mw-list">
-			<li *ngFor="let item of order?.itemList" class="mw-card no-padding">
-				<div class="mw-list-header" layout="row">
-            	    <span flex="25">项目</span>
-            	    <span flex="10">业绩</span>
-            	    <span flex="15">卡扣</span>
-            	</div>
-            	<ul>
-            		<li *ngFor="let empItem of item.employeeList;let idx=index;" class="mw-order-employee-item">
-            			<div layout="row"> 
-            				<div class="input-group" flex="30">
-            					<span class="input-group-addon mw-click" (click)="removeEmployeeItem(item,idx)" tooltip="删除服务人员">
-            					    <i class="fa fa-minus-circle"></i>
-            					</span>
-            					<mw-select 
-            					    [allowClear]="true"
-            					    [options]="employeeSource"
-            					    [selectedItem]="empItem"
-            					    placeholder="技师名称/工号"
-            					    [style.zIndex]="99-idx">
-            					</mw-select>
-            				</div>
-							&nbsp;
-            				<select flex="20" [(ngModel)]="empItem.appoint">
-            				    <option [value]="AppointTypeEnum.TIME">点钟</option>
-            				    <option [value]="AppointTypeEnum.TURN">轮牌</option>
-            				</select>&nbsp;
-            				<input flex="10" type="number" class="form-control" placeholder="业绩" [(ngModel)]="empItem.performance"/>&nbsp;
-            				<input flex="10" type="number" class="form-control" placeholder="卡扣" [(ngModel)]="empItem.cardMoney"/>&nbsp;
-            				<input flex="10" type="number" class="form-control" placeholder="提成" [(ngModel)]="empItem.commission"/>
-						</div>
-            		</li>
-            		<li class="mw-order-employee-item text-center btn-add-employee">
-            			<button class="btn mw-button-blue" (click)="addEmployeeClick(item)">添加服务人员</button>
-            		</li>
-            	</ul>
-			</li>
-		</ul>
-	</div>
+    <div class="order-detail-wrap">
+        <ul flex class="mw-list">
+            <li *ngFor="let item of order?.itemList;let itemIndex=index;" class="mw-card no-padding">
+                <div class="mw-list-header" layout="row">
+                    <span flex="30">项目:{{item.itemModel?.name}}</span>
+                    <span flex="10">业绩:{{item.performance|mwCurrency}}</span>
+                    <span flex="10">卡扣:{{item.cardMoney|mwCurrency}}</span>&nbsp;&nbsp;
+                    <span flex="10" class="text-center">业绩</span>&nbsp;
+                    <span flex="10" class="text-center">卡扣</span>&nbsp;
+                    <span flex="10" class="text-center">提成</span>
+                </div>
+                <ul>
+                    <li *ngFor="let empItem of item.employeeList;let empIndexdx=index;" class="mw-order-employee-item">
+                        <div layout="row">
+                            <div class="input-group" flex="30">
+                                <span class="input-group-addon mw-click" (click)="removeEmployeeItem(item,idx)" tooltip="删除服务人员">
+                                              <i class="fa fa-minus-circle"></i>
+                                          </span>
+                                <mw-select [allowClear]="true" [options]="employeeSource" [selectedItem]="empItem" placeholder="技师名称/工号" [style.zIndex]="99-itemIndex-empIndexdx">
+                                </mw-select>
+                            </div>
+                            &nbsp;
+                            <select flex="20" [(ngModel)]="empItem.appoint">
+                                <option [value]="AppointTypeEnum.TIME">点钟</option>
+                                <option [value]="AppointTypeEnum.TURN">轮牌</option>
+                            </select>&nbsp;
+                            <input flex="10" type="number" class="form-control" placeholder="业绩" [(ngModel)]="empItem.performance" />&nbsp;
+                            <input flex="10" type="number" class="form-control" placeholder="卡扣" [(ngModel)]="empItem.cardMoney" />&nbsp;
+                            <input flex="10" type="number" class="form-control" placeholder="提成" [(ngModel)]="empItem.commission" />
+                        </div>
+                    </li>
+                    <li class="mw-order-employee-item text-center btn-add-employee">
+                        <button class="btn mw-button-blue" (click)="addEmployeeClick(item)">添加服务人员</button>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 </div>
