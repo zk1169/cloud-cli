@@ -3,10 +3,10 @@
         <ul flex class="mw-list">
             <li *ngFor="let item of order?.itemList;let itemIndex=index;" class="mw-card no-padding">
                 <div class="mw-list-header" layout="row">
-                    <span flex="30">项目:{{item.itemModel?.name}}</span>
+                    <span flex="20">项目:{{item.itemModel?.name}}</span>
                     <span flex="10">业绩:{{item.performance|mwCurrency}}</span>
                     <span flex="10">卡扣:{{item.cardMoney|mwCurrency}}</span>&nbsp;&nbsp;
-                    <span flex="10" class="text-center">业绩</span>&nbsp;
+                    <span flex="10" flex-offset="10" class="text-center">业绩</span>&nbsp;
                     <span flex="10" class="text-center">卡扣</span>&nbsp;
                     <span flex="10" class="text-center">提成</span>
                 </div>
@@ -17,7 +17,7 @@
                                 <span class="input-group-addon mw-click" (click)="removeEmployeeItem(item,idx)" tooltip="删除服务人员">
                                               <i class="fa fa-minus-circle"></i>
                                           </span>
-                                <mw-select [allowClear]="true" [options]="employeeSource" [selectedItem]="empItem" placeholder="技师名称/工号" [style.zIndex]="99-itemIndex-empIndexdx">
+                                <mw-select [allowClear]="true" [options]="employeeSource" [selectedItem]="empItem" placeholder="技师" [style.zIndex]="99-itemIndex*10-empIndexdx">
                                 </mw-select>
                             </div>
                             &nbsp;
