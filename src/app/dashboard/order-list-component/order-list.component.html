@@ -83,7 +83,7 @@
                         <div flex="10" class="mw-price">{{order.receivableMoney | mwCurrency}}</div>
                         <div flex="20">
                             <a class="mw-a-color" [routerLink]="['/dashboard-pro/order/1/'+order.id]">收银</a>
-                            <a class="mw-a-color" (click)="orderDetailClick(order)">详情</a>
+                            <a class="mw-a-color" (click)="orderDetailClick(order.id)">详情</a>
                         </div>
                     </div>
                 </li>
@@ -100,5 +100,5 @@
     </div>
 </div>
 <div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <mw-order-detail-dialog *ngIf="dialogName=='order-detail'" [order]='selectedOrder' (onHide)="hideModal($event)"></mw-order-detail-dialog>
+    <mw-order-detail-dialog *ngIf="dialogName=='order-detail'" [orderId]='selectedOrderId' (onHide)="hideModal($event)"></mw-order-detail-dialog>
 </div>

@@ -5,13 +5,14 @@
         		<li *ngFor="let subItem of item.subItemList" class="pay-item-wrap mw-click mw-bg-primary-hover mw-bg-text-hover mw-border-primary-hover" 
                     (click)="payItemClick(subItem)" [class.disable]="!subItem.payFlag" [tooltip]="subItem.noInfo" [tooltipEnable]="subItem.noInfo?.length>0">
         			<div layout="column" layout-align="space-around center">
-        				<i class="pay-logo icon-xianjinzhifu" [class.more-info-iheight]="subItem.moreInfo"></i>
+        				<i [class]="'pay-logo '+subItem.iconClassName"></i>
         				<span class="text-overflow">{{subItem.name}}</span>
         				<span *ngIf="subItem.balance" class="mw-price">{{subItem.balance | mwCurrency}}</span>
-                        <span *ngIf="subItem.moreInfo">
-                            {{subItem.cardModel.useRule.storeRuleList[0].discountValue|mwCardRule:subItem.cardModel.useRule.storeRuleList[0].discountType}}
+                        <span *ngIf="subItem.hasRule">
+                            {{subItem.cardModel?.useRule?.useStoreRule?.discountValue|mwCardRule:subItem.cardModel?.useRule?.useStoreRule?.discountType}}
                         </span>
         			</div>
+                    <i class="icon-hot"></i>
         		</li>
         	</ul>
         </tab>

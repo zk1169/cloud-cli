@@ -14,20 +14,24 @@
         </div>
         <div [ngSwitch]="step">
             <div *ngSwitchCase="1" class="modal-action text-right">
-                <button class="btn btn-primary" (click)="hide()">取消</button>
+                <button class="btn btn-primary" (click)="hide()">取消&nbsp;<i class="fa fa-sign-out"></i></button>
                 &nbsp;&nbsp;
-                <button class="btn btn-primary" (click)="nextClick()">下一步</button>
+                <button class="btn btn-primary" (click)="nextClick()">下一步&nbsp;<i class="fa fa-arrow-circle-right"></i></button>
             </div>
             <div *ngSwitchCase="2" class="modal-action" layout="row">
                 <div class="checkbox checkbox-primary" flex layout="row" layout-align="start center">
                     <input type="checkbox" [(ngModel)]="isPrint" id="isPrint" name="isPrint">
                     <label for="isPrint">收银后打印小票</label>
                 </div>
-                <button class="btn btn-primary" (click)="previewClick()">上一步</button>
+                <button class="btn btn-primary" (click)="previewClick()"><i class="fa fa-arrow-circle-left"></i>&nbsp;上一步</button>
                 &nbsp;&nbsp;
-                <button class="btn btn-primary" (click)="hide()">取消</button>
+                <button class="btn btn-primary" (click)="hide()">取消&nbsp;<i class="fa fa-sign-out"></i></button>
                 &nbsp;&nbsp;
-                <button class="btn btn-primary" (click)="OKClick($event)">保存</button>
+                <div [mwBusy]="saveAysn" class="mw-busy-wrap">
+                    <button class="btn mw-button-blue" (click)="OKClick($event)">
+                        <i class="icon-zhifuchenggong"></i>&nbsp;&nbsp;确认收银
+                    </button>
+                </div>
             </div>
         </div>
     </div>

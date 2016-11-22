@@ -39,6 +39,11 @@ export class MwImageComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes) {
         if (changes['src'] && changes['src'].currentValue) {
+            //console.log('src='+this.src);
+            if(!this.src){
+              this.image.nativeElement.src = environment.localAvatarDefault;
+              return;
+            }
             //let img = new Image();
             var self = this;
             this.image.nativeElement.src = this.src;

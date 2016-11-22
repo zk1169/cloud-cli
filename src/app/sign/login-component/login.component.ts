@@ -19,7 +19,7 @@ import {
     styleUrls: ['./login.component.scss']
 })
 export class LoginComponent extends BaseComponent {
-    model = new AuthModel("", "", true);
+    model = new AuthModel();
     constructor(
         private authService: AuthService,
         private userService: UserService,

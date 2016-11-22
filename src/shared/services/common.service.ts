@@ -8,7 +8,8 @@ import { HttpService } from './http.service';
 import { UserService } from './user.service';
 import { TreeModel } from '../models/tree.model';
 import { OrderItemModel } from '../models/order-item.model';
-import { IPay,BasePayModel } from '../models/pay.interface';
+import { IPay } from '../models/pay.interface';
+import { PayFactoryModel } from '../models/pay-factory.model';
 import { MwTool } from '../models/mw-tool.model';
 
 
@@ -128,12 +129,12 @@ export class CommonService {
                                             sub_item.name = sub_item.storeActivitiesName;
                                             sub_item.code = item.code;
                                         }
-                                        result.push(BasePayModel.serializer(sub_item));
+                                        result.push(PayFactoryModel.serializer(sub_item));
                                     }
                                 });
                             }else if([10,20,31,40,41,42,70,71,72].indexOf(item.code)>-1 || item.code >= 100){
                                 item.parentCode = item.code;
-                                result.push(BasePayModel.serializer(item));
+                                result.push(PayFactoryModel.serializer(item));
                             }
                         }
                     });

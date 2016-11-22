@@ -21,7 +21,7 @@ export class ServiceItemModel extends ItemBaseModel implements ISerializer{
 		let model = super.unserializer();
 		model.serviceDuration = this.serviceDuration;
 		model.serviceItemFileList = [];
-		if(this.storeList){
+		if(this.storeList && this.storeList.length > 0){
 			model.serviceItemStoreList = [];
 			let sellingPrice = this.price;
 			this.storeList.forEach((item:any)=>{
@@ -31,7 +31,6 @@ export class ServiceItemModel extends ItemBaseModel implements ISerializer{
         			sellingPrice:MoneyTool.yuan2point(sellingPrice)
         		});
 			});
-        	
         }
 		return model;
 	}

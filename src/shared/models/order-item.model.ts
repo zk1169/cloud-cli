@@ -3,17 +3,20 @@ import { OrderItemType,DiscountType,PayType } from './mw.enum';
 import { ItemBaseModel } from './item-base.model';
 import { ServiceItemModel } from './service-item.model';
 import { EmployeePerformanceModel } from './employee.model'; 
-import { IPay,CashPayModel,BasePayModel } from './pay.interface';
+import { IPay } from './pay.interface';
+import { CashPayModel } from './cash-pay.model';
+import { PayFactoryModel } from './pay-factory.model';
 import { MoneyTool } from './money-tool.model';
+import { MwTool } from './mw-tool.model';
 
 export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
 	itemType:OrderItemType;
 	employeeList:EmployeePerformanceModel[];
 	payList:IPay[];
 	count:number;
-	itemModel:ItemBaseModel;
+	itemModel:ItemBaseModel;//订单项目、产品、套餐、卡、充值
 	overtime:boolean;//加钟
-	overtimeId:string;
+	overtimeId:string;//加钟checkbox的id
 
 	private _totalMoney: number;
 
@@ -105,7 +108,7 @@ export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
 
 	addPayItem(payType:PayType){
 		if(this.unPayMoney > 0){
-            let payModel = BasePayModel.getModelByType(payType);
+            let payModel = PayFactoryModel.getModelByType(payType);
             payModel.payMoney = this.unPayMoney;
             this.payList.push(payModel);
         }
@@ -153,7 +156,7 @@ export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
 			this.payList = [];
 			model.orderItemPays.forEach((item:any,index:number)=>{
 				if(item){
-					this.payList.push(BasePayModel.serializer(item));
+					this.payList.push(PayFactoryModel.serializer(item));
 				}
 			});
 		}
@@ -162,13 +165,13 @@ export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
 
 	unserializer(){
         let model = super.unserializer();
-        //delete model.id;
         if(this.itemModel){
-        	model.itemId = this.itemModel.id;
-        	model.itemType = this.itemModel.itemType;
-        	model.itemName = this.itemModel.name;
-        	model.price = model.actualPerPrice = model.originalPerPrice = MoneyTool.yuan2point(this.itemModel.price);
-        	model.serviceDuration = this.itemModel.serviceDuration;
+        	let itemModel = this.itemModel.unserializer();
+        	itemModel.originalPerPrice = itemModel.actualPerPrice = itemModel.price;
+        	MwTool.assign(model,itemModel);
+        }
+        if(model.id == model.itemId){
+        	delete model.id;
         }
         model.amount = this.count;
         if(this.payList && this.payList.length > 0){

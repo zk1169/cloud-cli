@@ -154,7 +154,7 @@ export class MwSelectPayItemComponent extends BaseComponent implements OnDestroy
                         {
                             itemId:this.floatDialogModel.args.orderItem.itemModel.id,
                             itemCategory:this.floatDialogModel.args.orderItem.itemModel.categoryLevel,
-                            storeId:this.floatDialogModel.args.storeId,
+                            storeId:this.floatDialogModel.args.order.store.id,
                             canUseDiscountRule:canUseDiscountRule
                         }
                     );

@@ -1,7 +1,9 @@
 export class AuthModel {
-    constructor(
-    	public userName: string,
-    	public password: string,
-    	public autoLogin: boolean
-    ) {}
+	userName: string;
+	password: string;
+	autoLogin: boolean;
+
+	constructor(){
+		this.autoLogin = true;
+	}
 }

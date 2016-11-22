@@ -208,6 +208,7 @@ export class OrderModel extends BaseModel implements ISerializer {
     unserializer(){
         let model = super.unserializer();
         model.orderId=this.id;
+        model.allUnPayMoney = 0;
         model.source = this.source || "14";
         if(this.store){
             model.storeId = this.store.id;

@@ -15,7 +15,7 @@
                     <mw-radio [dataList]="memberTypeList" [(checked)]="memberType" labelName="name" valueName="value" groupName="memberType" theme="radioWhite"></mw-radio>
                 </div>
                 <div flex-offset="5" flex="30">
-                    <mw-autocomplete [dataSource]="memberSource" [selectedItem]="order.member" [disabled]="memberType?.value==1" displayName="name" placeholder="请输入姓名/手机号码" (onSelected)="memberOnSelected($event)"></mw-autocomplete>
+                    <mw-autocomplete [dataSource]="memberSource" [selectedItem]="order.member" [disabled]="memberType?.value==memberTypeEnum.IDLE_MEMBER" displayName="name" placeholder="请输入姓名/手机号码" (onSelected)="memberOnSelected($event)"></mw-autocomplete>
                 </div>
                 <div flex-offset="5">
                     <i class="fa fa-user-plus mw-fs-18 mw-click" tooltip="新增会员" (click)="addMemberClick()"></i>
@@ -29,7 +29,7 @@
                     <i (click)="sideBarState=='collapse'?sideBarState='show':sideBarState='collapse'" class="fa fa-bars mw-click mw-fs-18 side-bar-button"></i>
                 </div>
             </div>
-            <div *ngIf="order?.member?.id>0" layout="row" class="member-detail">
+            <div *ngIf="order?.member?.id>0 && memberType?.value==memberTypeEnum.MEMBER" layout="row" class="member-detail">
                 <div flex="1" class="member-detail-item" layout="row" layout-align="center center">
                     <mw-image class="avatar-circle-small" [src]="order?.member.avatarPath"></mw-image>
                     &nbsp;&nbsp;

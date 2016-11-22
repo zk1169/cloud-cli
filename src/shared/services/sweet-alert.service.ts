@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import 'sweetalert2/dist/sweetalert2.min';
+//import 'sweetalert2/dist/sweetalert2.min';
 //import { window } from '@angular/platform-browser/src/facade/browser';
 
 //import * as assign from 'lodash.assign';
-let assign = require("lodash.assign");
+//let assign = require("lodash.assign");
+import { MwTool } from '../models/mw-tool.model';
 
 @Injectable()
 export class SweetAlertService {
@@ -20,7 +21,7 @@ export class SweetAlertService {
       confirmButtonText: 'Submit',
       input: 'text'
     };
-    return window['swal'](assign(baseOptions, options));
+    return window['swal'](MwTool.assign(baseOptions, options));
   }
 
   confirm(options:any) {
@@ -31,37 +32,37 @@ export class SweetAlertService {
       cancelButtonText:'<i class="fa fa-thumbs-down"></i>&nbsp;取消',
       type: 'warning'
     };
-    return window['swal'](assign(baseOptions, options));
+    return window['swal'](MwTool.assign(baseOptions, options));
   }
 
   alert(options:any) {
     const baseOptions:any = {
       confirmButtonText: 'OK',
       type: 'info',
-      title: 'Are you sure?',
-      text: 'You will not be able to recover this imaginary file!',
+      title: 'title',
+      //text: 'You will not be able to recover this imaginary file!',
     };
     //return window.swal(baseOptions);
-    return window['swal'](assign(baseOptions, options));
+    return window['swal'](MwTool.assign(baseOptions, options));
   }
 
   question(options:any) {
-    return this.alert(assign({ type: 'question' }, options));
+    return this.alert(MwTool.assign({ type: 'question' }, options));
   }
 
   success(options:any) {
-    return this.alert(assign({ type: 'success' }, options));
+    return this.alert(MwTool.assign({ type: 'success' }, options));
   }
 
   error(options:any) {
-    return this.alert(assign({ type: 'error' }, options));
+    return this.alert(MwTool.assign({ type: 'error' }, options));
   }
 
   warn(options:any) {
-    return this.alert(assign({ type: 'warn' }, options));
+    return this.alert(MwTool.assign({ type: 'warn' }, options));
   }
 
   info(options:any) {
-    return this.alert(assign({ type: 'info' }, options));
+    return this.alert(MwTool.assign({ type: 'info' }, options));
   }
 }

@@ -40,6 +40,17 @@ export class CardBaseModel extends ItemBaseModel{
 		return flag;
 	}
 
+	get hasBalance():boolean{
+		return this.cardType == CardType.CASH;
+	}
+	get noInputMoney(){
+		if(this.cardType == CardType.DISCOUNT || this.cardType == CardType.TIME){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 	checkPay(option:{itemId:number,itemCategory:string,storeId:number}){
 		//let payFlag:boolean = false;
 		let result:any = {payFlag:false};
@@ -80,6 +91,26 @@ export class CardBaseModel extends ItemBaseModel{
 
 	getCardMoney(unpay:number,balance:number){
 		return 0;
+	}
+
+	get iconClassName(){
+		let className:string = 'icon-xianjinzhifu';
+		switch(this.cardType){
+			case CardType.DISCOUNT:
+				className = 'icon-huiyuanqia';
+				break;
+			case CardType.CASH:
+				className = 'icon-chuzhiqia';
+				break;
+			case CardType.TIME:
+				className = 'icon-shiduanqia';
+				break;
+			case CardType.TIMES_TOTAL:
+			case CardType.TIMES:
+				className = 'icon-liaochengqia';
+				break;
+		}
+		return className;
 	}
 
 	static serializer(model:any,userService?:UserService){

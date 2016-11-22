@@ -86,7 +86,20 @@ export class OrderService {
             });
     }
 
-    saveOrder(mchId: number, orderModel:OrderModel) {
+    saveOrder(orderModel:OrderModel) {
+        let data = orderModel.unserializer();
+        //debugger;
+        //return Observable.of(true).delay(1000);
+        return this.httpService.request('api/order', 'post', data)
+            .map((res) => {
+                return res;
+            })
+            .catch((error: any) => {
+                return Observable.throw(error);
+            });
+    }
+
+    payOrder(orderModel:OrderModel) {
         // switch (vm.tab_index) {
         //     case 0: //综合开单收银
         //         if (cashier) {
@@ -107,9 +120,7 @@ export class OrderService {
         //         break;
         // }
         let data = orderModel.unserializer();
-        //debugger;
-        //return Observable.of(true).delay(1000);
-        return this.httpService.request('api/order', 'post', data)
+        return this.httpService.request('api/order/pay', 'post', data)
             .map((res) => {
                 return res;
             })

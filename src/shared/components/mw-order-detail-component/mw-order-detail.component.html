@@ -1,7 +1,7 @@
 <div class="mw-order-detail-component">
 	<div class="order-detail-wrap" layout="row" layout-align="start center">
 		<div flex="25" layout="row" layout-align="start center">
-			<mw-image class="avatar-circle-small" [src]="order?.member.avatarPath"></mw-image>
+			<mw-image class="avatar-circle-small" [src]="order?.member?.avatarPath"></mw-image>
 			&nbsp;&nbsp;
 			<span *ngIf="order?.member?.id">{{order?.member.name}}</span>
 			<span *ngIf="order?.member?.id">-{{order?.member.memberNo}}</span>
@@ -65,10 +65,10 @@
 			</li>
 			<div class="border-top-default total-money" layout="row">
 				<span flex="25" class="text-right">合计应收:&nbsp;</span>
-				<span flex="15" class="mw-price">{{order.originMoney|mwCurrency}}</span>
+				<span flex="15" class="mw-price">{{order?.originMoney|mwCurrency}}</span>
 				<span flex="20" class="text-right" layout="row">
 					<span flex="60">实收共计:&nbsp;</span>
-					<span class="mw-price">{{order.payMoney|mwCurrency}}</span>
+					<span class="mw-price">{{order?.payMoney|mwCurrency}}</span>
 				</span>
 			</div>
 		</ul>

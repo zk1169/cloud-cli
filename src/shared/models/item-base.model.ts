@@ -64,32 +64,6 @@ export class ItemBaseModel extends BaseModel implements ISerializer{
 		return _itemType;
 	}
 
-	// get storeId(){
-	// 	if(this.store){
-	// 		return this.store.id;
-	// 	}else{
-	// 		return null;
-	// 	}
-	// }
-	// set storeId(value:number){
-	// 	if(!this.store){
-	// 		this.store = new StoreModel(value);
-	// 	}else{
-	// 		this.store.id = value;
-	// 	}
-	// }
-
-	// initStoreList(userService:UserService){
-	// 	if(this.storeList){
-	// 		this.storeList.forEach((item:StoreModel)=>{
-	// 			let sModel:StoreModel = userService.getStoreById(item.id);
-	// 			if(sModel){
-	// 				item.name = sModel.name;
-	// 			}
-	// 		});
-	// 	}
-	// }
-
 	serializer(model:any,userService?:UserService){
 		super.serializer(model.itemId||model.id);
 		this.name = model.itemName||model.name;
@@ -120,11 +94,10 @@ export class ItemBaseModel extends BaseModel implements ISerializer{
 
 	unserializer(){
         let model = super.unserializer();
-        //model.itemId = this.id;
-        //model.itemName = this.name;
-        model.name = this.name;
-        //model.itemType = this._type;
-        model.sellingPrice = MoneyTool.yuan2point(this.price);
+        model.itemId = this.id;
+        model.itemName = model.name = this.name;
+        model.itemType = this.itemType;
+        model.price = model.sellingPrice = MoneyTool.yuan2point(this.price);
         model.description = this.description;
         model.status = this._status;
         model.acceptBooking = this._acceptBooking;

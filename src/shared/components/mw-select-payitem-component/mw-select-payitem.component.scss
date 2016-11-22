@@ -11,6 +11,7 @@
 		padding-bottom: 30px;
 	}
 	.pay-item-wrap{
+		position:relative;
 		height:100px;
 		width:100px;
 		//line-height:100px;
@@ -22,6 +23,11 @@
 		padding: 0px 2px;
 		.more-info-iheight{
 			height:42px;
+		}
+		.icon-hot{
+			position:absolute;
+			right:0px;
+			top:0px;
 		}
 	}
 	.pay-item-wrap:hover{

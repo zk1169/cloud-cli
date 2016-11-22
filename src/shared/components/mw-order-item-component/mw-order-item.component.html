@@ -51,7 +51,7 @@
                         {{item.getPayInfo(order.store.id)}}
                     </span>
         		</div>
-        		<div class="input-group" flex="33" [tooltipHtml]="toolTipTemplate" [tooltipContext]="item" [tooltipEnable]="item.hasTip" tooltipClass="mw-tooltip">
+        		<div *ngIf="!item.noInputMoney" class="input-group" flex="33" [tooltipHtml]="toolTipTemplate" [tooltipContext]="item" [tooltipEnable]="item.hasTip" tooltipClass="mw-tooltip">
         		    <input [(ngModel)]="item.payMoney" type="number" class="form-control" placeholder="支付金额" />
         		    <span *ngIf="item.moneyOrTimes=='money'" class="input-group-addon">¥</span>
                     <span *ngIf="item.moneyOrTimes=='times'" class="input-group-addon">次</span>

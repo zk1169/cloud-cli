@@ -43,20 +43,6 @@ export enum OrderType{
     RECHARGE = 3 //卡充值/钱包充值
 }
 
-// export enum ItemType{
-//     PRODUCT = 1,//产品
-//     SERVICE_ITEM = 2,//项目
-//     SERVICE_PACKAGE = 3,//套餐
-//     //CARD = 4,//卡
-//     CARD_DISCOUNT = 41,//折扣卡
-//     CARD_CASH = 42,//储值卡
-//     CARD_TIME = 43,//时段卡
-//     CARD_TIMES_TOTAL = 44,//疗程总次卡
-//     CARD_TIMES = 45,//疗程分次卡
-//     TICKET = 5,//券
-//     ACTIVITY = 6//活动
-// }
-
 export enum OrderItemType{
     PRODUCT = 1,//产品
     SERVICE_ITEM = 2,//项目

@@ -51,7 +51,7 @@ export class OrderListComponent extends PaginationBaseComponent implements OnIni
     private storeList:QueryTagModel[];
     private routerList:{routerLink:string,routerName:string}[];
     private dialogName:string;
-    private selectedOrder:OrderModel;
+    private selectedOrderId:number;
     @ViewChild('modal') modal:ModalDirective;
 
     constructor(
@@ -111,14 +111,14 @@ export class OrderListComponent extends PaginationBaseComponent implements OnIni
         console.log("storeChanged,length="+event.length);
         this.navigate(1,this.searchText,event.value);
     }
-    orderDetailClick(order:OrderModel){
+    orderDetailClick(orderId:number){
         this.dialogName = 'order-detail';
-        this.selectedOrder = order;
+        this.selectedOrderId = orderId;
         this.modal.show();
     }
     hideModal(answer?:any){
         this.dialogName = null;
-        this.selectedOrder = null;
+        this.selectedOrderId = null;
         this.modal.hide();
     }
 

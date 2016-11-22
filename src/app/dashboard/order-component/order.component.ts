@@ -23,7 +23,8 @@ import {
     MwLoadingBarService,
     SweetAlertService,
     MwCurrencyPipe,
-    PayType
+    PayType,
+    MemberType
 } from '../../../shared/index';
 
 @Component({
@@ -39,14 +40,15 @@ export class OrderComponent extends BaseComponent implements OnInit,OnDestroy,IF
     private sub: any;
     private order:OrderModel;//订单Model
     private memberSource: any[];//会员搜索结果集
-    private memberType: any;//会员类型 散客或会员
+    private memberType: {value:MemberType};//会员类型 散客或会员
+    private memberTypeEnum:any=MemberType;
     private el: HTMLElement;
     private sideBarState:string = 'show';
     private saveAysn:Observable<Object>;
     //所有会员类型
-    private memberTypeList = [
-        { name: "散客消费", value: 1 },
-        { name: "会员消费", value: 2 }
+    private memberTypeList:{name:string,value:MemberType}[] = [
+        { name: "散客消费", value: MemberType.IDLE_MEMBER },
+        { name: "会员消费", value: MemberType.MEMBER }
     ];
     private storeList: StoreModel[];
     private roomList: any[];
@@ -73,6 +75,15 @@ export class OrderComponent extends BaseComponent implements OnInit,OnDestroy,IF
         });
         
     }
+
+    get getContentWidth(){
+        if(this.sideBarState == 'show'){
+            return this.el.clientWidth - 210 - 40;
+        }else{
+            return this.el.clientWidth - 40;
+        }
+    }
+
     ngOnInit() {
         this.storeList = this.userService.storeMwSelectList;
         this.roomList = this.userService.roomList;
@@ -80,16 +91,16 @@ export class OrderComponent extends BaseComponent implements OnInit,OnDestroy,IF
             if(data && data[0]){
                 this.order = data[0];
                 if(this.order.member && this.order.member.id>0){
-                    this.memberType = {value: 2};
+                    this.memberType = {value: MemberType.MEMBER};
                 }else{
-                    this.memberType = {value: 1};
+                    this.memberType = {value: MemberType.IDLE_MEMBER};
                 }
             }else{
                 this.order = new OrderModel();
                 if(this.storeList && this.storeList.length > 0){
                     this.order.store = this.storeList[0];
                 }
-                this.memberType = {value: 2};
+                this.memberType = {value: MemberType.MEMBER};
             }
         });
         this.sub = this.route.params.subscribe(params => {
@@ -112,7 +123,7 @@ export class OrderComponent extends BaseComponent implements OnInit,OnDestroy,IF
     }
 
     memberOnSelected(member:any){
-        let cacheKey = MwTool.format(this.userService.HTTP_CACHE_GET_ALL_PAY_ITEM,this.userService.empInfo.storeId);
+        let cacheKey = MwTool.format(this.userService.HTTP_CACHE_GET_ALL_PAY_ITEM,this.order.store.id);
         this.userService.clearCacheByKey(cacheKey);
     }
     addMemberClick(){
@@ -130,15 +141,10 @@ export class OrderComponent extends BaseComponent implements OnInit,OnDestroy,IF
         this.order.addPayItem(PayType.POS);
     }
 
-    hideModal(answer?:any){
-        this.dialogName = null;
-        this.modal.hide();
-    }
-
     saveClick(){
         //this.saveAysn = Observable.of(true).delay(5000);
         this.startSlimLoader();
-        this.saveAysn = this.orderService.saveOrder(this.userService.empInfo.merchant.id,this.order)
+        this.saveAysn = this.orderService.saveOrder(this.order)
             .map(
                 (res) => {
                     this.completeSlimLoader();
@@ -210,12 +216,9 @@ export class OrderComponent extends BaseComponent implements OnInit,OnDestroy,IF
         this.order.itemList.push(item);
     }
 
-    get getContentWidth(){
-        if(this.sideBarState == 'show'){
-            return this.el.clientWidth - 210 - 40;
-        }else{
-            return this.el.clientWidth - 40;
-        }
+    hideModal(answer?:any){
+        this.dialogName = null;
+        this.modal.hide();
     }
 
     ngOnDestroy() {
