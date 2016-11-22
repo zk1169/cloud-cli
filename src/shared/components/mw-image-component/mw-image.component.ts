@@ -6,7 +6,7 @@ import { environment } from '../../../environments/environment';
     selector: 'mw-image',
     template: `
       <div class="mw-image-wrap">
-        <img #image [src]="src"/>
+        <img #image/>
         <div *ngIf="loading" class="loading" layout="row" layout-align="center center">
           <i class="icon-dengdai mw-fs-30 mw-rotate"></i>
         </div>

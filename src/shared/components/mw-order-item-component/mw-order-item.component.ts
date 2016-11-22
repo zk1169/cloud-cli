@@ -10,7 +10,8 @@ import { OrderModel } from '../../models/order.model';
 import { OrderItemModel } from '../../models/order-item.model';
 import { BaseComponent } from '../../models/base.component';
 import { EventBus } from '../../services/eventbus.service';
-import { FloatDialogModel ,IFloat} from '../../models/float-dialog.model';
+import { FloatDialogModel } from '../../models/float-dialog.model';
+import { IFloat } from '../../models/dialog.interface';
 import { IPay } from '../../models/pay.interface';
 
 @Component({

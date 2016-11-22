@@ -16,7 +16,7 @@ import { UserService } from '../../services/user.service';
 import { CommonService } from '../../services/common.service';
 import { EventBus } from '../../services/eventbus.service';
 import { CardBaseModel } from '../../models/card.model';
-import { IDialog } from '../../models/float-dialog.model';
+import { IDialog } from '../../models/dialog.interface';
 import { TreeModel } from '../../models/tree.model';
 import { PayRule,StoreRule } from '../../models/pay-rule.model';
 import { PayRuleType } from '../../models/mw.enum';

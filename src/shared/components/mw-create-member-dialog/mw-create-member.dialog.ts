@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { FormBaseComponent } from '../../models/base.component';
 import { MwFormComponent } from '../mw-form-component/mw-form.component';
-import { IDialog } from '../../models/float-dialog.model';
+import { IDialog } from '../../models/dialog.interface';
 import { UserService } from '../../services/user.service';
 import { CommonService } from '../../services/common.service';
 import { BaseForm,TextboxForm,DropdownForm } from '../../models/base-form.model';

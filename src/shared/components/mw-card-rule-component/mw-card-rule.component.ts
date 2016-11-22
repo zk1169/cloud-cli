@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 
 import { PayRule } from '../../models/pay-rule.model';
 import { DialogBaseComponent } from '../../models/base.component';
-import { IDialog } from '../../models/float-dialog.model';
+import { IDialog } from '../../models/dialog.interface';
 import { EventBus } from '../../services/eventbus.service';
 import { MwLoadingBarService } from '../../services/mw-loading-bar.service';
 
