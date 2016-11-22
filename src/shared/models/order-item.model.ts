@@ -174,6 +174,7 @@ export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
         	delete model.id;
         }
         model.amount = this.count;
+        model.unPayMoney = this.unPayMoney;
         if(this.payList && this.payList.length > 0){
         	model.orderItemPays = [];
         	this.payList.forEach((item:any,index:number)=>{
@@ -182,8 +183,8 @@ export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
         		}
         	})
         }
+        model.orderEmployees = [];
         if(this.employeeList && this.employeeList.length > 0){
-        	model.orderEmployees = [];
         	this.employeeList.forEach((item:any,index:number)=>{
         		if(item && item.id){
         			model.orderEmployees.push(item.unserializer());

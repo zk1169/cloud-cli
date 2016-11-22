@@ -51,7 +51,7 @@
         </div>
         <div class="mw-card no-padding">
             <tabset class="mw-tab-grey">
-                <tab heading="综合消费">
+                <tab heading="综合消费" [active]="order?.orderType == orderTypeEnum.ALL" (select)="order.orderType = orderTypeEnum.ALL">
                     <div class="order-tab-content">
                         <div *ngFor="let item of order?.itemList;trackBy:trackByItem;let idx=index;let even=even;let odd=odd;"
                             class="order-item-wrap" [class.mw-border-left2-primary]="even" [class.mw-border-left2-primary-2]="odd">
@@ -76,8 +76,12 @@
                         </div>
                     </div>
                 </tab>
-                <tab heading="开卡购卡">开卡购卡</tab>
-                <tab heading="卡充值">卡充值</tab>
+                <tab heading="开卡购卡" [active]="order?.orderType == orderTypeEnum.CARD" (select)="order.orderType = orderTypeEnum.CARD">
+                    开卡购卡
+                </tab>
+                <tab heading="卡充值" [active]="order?.orderType == orderTypeEnum.RECHARGE" (select)="order.orderType = orderTypeEnum.RECHARGE">
+                    卡充值
+                </tab>
             </tabset>
         </div>
         <div class="mw-card">

@@ -8,7 +8,6 @@
 
 export class CardPayModel extends BasePayModel implements IPay {
 	balance:number;
-	//type:number;
 	kind:number;
 	cardMoney:number;
 	cardModel:CardBaseModel;
@@ -110,6 +109,7 @@ export class CardPayModel extends BasePayModel implements IPay {
 		}else{
 			return 0;
 		}
+		//return this.id;
 	}
 	updateBalance(payMoney:number){
 		this.balance -= payMoney||0;
@@ -145,19 +145,24 @@ export class CardPayModel extends BasePayModel implements IPay {
 	serializer(model:any){
 		super.serializer(model);
 		this.balance = MoneyTool.point2yuan(model.balance);
-		//this.type = model.type;
 		this.kind = model.kind;
-		this.id = model.payMethodId || model.paymentId;
+		
 		if(model.cardMoney){
 			this.cardMoney = MoneyTool.point2yuan(model.cardMoney);
 			this.discountMoney = MoneyTool.point2yuan(MoneyTool.sub(model.payMoney , model.cardMoney));
 		}
+
+		model.id = model.payMethodId || model.paymentId;
 		this.cardModel = CardBaseModel.serializer(model);
 		return this;
 	}
 	unserializer(){
 		let model = super.unserializer();
-		model.paymentId = this.id;
+		model.paymentId = this.getPayModelId();
+		if(model.id==0){
+			delete model.id;
+		}
+		//model.amount = 0;
 		model.cardMoney = MoneyTool.yuan2point(this.cardMoney);
 		model.payMoney = MoneyTool.yuan2point(this.totalPayMoney);
 		model.kind = this.kind;

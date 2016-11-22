@@ -42,6 +42,7 @@ export class OrderComponent extends BaseComponent implements OnInit,OnDestroy,IF
     private memberSource: any[];//会员搜索结果集
     private memberType: {value:MemberType};//会员类型 散客或会员
     private memberTypeEnum:any=MemberType;
+    private orderTypeEnum:any = OrderType;
     private el: HTMLElement;
     private sideBarState:string = 'show';
     private saveAysn:Observable<Object>;
@@ -106,19 +107,6 @@ export class OrderComponent extends BaseComponent implements OnInit,OnDestroy,IF
         this.sub = this.route.params.subscribe(params => {
             // //debugger;
             // this.order.orderType = <OrderType>(+params['type']); // (+) converts string 'id' to a number
-            // this.authService.getStoreList()
-            //     .subscribe(
-            //         (res) => {
-            //             this.storeList = res;
-            //             //this.order.store = this.storeList[0];
-            //         },
-            //         (error) => {
-            //             //this.storeList = [new StoreModel(1,"a"),new StoreModel(2,"b"),new StoreModel(3,"c")];
-            //             //this.order.store = this.storeList[0];
-            //             this.eventNotice("alert.message", error);
-            //             //this.completeSlimLoader();
-            //         }
-            //     );
         });
     }
 

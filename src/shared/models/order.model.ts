@@ -49,6 +49,7 @@ export class OrderModel extends BaseModel implements ISerializer {
         this.itemList = [];
         this.member = new MemberModel();
         this.store = new StoreModel();
+        this.orderType = OrderType.ALL;
     }
 
     removeItemById(id:number){
