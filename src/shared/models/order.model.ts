@@ -80,7 +80,7 @@ export class OrderModel extends BaseModel implements ISerializer {
         }
         return totalMoney;
     }
-    //折后金额
+    //折扣或优惠金额
     get discountMoney(){
         let discount = 0;
         if(this.itemList){
@@ -89,6 +89,10 @@ export class OrderModel extends BaseModel implements ISerializer {
             });
         }
         return discount;
+    }
+    //折后金额
+    get afterDiscountMoney(){
+        return MoneyTool.sub(this.originMoney,this.discountMoney);
     }
     get payMoney(){
         let pMoney = 0;

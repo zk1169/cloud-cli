@@ -31,18 +31,19 @@
 	<div class="order-detail-wrap" style="padding:0px;">
 		<ul flex class="mw-list">
 			<div class="mw-list-header" layout="row">
-                <span flex="25">订单内容</span>
+                <span flex="20">订单内容</span>
                 <span flex="10">单价</span>
                 <span flex="5">数量</span>
                 <span flex="20" layout="row">
                 	<span flex-offset="60">&nbsp;支付</span>
                 </span>
-                <span flex="20">服务人员</span>
-                <span flex="20">业绩/卡耗/提成</span>
+                <span flex="10">折扣优惠</span>
+                <span flex="15">服务人员</span>
+                <span flex="15">业绩/卡耗/提成</span>
             </div>
 			<li *ngFor="let item of order?.itemList" class="mw-list-item">
 				<div layout="row"> 
-					<span flex="25">{{item.itemModel?.name}}</span>
+					<span flex="20">{{item.itemModel?.name}}</span>
 					<span flex="10" class="mw-price">{{item.itemModel?.price|mwCurrency}}</span>
 					<span flex="5">{{item.count}}</span>
 					<span flex="20" layout="column">
@@ -51,7 +52,8 @@
 							<span class="mw-price">{{payItem.payMoney | mwCurrency}}</span>
 						</span>
 					</span>
-					<span flex="40">
+					<span flex="15">{{item.discountMoney | mwCurrency}}</span>
+					<span flex="30">
 						<div *ngFor="let empItem of item.employeeList" layout="row">
 							<span flex="50">{{empItem.name}}({{empItem.appoint|mwAppointType}})</span>
 							<span flex="50">
@@ -64,12 +66,13 @@
 				</div>
 			</li>
 			<div class="border-top-default total-money" layout="row">
-				<span flex="25" class="text-right">合计应收:&nbsp;</span>
+				<span flex="20" class="text-right">合计应收:&nbsp;</span>
 				<span flex="15" class="mw-price">{{order?.originMoney|mwCurrency}}</span>
 				<span flex="20" class="text-right" layout="row">
 					<span flex="60">实收共计:&nbsp;</span>
 					<span class="mw-price">{{order?.payMoney|mwCurrency}}</span>
 				</span>
+				<span flex="15">{{order?.discountMoney|mwCurrency}}</span>
 			</div>
 		</ul>
 	</div>

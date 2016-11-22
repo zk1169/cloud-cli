@@ -146,11 +146,12 @@ export class CardPayModel extends BasePayModel implements IPay {
 		super.serializer(model);
 		this.balance = MoneyTool.point2yuan(model.balance);
 		this.kind = model.kind;
-		
-		if(model.cardMoney){
-			this.cardMoney = MoneyTool.point2yuan(model.cardMoney);
-			this.discountMoney = MoneyTool.point2yuan(MoneyTool.sub(model.payMoney , model.cardMoney));
+		//debugger
+		if(!model.cardMoney){
+			model.cardMoney = 0;
 		}
+		this.cardMoney = MoneyTool.point2yuan(model.cardMoney);
+		this.discountMoney = MoneyTool.point2yuan(MoneyTool.sub(model.payMoney , model.cardMoney));
 
 		model.id = model.payMethodId || model.paymentId;
 		this.cardModel = CardBaseModel.serializer(model);
