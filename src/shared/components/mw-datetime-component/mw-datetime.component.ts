@@ -22,7 +22,7 @@ let mwDatetimeComponent: MwDatetimeComponent = null;
         <div dropdownToggle>
             <div class="form-inline form-group">
                 <div class="input-group date">
-                    <input [(ngModel)]="inputValue" (ngModelChange)="inputValueChanged($event)" type="text" class="form-control" style="width:120px;" [disabled]="disabledInput"/>
+                    <input [(ngModel)]="inputValue" (ngModelChange)="inputValueChanged($event)" type="text" class="form-control" [disabled]="disabledInput"/>
                     <div class="input-group-addon" *ngIf="!hideIcon">
                         <i class="fa fa-calendar"></i>
                     </div>
@@ -42,6 +42,11 @@ let mwDatetimeComponent: MwDatetimeComponent = null;
           .dropdown-menu{
               padding:0;
               margin:0;
+          }
+          .date{width:100%;}
+          .date .form-control{
+              min-width:120px;
+              border-radius: 4px;
           }
           .well{
               margin-bottom:0!important;

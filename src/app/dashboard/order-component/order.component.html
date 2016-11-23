@@ -77,18 +77,20 @@
             </tabset>
         </div>
         <div class="mw-card">
-            <label>订单其它信息:</label><br><br>
-            <div layout="row" class="form-group">
+            <div layout="row" layout-align="start center" class="form-group">
                 <label flex="10">流水单号</label>
-                <div flex="50">
-                    <input type="number" class="form-control" placeholder="流水单号" [(ngModel)]="order.serialNo" />
+                <input flex="30" type="number" class="form-control" placeholder="流水单号" [(ngModel)]="order.serialNo" />
+                <div flex="25" flex-offset="5" layout="row">
+                    <div class="checkbox checkbox-primary" layout="row" layout-align="start center">
+                        <input type="checkbox" [(ngModel)]="order.repair" id="orderRepair">
+                        <label for="orderRepair">是否补单</label>
+                    </div>
+                    <mw-datetime flex flex-offset="5" *ngIf="order.repair" [(ngModel)]="order.repairDate" [hideIcon]="true"></mw-datetime>
                 </div>
             </div>
-            <div layout="row" class="form-group">
+            <div layout="row" layout-align="start center" class="form-group">
                 <label flex="10">订单备注</label>
-                <div flex="50">
-                    <textarea rows="4" type="text" class="form-control" placeholder="订单备注" [(ngModel)]="order.remark"></textarea>
-                </div>
+                <textarea flex="60" rows="4" type="text" class="form-control" placeholder="订单备注" [(ngModel)]="order.remark"></textarea>
             </div>
         </div>
         <div class="pay-tool-wrap mw-bg-primary" [style.width.px]="content.clientWidth-40">

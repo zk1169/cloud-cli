@@ -14,6 +14,7 @@ export class OrderModel extends BaseModel implements ISerializer {
     receivableMoney:number;
     realReceivableMoney:number;
     repair:boolean;
+    repairDate:Date;
     remark:string;
     orderDate:string;
     payDate: string;

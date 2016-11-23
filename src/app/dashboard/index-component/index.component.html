@@ -1,0 +1,41 @@
+<div class="index-component">
+    <header class="c-header" layout="row" layout-align="space-between center">
+        <span class="mw-fs-20">总览</span>
+        <button class="btn btn-primary" (click)="randomizeType()" style="display: inline-block">Toggle</button>
+    </header>
+    <div class="row">
+        <div class="col-md-6">
+            <canvas baseChart 
+                [data]="lineChartData" 
+                [labels]="lineChartLabels" 
+                [options]="lineChartOptions" 
+                [chartType]="lineChartType" 
+                (chartHover)="chartHovered($event)" 
+                (chartClick)="chartClicked($event)">
+            </canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas baseChart 
+                [data]="pieChartData" 
+                [labels]="pieChartLabels" 
+                [chartType]="pieChartType" 
+                (chartHover)="chartHovered($event)" 
+                (chartClick)="chartClicked($event)">
+            </canvas>
+        </div>
+    </div>
+    <!--<div>
+        <div class='wrapper'>
+            <div class='drag-container' [mwDragDrop]='"first-bag"'>
+                <div class="drag-item">You can move these elements between these two containers</div>
+                <div class="drag-item">Moving them anywhere else isn't quite possible</div>
+                <div class="drag-item">There's also the possibility of moving elements around in the same container, changing their position</div>
+            </div>
+            <div class='drag-container' [mwDragDrop]='"first-bag"'>
+                <div class="drag-item">This is the default use case. You only need to specify the containers you want to use</div>
+                <div class="drag-item">More interactive use cases lie ahead</div>
+                <div class="drag-item">Make sure to check out the <a href='https://github.com/bevacqua/dragula#readme'>documentation on GitHub!</a></div>
+            </div>
+        </div>
+    </div>-->
+</div>

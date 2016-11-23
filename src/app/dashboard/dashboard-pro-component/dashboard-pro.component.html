@@ -4,6 +4,10 @@
             <i (click)="sideMenuState=='small'?sideMenuState='large':sideMenuState='small'" class="fa fa-bars mw-click mw-fs-18 mw-white"></i>
         </div>
         <div>
+            <a [routerLink]="['/dashboard-pro/index']" class="menu-item" routerLinkActive="selected">
+                <i class="fa fa-university"></i>
+                <span *ngIf="sideMenuState=='large'">Index</span>
+            </a>
             <a [routerLink]="['/dashboard-pro/booking-table']" class="menu-item" routerLinkActive="selected">
                 <i class="fa fa-calendar"></i>
                 <span *ngIf="sideMenuState=='large'">Booking Table</span>

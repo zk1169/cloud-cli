@@ -18,6 +18,27 @@ export class CommonService {
 
     constructor(private httpService: HttpService,private userService: UserService) {}
 
+    getIP(){
+        return this.httpService.requestCache('https://api.ipify.org?format=json', 'get', null,this.userService.HTTP_CACHE_GET_IP)
+            .map((res) => {
+                return res;
+            })
+            .catch((error: any) => {
+                return Observable.throw(error);
+            });
+    }
+
+    getWeather(){
+        let url = "http://api.map.baidu.com/telematics/v3/weather?location=" + '上海' + "&output=json&ak=Uc5KfpIQMiRaYfsiYShaEzLItpr9LwBp";
+        return this.httpService.requestCache('url', 'get', null,this.userService.HTTP_CACHE_GET_IP)
+            .map((res) => {
+                return res;
+            })
+            .catch((error: any) => {
+                return Observable.throw(error);
+            });
+    }
+
     getAllItemType(mchId: number) {
         return this.httpService.requestCache('/api/order/initItemCategory/'+mchId, 'get', null,this.userService.HTTP_CACHE_GET_ALL_ITEM_TYPE)
             .map((res) => {

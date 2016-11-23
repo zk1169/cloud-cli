@@ -130,6 +130,7 @@ export class UserService {
     //---------------------------------
     //缓存机制
     //---------------------------------
+    HTTP_CACHE_GET_IP:string = 'HTTP_CACHE_GET_IP';
     HTTP_CACHE_GET_ALL_PAY_ITEM:string = 'HTTP_CACHE_GET_ALL_PAY_ITEM_{0}';
     HTTP_CACHE_GET_ALL_ITEM:string = 'HTTP_CACHE_GET_ALL_ITEM_{0}';
     HTTP_CACHE_GET_ALL_ITEM_TYPE:string = 'HTTP_CACHE_GET_ALL_ITEM_TYPE';

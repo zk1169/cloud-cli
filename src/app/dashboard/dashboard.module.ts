@@ -14,6 +14,7 @@ import {
 import { OrderResolve } from './order-component/order-resolve.service';
 import { DashboardProResolve } from './dashboard-pro-component/dashboard-pro-resolve.service';
 
+import { IndexComponent }      from './index-component/index.component';
 import { DashboardProComponent }      from './dashboard-pro-component/dashboard-pro.component';
 import { DashboardLiteComponent }      from './dashboard-lite-component/dashboard-lite.component';
 import { OrderComponent }      from './order-component/order.component';
@@ -29,6 +30,7 @@ import { DashboardRoutes }            from './dashboard.routes';
   declarations: [
     DashboardProComponent,
     DashboardLiteComponent,
+    IndexComponent,
     OrderComponent,
     OrderListComponent,
     BookingTableComponent,

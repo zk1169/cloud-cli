@@ -45,6 +45,7 @@ export { ServiceItemService } from './services/service-item.service';
 export { CardService } from './services/card.service';
 export { SweetAlertService } from './services/sweet-alert.service';
 export { MwLoadingBarService } from './services/mw-loading-bar.service';
+export { MwDragDropService } from './directives/mw-dragdrop-directive/mw-dragdrop.provider';
 
 //directive
 //export { MwCollapseDirective } from './directives/mw-collapse.directive';

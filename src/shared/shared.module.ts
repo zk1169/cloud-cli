@@ -6,9 +6,11 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-//import { DndModule } from 'ng2-dnd';
 import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { SelectModule } from 'ng2-select/ng2-select';
+//import { DragulaModule } from 'ng2-dragula/ng2-dragula';
+//import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 
 import { MwSearchComponent } from './components/mw-search-component/mw-search.component';
 import { MwEventTableComponent } from './components/mw-event-table-component/mw-event-table.component';
@@ -53,6 +55,7 @@ import { MwAppointTypePipe } from './pipes/mw-appoint-type.pipe';
 import { MwBusyDirective } from './directives/mw-busy.directive';
 import { MwCollapseDirective } from './directives/mw-collapse.directive';
 import { MwFocusDirective } from './directives/mw-focus.directive';
+import { MwDragDropDirective } from './directives/mw-dragdrop-directive/mw-dragdrop.directive';
 
 @NgModule({
     imports: [
@@ -61,8 +64,9 @@ import { MwFocusDirective } from './directives/mw-focus.directive';
         ReactiveFormsModule,
         Ng2BootstrapModule,
         SelectModule,
-        RouterModule,
-        //DndModule
+        //DragulaModule,
+        //ChartsModule,
+        RouterModule
     ],
     declarations: [
         MwSearchComponent,
@@ -105,7 +109,9 @@ import { MwFocusDirective } from './directives/mw-focus.directive';
         MwAppointTypePipe,
         MwBusyDirective,
         MwCollapseDirective,
-        MwFocusDirective
+        MwFocusDirective,
+        MwDragDropDirective,
+        BaseChartDirective
     ],
     exports: [
         CommonModule,
@@ -152,7 +158,9 @@ import { MwFocusDirective } from './directives/mw-focus.directive';
         MwAppointTypePipe,
         MwBusyDirective,
         MwCollapseDirective,
-        MwFocusDirective
+        MwFocusDirective,
+        MwDragDropDirective,
+        BaseChartDirective
     ]
 })
 export class SharedModule {

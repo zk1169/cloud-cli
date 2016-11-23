@@ -1,0 +1,11 @@
+@import '../../../shared/styles/scss/color-const.scss';
+.index-component {
+    padding: 10px 20px;
+    .drag-container {
+        .drag-item {
+            cursor: move;
+            padding: 20px;
+            border: solid 1px #000;
+        }
+    }
+}

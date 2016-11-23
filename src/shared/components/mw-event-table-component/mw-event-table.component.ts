@@ -12,7 +12,6 @@ import {
 } from '@angular/core';
 import { NgFor, NgIf, NgClass, DatePipe } from '@angular/common';
 
-//import { DragDropService,DragDropConfig } from 'ng2-dnd';
 import * as moment from 'moment';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
@@ -24,46 +23,38 @@ const SEGMENT_HEIGHT: number = 30;
 @Component({
     selector: 'mw-event-table',
     templateUrl: './mw-event-table.component.html',
-    styleUrls: ['./mw-event-table.component.scss'],
-    //providers: [DragDropService,DragDropConfig]
+    styleUrls: ['./mw-event-table.component.scss']
 })
 export class MwEventTableComponent implements OnChanges {
 
     @ViewChild('tableContent') tableContent:ElementRef;
     @Input() date                : Date;
-    //@Input() events              : CalendarEvent[] = [];
     @Input() columns             : TableEmployeeModel[] = [];
-    @Input() hourSegments        : number = 2;
-    @Input() dayStartHour        : number = 0;
-    @Input() dayStartMinute      : number = 0;
-    @Input() dayEndHour          : number = 24;
-    @Input() dayEndMinute        : number = 0;
-    @Input() eventWidth          : number = 150;
-    //@Input() refresh             : Subject < any > ;
+    @Input() hourSegments        : number               = 2;
+    @Input() dayStartHour        : number               = 0;
+    @Input() dayStartMinute      : number               = 0;
+    @Input() dayEndHour          : number               = 24;
+    @Input() dayEndMinute        : number               = 0;
+    @Input() eventWidth          : number               = 150;
+    //@Input() refresh           : Subject < any > ;
     @Output() eventClicked       : EventEmitter < any > = new EventEmitter();
     @Output() hourSegmentClicked : EventEmitter < any > = new EventEmitter();
-    private hours                : any[] = [];
-    //private view                 : DayView;
-    //private width                : number = 0;
-    //private refreshSubscription  : Subscription;
-    private showEventDetail      : boolean = false;
-    private eventDetailWrap      : any = {};
+    private hours                : any[]                = [];
+    //private view               : DayView;
+    //private width              : number               = 0;
+    //private refreshSubscription: Subscription;
+    private showEventDetail      : boolean              = false;
+    private eventDetailWrap      : any                  = {};
     private selectedOrder        : AppointOrderTableModel;
+    private colWidth             : number;
 
     constructor(private cdr: ChangeDetectorRef) {}
 
-    get colWidth(){
-        if(this.tableContent){
-            return this.tableContent.nativeElement.clientWidth/this.columns.length;
-        }else{
-            return 0;
-        }
+    @HostListener('window:resize')
+    resizeColWidth(){
+        console.log('resizeColWidth');
+        this.colWidth = this.tableContent.nativeElement.clientWidth/this.columns.length;
     }
-
-    // @HostListener('window:resize')
-    // resizeColWidth(){
-    //     console.log('resizeColWidth');
-    // }
 
     ngOnInit(): void {
         // if (this.refresh) {
@@ -72,6 +63,10 @@ export class MwEventTableComponent implements OnChanges {
         //         this.cdr.markForCheck();
         //     });
         // }
+    }
+
+    ngAfterViewInit(){
+        //this.resizeColWidth();
     }
 
     ngOnDestroy(): void {
@@ -168,6 +163,7 @@ export class MwEventTableComponent implements OnChanges {
     }
 
     private refreshView(): void {
+        this.resizeColWidth();
         if (this.columns && this.columns.length > 0) {
             // for(let i in this.columns){
             //   if(this.columns[i].)
@@ -189,26 +185,10 @@ export class MwEventTableComponent implements OnChanges {
             //     }
             // });
         }
-        // this.view = getDayView({
-        //   events: this.events,
-        //   viewDate: this.date,
-        //   hourSegments: this.hourSegments,
-        //   dayStart: {
-        //     hour: this.dayStartHour,
-        //     minute: this.dayStartMinute
-        //   },
-        //   dayEnd: {
-        //     hour: this.dayEndHour,
-        //     minute: this.dayEndMinute
-        //   },
-        //   eventWidth: this.eventWidth,
-        //   segmentHeight: SEGMENT_HEIGHT
-        // });
     }
 
     private refreshAll(): void {
         this.refreshHourGrid();
-        //this.refreshView();
     }
 
 }

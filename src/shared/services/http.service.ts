@@ -54,7 +54,9 @@ export class HttpService {
         let body = res.json();
         if (body && body.code == "000000") {
             return body.data || {};
-        } else {
+        }else if(body && body.ip){
+            return body.ip;
+        }else {
             if (body && body.message) {
                 throw { status: body.code, message: body.message };
             } else {

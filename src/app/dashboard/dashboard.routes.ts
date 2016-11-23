@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardProComponent } from './dashboard-pro-component/dashboard-pro.component';
 import { DashboardLiteComponent } from './dashboard-lite-component/dashboard-lite.component';
+import { IndexComponent }      from './index-component/index.component';
 import { OrderComponent } from './order-component/order.component';
 import { BookingTableComponent } from './booking-table-component/booking-table.component';
 import { OrderListComponent } from './order-list-component/order-list.component';
@@ -27,6 +28,7 @@ const routes: Routes = [
     resolve:[DashboardProResolve],
     children: [
         { path: '', redirectTo: 'order', pathMatch: 'full' },
+        { path: 'index', component: IndexComponent, canActivate:[AuthGuard]},
         { path: 'order', component: OrderComponent, canActivate:[AuthGuard]},
         //type:1-id=订单id;2-预约单id;3-会员id,综合消费;4-会员id,开卡;
         { path: 'order/:type/:id', component: OrderComponent, canActivate:[AuthGuard],resolve:[OrderResolve] },
@@ -42,7 +44,7 @@ const routes: Routes = [
     component: DashboardLiteComponent,
     children: [
         { path: '', redirectTo: 'order', pathMatch: 'full' },
-        //{ path: 'order', component: OrderComponent, canActivate:[AuthGuard],resolve:[OrderResolve] },
+        { path: 'index', component: IndexComponent, canActivate:[AuthGuard]},
         { path: 'order', component: OrderComponent, canActivate: [AuthGuard] },
         { path: 'booking-table', component: BookingTableComponent, canActivate: [AuthGuard] },
         { path: 'service-item-list', component: ServiceItemListComponent, canActivate: [AuthGuard] },
