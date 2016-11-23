@@ -1,12 +1,12 @@
-import { Component, Input, Output, EventEmitter,OnChanges,SimpleChanges,ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { ControlValueAccessor, NgControl, FormGroup } from '@angular/forms';
 import { SelectComponent } from 'ng2-select/ng2-select';
 
 //[active]="[selectedItem]"
 //(selected)="selected($event)"
 @Component({
-    selector: 'mw-select',
-    template: `
+  selector: 'mw-select',
+  template: `
       <ng-select [allowClear]="allowClear"
           [(items)]="options"
           [multiple]="multiple"
@@ -14,7 +14,7 @@ import { SelectComponent } from 'ng2-select/ng2-select';
           (data)="refreshValue($event)">
       </ng-select>
       `,
-    styles: [`
+  styles: [`
       :host{
         min-width:200px;
         position: relative;
@@ -26,38 +26,87 @@ import { SelectComponent } from 'ng2-select/ng2-select';
       }
     `]
 })
-export class MwSelectComponent {
-  @Input() options:any;
-  @Input() placeholder:string;
-  @Input() textField:string;
-  @Input() idField:any;
-  @Input() allowClear:boolean;
-  @Input() selectedItem:any;
-  @Input() multiple:boolean;
+export class MwSelectComponent implements ControlValueAccessor {
+  @Input() options: any;
+  @Input() placeholder: string;
+  @Input() textField: string;
+  @Input() idField: any;
+  @Input() allowClear: boolean;
+  //@Input() selectedItem:any;
+  @Input() multiple: boolean;
   //@Output('onSelected') onSelected:EventEmitter<Object> = new EventEmitter();
   @ViewChild(SelectComponent) select: SelectComponent;
 
-  constructor() {
+  //private selectedItem: any;
+
+  constructor(ngControl: NgControl) {
+    ngControl.valueAccessor = this; // override valueAccessor
     this.idField = "id";
     this.textField = "text";
     this.multiple = false;
   }
+  refreshValue(value: any) {
+    if (value) {
+        for(let i in this.options){
+          if(this.options[i][this.idField] == value[this.idField]){
+            this.onChange(this.options[i]);
+            break;
+          }
+        }
+    }
+  }
 
-  ngOnInit(){
-    if(this.multiple){
-      if(this.selectedItem && this.selectedItem.length > 0){
-        this.select.active = this.selectedItem;
-      }else{
-        this.select.active = null;
-      }
-    }else{
-      if(this.selectedItem && this.selectedItem[this.idField]){
-        this.select.active = [this.selectedItem];
-      }else{
-        this.select.active = null;
+  // onSelected(item: any) {
+  //   if (item) {
+  //     this.onChange(item);
+  //   }
+  // }
+
+  writeValue(value: any): void {
+    if (this.multiple) {
+      this.select.active = value;
+    } else {
+      if (value && value[this.idField]) {
+        let hasActive:boolean = false;
+        let activeModel:any = {};
+        activeModel[this.idField] = value;
+        for(let i in this.options){
+          if(this.options[i][this.idField] == value[this.idField]){
+            activeModel[this.textField] = this.options[i][this.textField];
+            hasActive = true;
+            break;
+          }
+        }
+        if(hasActive){
+          this.select.active = [activeModel];
+        }
       }
     }
   }
+  onChange = (_) => { };
+  //onTouched = () => {};
+  registerOnChange(fn: (_: any) => void): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: () => void): void {
+    //this.onTouched = fn;
+  }
+
+  // ngOnInit() {
+  //   if (this.multiple) {
+  //     if (this.selectedItem && this.selectedItem.length > 0) {
+  //       this.select.active = this.selectedItem;
+  //     } else {
+  //       this.select.active = null;
+  //     }
+  //   } else {
+  //     if (this.selectedItem && this.selectedItem[this.idField]) {
+  //       this.select.active = [this.selectedItem];
+  //     } else {
+  //       this.select.active = null;
+  //     }
+  //   }
+  // }
 
   // ngOnChanges(changes: SimpleChanges) {
   //       if (changes) {
@@ -67,40 +116,32 @@ export class MwSelectComponent {
   //           }
   //       }
   //   }
-    refreshValue(value:any){
-      if(Array.isArray(value) && Array.isArray(this.selectedItem)){
-        //this.selectedItem = [];
-        this.selectedItem.splice(0,this.selectedItem.length);
-        value.forEach((item:any,index:number)=>{
-          this.selectedItem.push(item);
-        });
-        // let selectedList = [];
-        // value.forEach((item:any,index:number)=>{
-        //   selectedList.push(item);
-        // });
-        // this.onSelected.emit(selectedList);
-      }else if(value){
-        if(!this.selectedItem){
-          this.selectedItem = {};
-        }
-        this.selectedItem[this.idField] = value[this.idField];
-        this.selectedItem.text = value.text;
-        //this.onSelected.emit(value);
-      }
-    }
-  // onSelected(item:any){
-  //   // if(this.onSelectedEvent){
-  //   //   this.onSelectedEvent.emit(item);
-  //   // }
-  //   if(!item) return;
-  //   this.selectedItem.id = item.id;
-  //   this.selectedItem.text = item.text;
+  // refreshValue(value: any) {
+  //   if (Array.isArray(value) && Array.isArray(this.selectedItem)) {
+  //     //this.selectedItem = [];
+  //     this.selectedItem.splice(0, this.selectedItem.length);
+  //     value.forEach((item: any, index: number) => {
+  //       this.selectedItem.push(item);
+  //     });
+  //     // let selectedList = [];
+  //     // value.forEach((item:any,index:number)=>{
+  //     //   selectedList.push(item);
+  //     // });
+  //     // this.onSelected.emit(selectedList);
+  //   } else if (value) {
+  //     if (!this.selectedItem) {
+  //       this.selectedItem = {};
+  //     }
+  //     this.selectedItem[this.idField] = value[this.idField];
+  //     this.selectedItem.text = value.text;
+  //     //this.onSelected.emit(value);
+  //   }
   // }
 }
 
 @Component({
-    selector: 'mw-select-form',
-    template: `
+  selector: 'mw-select-form',
+  template: `
       <div [formGroup]="formGroup" class="form-hidden">
         <ng-select [allowClear]="allowClear"
           [(items)]="options"
@@ -111,7 +152,7 @@ export class MwSelectComponent {
         <input type="hidden" [id]="formName" [formControlName]="formName" [(ngModel)]="formValue"/>
       </div>
       `,
-    styles: [`
+  styles: [`
       :host{
         min-width:200px;
         position: relative;
@@ -124,68 +165,68 @@ export class MwSelectComponent {
     `]
 })
 export class MwSelectFormComponent {
-  @Input() options:any;
-  @Input() placeholder:string;
-  @Input() textField:string;
-  @Input() idField:any;
-  @Input() allowClear:boolean;
-  @Input() selectedItem:any;
-  @Input() multiple:boolean;
-  @Input() formName:string;
-  @Input() formGroup:FormGroup;
+  @Input() options: any;
+  @Input() placeholder: string;
+  @Input() textField: string;
+  @Input() idField: any;
+  @Input() allowClear: boolean;
+  @Input() selectedItem: any;
+  @Input() multiple: boolean;
+  @Input() formName: string;
+  @Input() formGroup: FormGroup;
   @ViewChild(SelectComponent) select: SelectComponent;
-  private formValue:string;
+  private formValue: string;
 
   constructor() {
     this.idField = "id";
     this.textField = "text";
     this.multiple = false;
-    this.formName = new Date().getDate()+"";
+    this.formName = new Date().getDate() + "";
   }
 
-  ngOnInit(){
-    if(this.multiple){
-      if(this.selectedItem && this.selectedItem.length > 0){
+  ngOnInit() {
+    if (this.multiple) {
+      if (this.selectedItem && this.selectedItem.length > 0) {
         this.select.active = this.selectedItem;
         this.formValue = this.selectedItem.toString();
-      }else{
+      } else {
         this.select.active = null;
         this.formValue = null;
       }
-    }else{
-      if(this.selectedItem && this.selectedItem[this.idField]){
+    } else {
+      if (this.selectedItem && this.selectedItem[this.idField]) {
         this.select.active = [this.selectedItem];
         this.formValue = this.selectedItem[this.idField];
-      }else{
+      } else {
         this.select.active = null;
         this.formValue = null;
       }
     }
   }
 
-    refreshValue(value:any){
-      if(Array.isArray(value) && Array.isArray(this.selectedItem)){
-        this.selectedItem.splice(0,this.selectedItem.length);
-        value.forEach((item:any,index:number)=>{
-          this.selectedItem.push(item);
-        });
-        this.formValue = this.selectedItem.toString();
-      }else if(value){
-        if(!this.selectedItem){
-          this.selectedItem = {};
-        }
-        this.selectedItem[this.idField] = value[this.idField];
-        this.selectedItem.text = value.text;
-        this.formValue = this.selectedItem[this.idField];
-        //this.onSelected.emit(value);
-      }else{
-        this.formValue = null;
+  refreshValue(value: any) {
+    if (Array.isArray(value) && Array.isArray(this.selectedItem)) {
+      this.selectedItem.splice(0, this.selectedItem.length);
+      value.forEach((item: any, index: number) => {
+        this.selectedItem.push(item);
+      });
+      this.formValue = this.selectedItem.toString();
+    } else if (value) {
+      if (!this.selectedItem) {
+        this.selectedItem = {};
       }
-      try{
-        if(this.formGroup && this.formName){
-          this.formGroup.controls[this.formName]["markAsDirty"]();
-        }
-      }catch(e){}
-      
+      this.selectedItem[this.idField] = value[this.idField];
+      this.selectedItem.text = value.text;
+      this.formValue = this.selectedItem[this.idField];
+      //this.onSelected.emit(value);
+    } else {
+      this.formValue = null;
     }
+    try {
+      if (this.formGroup && this.formName) {
+        this.formGroup.controls[this.formName]["markAsDirty"]();
+      }
+    } catch (e) { }
+
+  }
 }

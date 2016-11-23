@@ -6,6 +6,7 @@ import {
     OnChanges,
     SimpleChanges
 } from '@angular/core';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 
 // <i class="caret drop-down-icon mw-click"></i>
@@ -36,26 +37,26 @@ import { Observable } from 'rxjs/Observable';
    `,
     styleUrls: ['./mw-autocomplete.component.scss']
 })
-export class MwAutocompleteComponent implements OnChanges{
+export class MwAutocompleteComponent implements ControlValueAccessor,OnChanges{
     @Input() searchText: string = '';
     private typeaheadLoading: boolean = false;
     private typeaheadNoResults: boolean = false;
     @Input() dataSource: Observable < any > ;
     @Input() placeholder: string;
     @Input() displayName: string;
-    @Input() selectedItem: any;
+    //@Input() selectedItem: any;
     @Input() disabled: boolean;
     @Output() onSelected:EventEmitter<Object> = new EventEmitter();
 
-    constructor() {
-
+    constructor(ngControl: NgControl) {
+        ngControl.valueAccessor = this; // override valueAccessor
     }
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes) {
-            if (changes['selectedItem'] && changes['selectedItem'].currentValue) {
-                this.searchText = changes['selectedItem'].currentValue.name;
-            }
+            // if (changes['selectedItem'] && changes['selectedItem'].currentValue) {
+            //     this.searchText = changes['selectedItem'].currentValue.name;
+            // }
         }
     }
 
@@ -73,14 +74,32 @@ export class MwAutocompleteComponent implements OnChanges{
 
     typeaheadOnSelect(e: any) {
         //console.log('Selected value: ', e.item);
-        //this.selectedItem = e.item;
-        for (let prop in e.item) {
-            if(e.item.hasOwnProperty(prop)){
-                this.selectedItem[prop] = e.item[prop];
-            }
+        // for (let prop in e.item) {
+        //     if(e.item.hasOwnProperty(prop)){
+        //         this.selectedItem[prop] = e.item[prop];
+        //     }
+        // }
+        // if(this.onSelected){
+        //     this.onSelected.emit(this.selectedItem);
+        // }
+        this.onChange(e.item);
+        this.onSelected.emit(e.item);
+    }
+
+    writeValue(value: any): void {
+        //this.updateModel(value);
+        if(value && value.name){
+            this.searchText = value.name;
+        }else{
+            this.searchText = '';
         }
-        if(this.onSelected){
-            this.onSelected.emit(this.selectedItem);
-        }
+    }
+    onChange = (_) => {};
+    //onTouched = () => {};
+    registerOnChange(fn: (_: any) => void): void {
+        this.onChange = fn;
+    }
+    registerOnTouched(fn: () => void): void {
+        //this.onTouched = fn;
     }
 }

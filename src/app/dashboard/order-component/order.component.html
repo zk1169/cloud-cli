@@ -2,21 +2,21 @@
     <div #content flex class="order-content">
         <header class="c-header" layout="row" layout-align="space-between center">
             <span class="mw-fs-20">开单收银</span>
-            <mw-select [allowClear]="true" [options]="storeList" [selectedItem]="order.store" placeholder="请选择门店" style="z-index:4;">
+            <mw-select [allowClear]="true" [options]="storeList" [(ngModel)]="order.store" placeholder="请选择门店" style="z-index:4;">
             </mw-select>
         </header>
         <div class="mw-card no-padding">
             <div layout="row" layout-align="start center" class="mw-tab-header">
                 <div layout="row" flex-offset="5">
-                    <mw-radio [dataList]="memberTypeList" [(checked)]="memberType" labelName="name" valueName="value" groupName="memberType" theme="radioWhite"></mw-radio>
+                    <mw-radio [dataList]="memberTypeList" [(ngModel)]="memberType" labelName="name" valueName="value" groupName="memberType" theme="radioWhite"></mw-radio>
                 </div>
                 <div flex-offset="5" flex="30">
-                    <mw-autocomplete [dataSource]="memberSource" [selectedItem]="order.member" [disabled]="memberType?.value==memberTypeEnum.IDLE_MEMBER" displayName="name" placeholder="请输入姓名/手机号码" (onSelected)="memberOnSelected($event)"></mw-autocomplete>
+                    <mw-autocomplete [dataSource]="memberSource" [(ngModel)]="order.member" [disabled]="memberType?.value==memberTypeEnum.IDLE_MEMBER" displayName="name" placeholder="请输入姓名/手机号码" (onSelected)="memberOnSelected($event)"></mw-autocomplete>
                 </div>
                 <div flex-offset="5">
                     <i class="fa fa-user-plus mw-fs-18 mw-click" tooltip="新增会员" (click)="addMemberClick()"></i>
                 </div>
-                <mw-select flex-offset="5" [allowClear]="true" [options]="roomList" [selectedItem]="order.room" placeholder="请选择房间">
+                <mw-select flex-offset="5" [allowClear]="true" [options]="roomList" [(ngModel)]="order.room" placeholder="请选择房间">
                 </mw-select>
                 <div flex layout="row" layout-align="end center">
                     <i (click)="sideBarState=='collapse'?sideBarState='show':sideBarState='collapse'" class="fa fa-bars mw-click mw-fs-18 side-bar-button"></i>

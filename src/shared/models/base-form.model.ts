@@ -110,7 +110,7 @@ export class RadioForm extends BaseForm<string> {
   }
 
   getValue(){
-    return this.defaultValue.value;
+    return this.defaultValue;
   }
 }
 

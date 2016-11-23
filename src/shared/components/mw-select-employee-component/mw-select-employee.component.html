@@ -5,7 +5,7 @@
             <mw-select flex="60"
                 [allowClear]="true"
                 [options]="employeeSource"
-                [selectedItem]="item"
+                [(ngModel)]="item.employee"
                 placeholder="请选择技师"
                 [style.zIndex]="99-idx">
             </mw-select>

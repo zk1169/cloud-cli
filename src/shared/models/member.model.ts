@@ -15,12 +15,11 @@ export class MemberModel extends PersonModel implements ISerializer {
             this.name = name;
             this.mobile = mobile;
             this.balance = balance;
+        }else{
+            this.id = -1;
+            //this.name = "散客";
+            this.type = MemberType.IDLE_MEMBER;
         }
-        // else{
-        //     this.id = -1;
-        //     this.name = "散客";
-        //     this.type = MemberType.IDLE_MEMBER;
-        // }
     }
 
     serializer(model:any){

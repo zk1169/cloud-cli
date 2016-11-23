@@ -17,7 +17,7 @@
                                 <span class="input-group-addon mw-click" (click)="removeEmployeeItem(item,idx)" tooltip="删除服务人员">
                                               <i class="fa fa-minus-circle"></i>
                                           </span>
-                                <mw-select [allowClear]="true" [options]="employeeSource" [selectedItem]="empItem" placeholder="请选择技师" [style.zIndex]="99-itemIndex*10-empIndexdx">
+                                <mw-select [allowClear]="true" [options]="employeeSource" [(ngModel)]="empItem.employee" placeholder="请选择技师" [style.zIndex]="99-itemIndex*10-empIndexdx">
                                 </mw-select>
                             </div>
                             &nbsp;

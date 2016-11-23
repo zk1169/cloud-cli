@@ -55,7 +55,7 @@
 					<span flex="15">{{item.discountMoney | mwCurrency}}</span>
 					<span flex="30">
 						<div *ngFor="let empItem of item.employeeList" layout="row">
-							<span flex="50">{{empItem.name}}({{empItem.appoint|mwAppointType}})</span>
+							<span flex="50">{{empItem.employee.name}}({{empItem.appoint|mwAppointType}})</span>
 							<span flex="50">
 								{{empItem.performance||0 |mwCurrency}}/
 								{{empItem.cardMoney||0 |mwCurrency}}/

@@ -24,6 +24,7 @@ export class OrderModel extends BaseModel implements ISerializer {
     member: MemberModel;
     itemList:OrderItemModel[];
     store:StoreModel;
+    room:any;
     // constructor(id: number, order_no: string, pay_date: string) {
     //     super(id);
     //     this.order_no = order_no;

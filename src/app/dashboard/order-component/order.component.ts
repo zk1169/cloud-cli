@@ -40,17 +40,13 @@ export class OrderComponent extends BaseComponent implements OnInit, OnDestroy, 
     private sub: any;
     private order: OrderModel;//订单Model
     private memberSource: any[];//会员搜索结果集
-    private memberType: { value: MemberType };//会员类型 散客或会员
     private memberTypeEnum: any = MemberType;
     private orderTypeEnum: any = OrderType;
     private el: HTMLElement;
     private sideBarState: string = 'show';
     private saveAysn: Observable<Object>;
     //所有会员类型
-    private memberTypeList: { name: string, value: MemberType }[] = [
-        { name: "散客消费", value: MemberType.IDLE_MEMBER },
-        { name: "会员消费", value: MemberType.MEMBER }
-    ];
+    private memberTypeList: { name: string, value: MemberType }[];
     private storeList: StoreModel[];
     private roomList: any[];
     private dialogName: string;
@@ -68,6 +64,7 @@ export class OrderComponent extends BaseComponent implements OnInit, OnDestroy, 
     ) {
         super(slimLoader, eventBus);
         this.el = el.nativeElement;
+        this.memberTypeList = userService.memberTypeList;
         this.memberSource = Observable.create((observer: any) => {
             memberService.getMemberList(this.autocompleteComponent.getSearchText(), 1, 7)
                 .subscribe((result: any) => {
@@ -75,6 +72,20 @@ export class OrderComponent extends BaseComponent implements OnInit, OnDestroy, 
                 });
         });
 
+    }
+
+    /**
+     * 会员类型 散客或会员
+     */
+    get memberType():MemberType{
+        if(this.order && this.order.member){
+            return this.order.member.type;
+        }else{
+            return MemberType.IDLE_MEMBER;
+        }
+    }
+    set memberType(value:MemberType){
+        this.order.member.type = value;
     }
 
     get getContentWidth() {
@@ -86,22 +97,16 @@ export class OrderComponent extends BaseComponent implements OnInit, OnDestroy, 
     }
 
     ngOnInit() {
-        this.storeList = this.userService.storeMwSelectList;
+        this.storeList = this.userService.storeList;
         this.roomList = this.userService.roomList;
         this.route.data.forEach((data: any) => {
             if (data && data[0]) {
                 this.order = data[0];
-                if (this.order.member && this.order.member.id > 0) {
-                    this.memberType = { value: MemberType.MEMBER };
-                } else {
-                    this.memberType = { value: MemberType.IDLE_MEMBER };
-                }
             } else {
                 this.order = new OrderModel();
-                if (this.storeList && this.storeList.length > 0) {
-                    this.order.store = this.storeList[0];
-                }
-                this.memberType = { value: MemberType.MEMBER };
+                // if (this.storeList && this.storeList.length > 0) {
+                //     this.order.store = this.storeList[0];
+                // }
             }
         });
         this.sub = this.route.params.subscribe(params => {
@@ -121,6 +126,7 @@ export class OrderComponent extends BaseComponent implements OnInit, OnDestroy, 
     }
 
     cashBtnClick() {
+        debugger;
         //let cashPay = new CashPayModel();
         this.order.addPayItem(PayType.CASH);
     }

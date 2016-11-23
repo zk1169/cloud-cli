@@ -53,12 +53,12 @@ let mwDatetimeComponent: MwDatetimeComponent = null;
           }
     `]
 })
-export class MwDatetimeComponent implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy {
+export class MwDatetimeComponent implements ControlValueAccessor, OnChanges, OnDestroy {
     @Input() date: Date;
     @Input() disabledInput:boolean = false;
     @Input() hideIcon:boolean = false;
     @Input() hideTimePicker:boolean = false;
-    @Output() onChange = new EventEmitter();
+    @Output() dateOnChange = new EventEmitter();
 
     private inputValue: string;
     private isOpen: boolean = false;
@@ -67,10 +67,6 @@ export class MwDatetimeComponent implements ControlValueAccessor, AfterViewInit,
     constructor(ngControl: NgControl, el: ElementRef) {
         ngControl.valueAccessor = this; // override valueAccessor
         this.el = el.nativeElement;
-    }
-
-    ngAfterViewInit() {
-        this.init();
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -86,7 +82,8 @@ export class MwDatetimeComponent implements ControlValueAccessor, AfterViewInit,
             let dt = new Date(Date.parse(event))
             if (dt && dt.getTime() > 0) {
                 this.updateModel(dt);
-                this.onChange.emit(this.date);
+                this.dateOnChange.emit(this.date);
+                this.onChange(this.date);
             }
         }
     }
@@ -102,7 +99,8 @@ export class MwDatetimeComponent implements ControlValueAccessor, AfterViewInit,
     dateSelectionDone(event: any) {
         //console.log("dateSelectionDone:"+event);
         this.updateModel(event);
-        this.onChange.emit(this.date);
+        this.dateOnChange.emit(this.date);
+        this.onChange(this.date);
         this.closeDropdown();
     }
 
@@ -124,11 +122,11 @@ export class MwDatetimeComponent implements ControlValueAccessor, AfterViewInit,
     writeValue(value: any): void {
         this.updateModel(value);
     }
-
+    onChange = (_) => {};
+    //onTouched = () => {};
     registerOnChange(fn: (_: any) => void): void {
-        //this.onChange = fn;
+        this.onChange = fn;
     }
-
     registerOnTouched(fn: () => void): void {
         //this.onTouched = fn;
     }
@@ -138,9 +136,6 @@ export class MwDatetimeComponent implements ControlValueAccessor, AfterViewInit,
         mwDatetimeComponent = null;
     }
 
-    private init() {
-
-    }
     private updateModel(dt: Date) {
         if (dt && moment.isDate(dt)) {
             this.date = dt;

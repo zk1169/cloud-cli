@@ -122,7 +122,7 @@ export class MwEditCardDialog extends DialogBaseComponent implements OnInit,OnCh
           label: '卡类型',
           options: this.userService.cardTypeList,
           disabled: this.editCardItem && this.editCardItem.id>0?true:false,
-          defaultValue:this.editCardItem?{value:this.editCardItem.cardType}:{value: CardType.DISCOUNT}
+          defaultValue:this.editCardItem?this.editCardItem.cardType: CardType.DISCOUNT
         }),
         new TextboxForm({
           key: 'name',
@@ -179,7 +179,7 @@ export class MwEditCardDialog extends DialogBaseComponent implements OnInit,OnCh
             {value: MwStatus.AVAILABLE,  name: '购买'},
             {value: MwStatus.UNAVAILABLE,  name: '赠送'}
           ],
-          defaultValue:this.editCardItem?{value:this.editCardItem.sellType}:{value: MwStatus.AVAILABLE}
+          defaultValue:this.editCardItem?this.editCardItem.sellType:MwStatus.AVAILABLE
         }),
         new RadioForm({
           key: 'status',
@@ -188,7 +188,7 @@ export class MwEditCardDialog extends DialogBaseComponent implements OnInit,OnCh
             {value: MwStatus.AVAILABLE,  name: '可售'},
             {value: MwStatus.UNAVAILABLE,  name: '不可售'}
           ],
-          defaultValue:this.editCardItem?{value:this.editCardItem.status}:{value: MwStatus.AVAILABLE}
+          defaultValue:this.editCardItem?this.editCardItem.status:MwStatus.AVAILABLE
         }),
         new RadioForm({
           key: 'holderStatus',
@@ -197,7 +197,7 @@ export class MwEditCardDialog extends DialogBaseComponent implements OnInit,OnCh
             {value: MwStatus.AVAILABLE,  name: '实体卡'},
             {value: MwStatus.UNAVAILABLE,  name: '虚拟卡'}
           ],
-          defaultValue:this.editCardItem?{value:this.editCardItem.holderStatus}:{value: MwStatus.AVAILABLE}
+          defaultValue:this.editCardItem?this.editCardItem.holderStatus: MwStatus.AVAILABLE
         }),
         new TextareaForm({
           key: 'description',

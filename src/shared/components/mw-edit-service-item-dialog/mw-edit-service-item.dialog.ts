@@ -145,7 +145,7 @@ export class MwEditServiceItemDialog extends FormBaseComponent implements OnInit
             {value: MwStatus.UNAVAILABLE,  name: '不可以'}
           ],
           order: 6,
-          defaultValue:this.editServiceItem?{value:this.editServiceItem.acceptBooking}:{value: MwStatus.AVAILABLE}
+          defaultValue:this.editServiceItem?this.editServiceItem.acceptBooking: MwStatus.AVAILABLE
         }),
         // new TextboxForm({
         //   key: 'price2',

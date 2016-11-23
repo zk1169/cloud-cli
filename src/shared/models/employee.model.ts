@@ -69,14 +69,15 @@ export class EmployeeModel extends PersonModel implements ISerializer{
 	}
 }
 
-export class EmployeePerformanceModel extends EmployeeModel{
+export class EmployeePerformanceModel{
 	private _appoint:AppointType;
 	performance:number;//业绩
 	cardMoney:number;//卡扣
 	commission:number;//提成
+	employee:EmployeeModel;
 
 	constructor(){
-		super();
+		this.employee = new EmployeeModel();
 		this.appoint = AppointType.TIME;
 	}
 	get appoint(){
@@ -86,7 +87,7 @@ export class EmployeePerformanceModel extends EmployeeModel{
 		this._appoint = <AppointType>(+value);
 	}
 	serializer(model:any){
-		super.serializer(model);
+		this.employee = new EmployeeModel().serializer(model);
 		this.appoint = model.isAppoint;
 		if(model.orderEmployeePerformances && model.orderEmployeePerformances.length>0){
 			this.appoint = model.orderEmployeePerformances[0].isAppoint;
@@ -97,10 +98,10 @@ export class EmployeePerformanceModel extends EmployeeModel{
 		return this;
 	}
 	unserializer(){
-		let model = super.unserializer();
+		let model = this.employee.unserializer();
 		model.orderEmployeePerformances = [{
-			employeeId:this.id,
-			employeeName:this.name,
+			employeeId:this.employee.id,
+			employeeName:this.employee.name,
 			isAppoint:this.appoint,
 			cardConsumeTotalAmount:MoneyTool.yuan2point(this.cardMoney),
 			achievementTotalAmount:MoneyTool.yuan2point(this.performance),

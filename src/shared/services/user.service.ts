@@ -6,6 +6,7 @@ import { EmployeeModel } from '../models/employee.model';
 //import { environment } from '../index';
 import { MerchantType,CardType } from '../models/mw.enum';
 import { QueryTagModel } from '../models/query-tag.model';
+import { MemberType } from '../models/mw.enum';
 
 
 @Injectable()
@@ -95,6 +96,17 @@ export class UserService {
             });
         }
         return selectList;
+    }
+
+    get storeList(){
+        return this.permissionStoreList;
+    }
+
+    get memberTypeList():{ name: string, value: MemberType }[]{
+        return [
+            { name: "散客消费", value: MemberType.IDLE_MEMBER },
+            { name: "会员消费", value: MemberType.MEMBER }
+        ];
     }
 
     getStoreById(storeId:number){

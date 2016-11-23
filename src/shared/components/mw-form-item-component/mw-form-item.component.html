@@ -27,7 +27,7 @@
             </div>
         </div> -->
         <div *ngSwitchCase="'radio'" class="input-group">
-            <mw-radio [dataList]="formItem.options" [(checked)]="formItem.defaultValue" [groupName]="formItem.key" [disabled]="formItem.disabled"></mw-radio>
+            <mw-radio [dataList]="formItem.options" [(ngModel)]="formItem.defaultValue" [groupName]="formItem.key" [mwDisabled]="formItem.disabled" [formControlName]="formItem.key"></mw-radio>
         </div>
         <div *ngSwitchCase="'cardRule'" class="input-group">
             <mw-card-rule [ruleList]="formItem.defaultValue" [formName]="formItem.key" [formGroup]="form"></mw-card-rule>

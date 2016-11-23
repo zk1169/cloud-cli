@@ -73,7 +73,7 @@
                     <span>服务人员：</span>
                     <span *ngIf="!orderItem.employeeList || orderItem.employeeList.length==0">未指定服务人员；</span>
                     <span *ngFor="let empItem of orderItem.employeeList;let isLast=last;">
-                        <span>{{empItem.name}}({{empItem.appoint|mwAppointType}})</span>
+                        <span>{{empItem.employee.name}}({{empItem.appoint|mwAppointType}})</span>
                         <span *ngIf="!isLast">;</span>
                     </span>
                 </span>
