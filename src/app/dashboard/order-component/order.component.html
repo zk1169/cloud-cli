@@ -2,11 +2,7 @@
     <div #content flex class="order-content">
         <header class="c-header" layout="row" layout-align="space-between center">
             <span class="mw-fs-20">开单收银</span>
-            <mw-select [allowClear]="true"
-                [options]="storeList"
-                [selectedItem]="order.store"
-                placeholder="请选择门店"
-                style="z-index:4;">
+            <mw-select [allowClear]="true" [options]="storeList" [selectedItem]="order.store" placeholder="请选择门店" style="z-index:4;">
             </mw-select>
         </header>
         <div class="mw-card no-padding">
@@ -20,10 +16,7 @@
                 <div flex-offset="5">
                     <i class="fa fa-user-plus mw-fs-18 mw-click" tooltip="新增会员" (click)="addMemberClick()"></i>
                 </div>
-                <mw-select flex-offset="5" [allowClear]="true"
-                    [options]="roomList"
-                    [selectedItem]="order.room"
-                    placeholder="请选择房间">
+                <mw-select flex-offset="5" [allowClear]="true" [options]="roomList" [selectedItem]="order.room" placeholder="请选择房间">
                 </mw-select>
                 <div flex layout="row" layout-align="end center">
                     <i (click)="sideBarState=='collapse'?sideBarState='show':sideBarState='collapse'" class="fa fa-bars mw-click mw-fs-18 side-bar-button"></i>
@@ -45,7 +38,7 @@
                     </div>
                 </div>
                 <div flex="1" class="member-detail-item">
-                    
+
                 </div>
             </div>
         </div>
@@ -53,8 +46,7 @@
             <tabset class="mw-tab-grey">
                 <tab heading="综合消费" [active]="order?.orderType == orderTypeEnum.ALL" (select)="order.orderType = orderTypeEnum.ALL">
                     <div class="order-tab-content">
-                        <div *ngFor="let item of order?.itemList;trackBy:trackByItem;let idx=index;let even=even;let odd=odd;"
-                            class="order-item-wrap" [class.mw-border-left2-primary]="even" [class.mw-border-left2-primary-2]="odd">
+                        <div *ngFor="let item of order?.itemList;trackBy:trackByItem;let idx=index;let even=even;let odd=odd;" class="order-item-wrap" [class.mw-border-left2-primary]="even" [class.mw-border-left2-primary-2]="odd">
                             <mw-order-item [order]="order" [orderItem]="item" [memberId]="order.member.id" (removeSelfEvent)="removeItem($event)"></mw-order-item>
                         </div>
                         <div class="add-order-item text-center mw-primary" (click)="showSelectItem($event)">
@@ -89,7 +81,7 @@
             <div layout="row" class="form-group">
                 <label flex="10">流水单号</label>
                 <div flex="50">
-                    <input type="number" class="form-control" placeholder="流水单号" [(ngModel)]="order.serialNo"/>
+                    <input type="number" class="form-control" placeholder="流水单号" [(ngModel)]="order.serialNo" />
                 </div>
             </div>
             <div layout="row" class="form-group">
@@ -111,14 +103,14 @@
                     <div dropdown class="dropup-menu">
                         <button class="mw-button-white" dropdownToggle>更多支付</button>
                         <ul class="dropdown-menu" dropdownMenu aria-labelledby="simple-dropdown">
-                          <li>
-                            <a class="dropdown-item">微信支付</a>
-                            <a class="dropdown-item">支付宝支付</a>
-                            <a class="dropdown-item">闪惠支付</a>
-                            <a class="dropdown-item">大众点评</a>
-                            <a class="dropdown-item">记为减免</a>
-                            <a class="dropdown-item">记为欠款</a>
-                          </li>
+                            <li>
+                                <a class="dropdown-item">微信支付</a>
+                                <a class="dropdown-item">支付宝支付</a>
+                                <a class="dropdown-item">闪惠支付</a>
+                                <a class="dropdown-item">大众点评</a>
+                                <a class="dropdown-item">记为减免</a>
+                                <a class="dropdown-item">记为欠款</a>
+                            </li>
                         </ul>
                     </div>
                 </div>

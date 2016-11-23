@@ -80,7 +80,9 @@ export class OrderModel extends BaseModel implements ISerializer {
         }
         return totalMoney;
     }
-    //折扣或优惠金额
+    /**
+     * 折扣或优惠金额
+     */
     get discountMoney(){
         let discount = 0;
         if(this.itemList){
@@ -90,7 +92,9 @@ export class OrderModel extends BaseModel implements ISerializer {
         }
         return discount;
     }
-    //折后金额
+    /**
+     * 折后金额
+     */
     get afterDiscountMoney(){
         return MoneyTool.sub(this.originMoney,this.discountMoney);
     }
@@ -158,7 +162,9 @@ export class OrderModel extends BaseModel implements ISerializer {
         return hasFlag;
     }
 
-    //获取一个支付方式已经支付的金额或次数
+    /**
+     * 获取一个支付方式已经支付的金额或次数
+     */
     getPayById(payId:number):number{
         //支付的金额或次数
         let payAmount:number = 0;

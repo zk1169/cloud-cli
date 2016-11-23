@@ -38,7 +38,9 @@ export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
 		return _unPayMoney;
 	}
 
-	//折扣或优惠金额
+	/**
+	 * 折扣或优惠金额
+	 */
 	get discountMoney():number{
 		let _discountMoney = 0;
 		if(this.payList && this.payList.length > 0){
@@ -94,7 +96,9 @@ export class OrderItemModel extends BaseModel implements ISerializer,IFilter {
         return hasFlag;
     }
 
-	//能否能再次使用折扣优惠
+	/**
+	 * 能否能再次使用折扣优惠
+	 */
 	canUseDiscountRule(payItem:IPay){
 		let useRule:boolean = true;
 		if(this.payList){
